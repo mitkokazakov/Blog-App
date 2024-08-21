@@ -2,7 +2,7 @@ import React from "react";
 
 const SingleBlog = () => {
   return (
-    <div className="w-full flex justify-center items-start md:gap-5 border-b-[1px] border-b-black py-2 md:max-w-[1440px]">
+    <div className="w-full flex justify-center items-start md:gap-5 border-b-[0.1px] border-b-black py-2 md:max-w-[1440px]">
       <div className="hidden md:flex md:flex-col justify-center items-end">
         <p className="text-lg font-bold">23</p>
         <p className="text-lg font-bold">JUL</p>
@@ -14,7 +14,7 @@ const SingleBlog = () => {
           Bytes & Beyond: Where Tech meets imagination
         </h1>
 
-        <p className=" text-sm">
+        <p className="line-clamp-3 md:line-clamp-5 text-sm">
           Embark on an joourney of exploration where technology intersects with
           art,design and creativity. Embark on an joourney of exploration where technology intersects with
           art,design and creativity. Embark on an joourney of exploration where technology intersects with

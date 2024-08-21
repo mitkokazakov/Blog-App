@@ -7,10 +7,10 @@ const page = () => {
       <div className="w-full pb-5 mb-5 text-left md:text-center">
         <h1 className=" text-3xl font-bold mb-3">Write. Share. Inspire. </h1>
 
-        <p>Where Words Transcend Boundaries, Navigating the Blogging Seas.</p>
+        <p className="text-lg">Where Words Transcend Boundaries, Navigating the Blogging Seas.</p>
       </div>
 
-      <div className="w-full flex flex-col md:items-center md:justify-center">
+      <div className="w-full flex flex-col gap-8 md:items-center md:justify-center">
         <SingleBlog />
         <SingleBlog />
         <SingleBlog />

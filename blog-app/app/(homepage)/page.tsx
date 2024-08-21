@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Home() {
   return (
-    <div className="shit w-full min-h-screen bg-[url('../../images/cover.jpg')] bg-scroll bg-cover bg-no-repeat flex justify-center items-center">
+    <div className="homepage w-full min-h-screen bg-[url('../../images/cover.jpg')] bg-scroll bg-cover bg-no-repeat flex justify-center items-center">
       <div className="min-h-screen w-full py-10 flex flex-col justify-between items-center">
         <div className="w-full px-6 md:px-10">
           <p className="font-extrabold text-[36px] max-w-[350px] text-white md:text-[40px]">

@@ -1,34 +1,58 @@
-"use client"
-import Link from 'next/link'
-import React, { useState } from 'react'
-import {  PiSignIn } from "react-icons/pi";
+"use client";
+import Link from "next/link";
+import React, { useState } from "react";
+import { PiSignIn } from "react-icons/pi";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { SlLogout } from "react-icons/sl";
+import { PiReadCvLogoLight } from "react-icons/pi";
 
 const Navbar = () => {
-
   const [dropdownActive, setDropdown] = useState(false);
 
-
   return (
-    <div className='relative w-full h-20 bg-[#ffffd7] border-b-[1px] border-b-black flex justify-between items-center px-5'>
-
+    <div className="relative w-full h-20 bg-[#ffffd7] border-b-[1px] border-b-black flex justify-between items-center px-5 lg:px-20">
       <div>
-        <p className=' tracking-widest'>NorthBlogs</p>
+        <p className=" tracking-widest">NorthBlogs</p>
       </div>
 
-      <div className='flex justify-center items-center gap-5'>
+      <div className="flex justify-center items-center gap-5">
         {/* <Link href={"/"}>Login</Link> */}
-        < PiSignIn className='text-[30px]' />
-        <div onClick={() => {setDropdown(!dropdownActive)}} className='w-16 h-16 rounded-full bg-white flex justify-center items-center text-2xl'>M</div>
+        <PiSignIn className="text-[30px]" />
+        <div
+          onClick={() => {
+            setDropdown(!dropdownActive);
+          }}
+          className="w-16 h-16 rounded-full bg-white flex justify-center items-center text-2xl cursor-pointer"
+        >
+          M
+        </div>
       </div>
 
-      <div  className={`absolute overflow-hidden right-3 top-[101%] w-[150px] bg-white flex flex-col gap-5 justify-center items-start px-2 py-2 duration-500 ${dropdownActive ? 'h-32 opacity-1 pointer-events-auto' : 'h-0 opacity-0 pointer-events-none'}`}>
+      <div
+        className={`absolute overflow-hidden min-w-[250px] right-3 lg:right-20 top-[101%] rounded-3xl bg-white flex flex-col gap-9 justify-center items-start px-8 py-5 duration-500 ${
+          dropdownActive
+            ? "h-48 opacity-1 pointer-events-auto"
+            : "h-0 opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="flex justify-center items-center gap-1 cursor-pointer py-2">
+        <PiReadCvLogoLight className="text-2xl"/>
           <Link href={"/"}>My Blogs</Link>
-          <Link href={"/"}>Create Blog</Link>
-          <Link href={"/"}>Log Out</Link>
-      </div>
-      
-    </div>
-  )
-}
+        </div>
 
-export default Navbar
+        <div className="flex justify-center items-center gap-5 cursor-pointer py-2 ">
+          <IoIosAddCircleOutline className="text-2xl" />
+
+          <Link href={"/"}>Create Blog</Link>
+        </div>
+
+        <div className="flex justify-center items-center gap-5 cursor-pointer py-2">
+          <SlLogout className="text-2xl" />
+          <Link href={"/"}>Log Out</Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
