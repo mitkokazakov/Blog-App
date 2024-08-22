@@ -29,26 +29,26 @@ const Navbar = () => {
       </div>
 
       <div
-        className={`absolute overflow-hidden min-w-[250px] right-3 lg:right-20 top-[101%] rounded-3xl bg-white flex flex-col gap-9 justify-center items-start px-8 py-5 duration-500 ${
+        className={`absolute overflow-hidden min-w-[250px] right-3 lg:right-20 top-[101%] rounded-3xl bg-transparent backdrop-blur-sm flex flex-col gap-9 justify-center items-start px-8 py-5 duration-500 ${
           dropdownActive
-            ? "h-48 opacity-1 pointer-events-auto"
+            ? "h-64 opacity-1 pointer-events-auto"
             : "h-0 opacity-0 pointer-events-none"
         }`}
       >
-        <div className="flex justify-center items-center gap-1 cursor-pointer py-2">
+        <div className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 hover:bg-[#fffbc2]">
         <PiReadCvLogoLight className="text-2xl"/>
-          <Link href={"/"}>My Blogs</Link>
+          <Link href={"/"} className="font-medium">My Blogs</Link>
         </div>
 
-        <div className="flex justify-center items-center gap-5 cursor-pointer py-2 ">
+        <div className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 hover:bg-[#fffbc2]">
           <IoIosAddCircleOutline className="text-2xl" />
 
-          <Link href={"/"}>Create Blog</Link>
+          <Link href={"/"}  className="font-medium">Create Blog</Link>
         </div>
 
-        <div className="flex justify-center items-center gap-5 cursor-pointer py-2">
+        <div className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 hover:bg-[#fffbc2]">
           <SlLogout className="text-2xl" />
-          <Link href={"/"}>Log Out</Link>
+          <Link href={"/"}  className="font-medium">Log Out</Link>
         </div>
       </div>
     </div>
