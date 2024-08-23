@@ -43,7 +43,7 @@ const Navbar = () => {
         <div className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 hover:bg-[#fffbc2]">
           <IoIosAddCircleOutline className="text-2xl" />
 
-          <Link href={"/"}  className="font-medium">Create Blog</Link>
+          <Link href={"/create"}  className="font-medium">Create Blog</Link>
         </div>
 
         <div className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 hover:bg-[#fffbc2]">
