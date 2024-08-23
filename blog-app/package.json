@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
+    "@tiptap/extension-underline": "^2.6.6",
     "@tiptap/pm": "^2.6.5",
     "@tiptap/react": "^2.6.5",
     "@tiptap/starter-kit": "^2.6.5",

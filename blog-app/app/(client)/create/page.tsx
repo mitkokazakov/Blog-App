@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import FroalaEditor from 'react-froala-wysiwyg'
 import '../../../node_modules/froala-editor/css/froala_style.min.css'
 import Tiptap from '@/components/Tiptap'
 
