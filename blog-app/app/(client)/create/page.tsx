@@ -2,6 +2,9 @@
 import React from 'react'
 import '../../../node_modules/froala-editor/css/froala_style.min.css'
 import Tiptap from '@/components/Tiptap'
+import FroalaEditor from 'react-froala-wysiwyg'
+import '../../../node_modules/froala-editor/css/froala_style.css'
+import '../../../node_modules/froala-editor/css/froala_editor.css'
 
 const page = () => {
 
@@ -63,7 +66,8 @@ const page = () => {
             Body
           </label>
           <div className="mt-2">
-            <Tiptap />
+            {/* <Tiptap /> */}
+            <FroalaEditor />
             <span className="text-red-600 tracking-widest text-sm">
               
             </span>
