@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <div className="relative w-full h-20 bg-[#ffffd7] border-b-[1px] border-b-black flex justify-between items-center px-5 lg:px-20">
       <div>
-        <p className=" tracking-widest">NorthBlogs</p>
+        <Link href={'/'} className=" tracking-widest">NorthBlogs</Link>
       </div>
 
       <div className="flex justify-center items-center gap-5">
