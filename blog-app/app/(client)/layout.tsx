@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={fira.className}>
+      <body className={fira.className + ' bg-[#ffffd7]'}>
 
         <Navbar />
         {children}

@@ -13,7 +13,7 @@ export default function Home() {
 
         <div className="w-full px-10 flex flex-col justify-center items-center  gap-10">
           <Link
-            href={"/dashboard"}
+            href={"/login"}
             className="w-full bg-[#ffffd7] px-8 py-2 cursor-pointer opacity-80 hover:opacity-100 font-medium text-xl tracking-widest text-center sm:w-64"
           >
             Login
