@@ -72,14 +72,6 @@ const LoginForm = () => {
             >
               Password
             </label>
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-semibold text-indigo-600 hover:text-indigo-500"
-              >
-                Forgot password?
-              </a>
-            </div>
           </div>
           <div className="mt-2">
             <input
@@ -99,7 +91,7 @@ const LoginForm = () => {
         <div>
           <button
             type="submit"
-            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex w-full justify-center rounded-md bg-[#ffffd7] px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-[2px_2px_8px_0px_rgba(0,0,0,0.3)]  hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
           >
             Sign in
           </button>
@@ -107,7 +99,7 @@ const LoginForm = () => {
       </form>
 
       <div className="w-full min-h-9 mt-10 relative">
-        <div className="absolute top-[50%] w-full h-[1px] bg-black "></div>
+        <div className="absolute top-[50%] w-full h-[1px] bg-zinc-400 "></div>
         <div className=" bg-[#ffffd7] min-w-[200px] flex justify-center items-center py-3 px-5 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
           <p>Or continue with</p>
         </div>
@@ -115,7 +107,7 @@ const LoginForm = () => {
 
       <div className="w-full flex justify-center items-center mt-5">
         <button>
-          <div className="flex justify-center items-center gap-3 border-slate-200 border-[1px] px-16 py-1 rounded-lg">
+          <div className="flex justify-center items-center gap-3 border-zinc-400 border-[1px] px-16 py-1 rounded-lg">
             <img
               className="w-8 h-8"
               src="https://cdn-icons-png.freepik.com/256/13170/13170545.png?semt=ais_hybrid"
@@ -125,16 +117,6 @@ const LoginForm = () => {
           </div>
         </button>
       </div>
-
-      <p className="mt-10 text-center text-sm text-gray-500">
-        Not a member?{" "}
-        <a
-          href="#"
-          className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-        >
-          Start a 14 day free trial
-        </a>
-      </p>
     </div>
   );
 };
