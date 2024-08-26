@@ -25,7 +25,7 @@ const page = () => {
 
   return (
     <div className="mt-10 sm:mx-auto sm:w-full md:w-[800px]">
-      <form method="POST" className="space-y-6">
+      <form method="POST" className="space-y-6" encType="multipart/form-data">
         <div>
           <label
             htmlFor="blogtitle"
@@ -64,7 +64,6 @@ const page = () => {
 
         <div>
           <label
-            htmlFor="body"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
             Body
@@ -88,7 +87,7 @@ const page = () => {
                     ],
                   },
                   moreParagraph: {
-                    buttons: ["alignLeft", "alignRight"],
+                    buttons: ["alignLeft", "alignRight","alignCenter"],
                   },
                   moreRich: {
                     buttons: ["insertHR", "insertImage"],
@@ -99,10 +98,17 @@ const page = () => {
                     localStorage.setItem("blog", html);
                   },
                   "image.inserted": function($img: any){
+
+                    const image = $img;
+                    console.log(image);
+                    
                     const src: string = $img.attr("src");
-                    const modifyiedSrc = src.slice(5);
-                    fetch(modifyiedSrc).then(res => res.blob()).then(blob =>{console.log(blob);
+                    fetch(src).then(res => res.blob()).then(blob =>{console.log(blob);
                     })
+                    
+                  },
+                  "image.beforeUpload": function(images:any) {
+                    //console.log(images);
                     
                   }
                 },
