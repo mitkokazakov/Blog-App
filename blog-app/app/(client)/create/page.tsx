@@ -15,12 +15,18 @@ import "../../../node_modules/froala-editor/js/plugins/save.min.js";
 import "../../../node_modules/froala-editor/js/froala_editor.pkgd.min.js";
 import "../../../node_modules/froala-editor/js/froala_editor.min.js";
 import { v2 as cloudinary } from "cloudinary";
+import { v4 as uuidv4 } from "uuid";
 
 cloudinary.config({
   cloud_name: "ddvfwyoek",
   api_key: "419694577789571",
-  api_secret: "Lk_axhjstubw3CycN61LQYceDUQ"
+  api_secret: "Lk_axhjstubw3CycN61LQYceDUQ",
 });
+
+type BufferType = {
+  id: string;
+  buffer: Buffer;
+};
 
 const page = () => {
   const [blog, setBlog] = useState(() => {
@@ -28,6 +34,8 @@ const page = () => {
 
     return fromLocaleStorage;
   });
+
+  const [images, setImages] = useState<BufferType[]>([]);
 
   return (
     <div className="mt-10 sm:mx-auto sm:w-full md:w-[800px]">
@@ -101,6 +109,17 @@ const page = () => {
                   "save.before": function (html: string) {
                     localStorage.setItem("blog", html);
                   },
+                  "image.removed": function ($img: any) {
+                    const image = $img;
+
+                    let src = $img.attr("src");
+
+                    setImages((prevState) => {
+                      return prevState.filter(i => i.id !== src)
+                    } )
+
+                    console.log(src);
+                  },
                   "image.inserted": function ($img: any) {
                     const image = $img;
                     console.log(image);
@@ -112,6 +131,13 @@ const page = () => {
                         console.log(blob);
                         const bytes = await blob.arrayBuffer();
                         const buffer = Buffer.from(bytes);
+
+                        let current = {
+                          id: src,
+                          buffer: buffer,
+                        };
+
+                        setImages(prevState => [...prevState,current]);
 
                         // await new Promise((resolve, reject) => {
                         //   cloudinary.uploader.upload_stream({
@@ -125,7 +151,6 @@ const page = () => {
                         //   })
                         //   .end(buffer);
                         // });
-
                       });
                   },
                   "image.beforeUpload": function (images: any) {
@@ -166,7 +191,7 @@ const page = () => {
         <div>
           <button
             onClick={() => {
-              console.log(blog);
+              console.log(images);
             }}
             type="submit"
             className="flex w-full justify-center rounded-md bg-[#ffffd7] px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-[2px_2px_8px_0px_rgba(0,0,0,0.3)]  hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
