@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import "../../../node_modules/froala-editor/css/froala_style.min.css";
-import Tiptap from "@/components/Tiptap";
 import FroalaEditor from "react-froala-wysiwyg";
 import "../../../node_modules/froala-editor/css/froala_style.css";
 import "../../../node_modules/froala-editor/css/froala_editor.css";
@@ -15,6 +14,13 @@ import "../../../node_modules/froala-editor/js/plugins/lists.min.js";
 import "../../../node_modules/froala-editor/js/plugins/save.min.js";
 import "../../../node_modules/froala-editor/js/froala_editor.pkgd.min.js";
 import "../../../node_modules/froala-editor/js/froala_editor.min.js";
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: "ddvfwyoek",
+  api_key: "419694577789571",
+  api_secret: "Lk_axhjstubw3CycN61LQYceDUQ"
+});
 
 const page = () => {
   const [blog, setBlog] = useState(() => {
@@ -63,9 +69,7 @@ const page = () => {
         </div>
 
         <div>
-          <label
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
+          <label className="block text-sm font-medium leading-6 text-gray-900">
             Body
           </label>
           <div className="mt-2">
@@ -87,7 +91,7 @@ const page = () => {
                     ],
                   },
                   moreParagraph: {
-                    buttons: ["alignLeft", "alignRight","alignCenter"],
+                    buttons: ["alignLeft", "alignRight", "alignCenter"],
                   },
                   moreRich: {
                     buttons: ["insertHR", "insertImage"],
@@ -97,20 +101,36 @@ const page = () => {
                   "save.before": function (html: string) {
                     localStorage.setItem("blog", html);
                   },
-                  "image.inserted": function($img: any){
-
+                  "image.inserted": function ($img: any) {
                     const image = $img;
                     console.log(image);
-                    
+
                     const src: string = $img.attr("src");
-                    fetch(src).then(res => res.blob()).then(blob =>{console.log(blob);
-                    })
-                    
+                    fetch(src)
+                      .then((res) => res.blob())
+                      .then(async (blob) => {
+                        console.log(blob);
+                        const bytes = await blob.arrayBuffer();
+                        const buffer = Buffer.from(bytes);
+
+                        // await new Promise((resolve, reject) => {
+                        //   cloudinary.uploader.upload_stream({
+                        //     public_id: "mitko123456"
+                        //   }, function (error, result) {
+                        //     if (error) {
+                        //       reject(error);
+                        //       return;
+                        //     }
+                        //     resolve(result);
+                        //   })
+                        //   .end(buffer);
+                        // });
+
+                      });
                   },
-                  "image.beforeUpload": function(images:any) {
+                  "image.beforeUpload": function (images: any) {
                     //console.log(images);
-                    
-                  }
+                  },
                 },
               }}
               model={blog}
@@ -145,8 +165,9 @@ const page = () => {
 
         <div>
           <button
-          onClick={() => {console.log(blog);
-          }}
+            onClick={() => {
+              console.log(blog);
+            }}
             type="submit"
             className="flex w-full justify-center rounded-md bg-[#ffffd7] px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-[2px_2px_8px_0px_rgba(0,0,0,0.3)]  hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
           >
