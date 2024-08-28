@@ -16,6 +16,7 @@ import "../../../node_modules/froala-editor/js/froala_editor.pkgd.min.js";
 import "../../../node_modules/froala-editor/js/froala_editor.min.js";
 import { v2 as cloudinary } from "cloudinary";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 cloudinary.config({
   cloud_name: "ddvfwyoek",
@@ -29,7 +30,6 @@ type BufferType = {
 };
 
 const page = () => {
-
   const [blog, setBlog] = useState(() => {
     let fromLocaleStorage = localStorage.getItem("blog") || "";
 
@@ -39,25 +39,22 @@ const page = () => {
   const [images, setImages] = useState<BufferType[]>([]);
 
   useEffect(() => {
-    fetch('/api/search/mitaka').then(res => res.json()).then(r => console.log(r)
+    //axios.get("/api/register");
+    fetch("/api/search/mitko").then(res => res.json()).then(d => console.log(d)
     )
-  },[])
+  }, []);
 
-  
-    // const allImgs = await fetch(`https://api.cloudinary.com/v1_1/ddvfwyoek/resources/image`,{
-    //   mode: 'no-cors',
-    //   headers:{
-    //     Authorization: `Basic ${Buffer.from(process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY + ':' + process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET).toString('base64')}`,
-    //     'Access-Control-Allow-Origin':'*'
-    //   }
-    // });
+  // const allImgs = await fetch(`https://api.cloudinary.com/v1_1/ddvfwyoek/resources/image`,{
+  //   mode: 'no-cors',
+  //   headers:{
+  //     Authorization: `Basic ${Buffer.from(process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY + ':' + process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET).toString('base64')}`,
+  //     'Access-Control-Allow-Origin':'*'
+  //   }
+  // });
 
-    // const resp = await allImgs.json();
+  // const resp = await allImgs.json();
 
-    // console.log(resp);
- 
-
-  
+  // console.log(resp);
 
   return (
     // <div>Oop</div>
@@ -138,12 +135,10 @@ const page = () => {
                     let src = $img.attr("src");
 
                     setImages((prevState) => {
-                      return prevState.filter(i => i.id !== src)
-                    } )
+                      return prevState.filter((i) => i.id !== src);
+                    });
 
                     //cloudinary.uploader.destroy("mitko123456");
-
-                    
 
                     console.log(src);
                   },
@@ -164,9 +159,7 @@ const page = () => {
                           buffer: buffer,
                         };
 
-                        
-
-                        setImages(prevState => [...prevState,current]);
+                        setImages((prevState) => [...prevState, current]);
 
                         // await new Promise((resolve, reject) => {
                         //   cloudinary.uploader.upload_stream({
