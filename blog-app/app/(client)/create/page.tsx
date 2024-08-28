@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../../node_modules/froala-editor/css/froala_style.min.css";
 import FroalaEditor from "react-froala-wysiwyg";
 import "../../../node_modules/froala-editor/css/froala_style.css";
@@ -29,6 +29,7 @@ type BufferType = {
 };
 
 const page = () => {
+
   const [blog, setBlog] = useState(() => {
     let fromLocaleStorage = localStorage.getItem("blog") || "";
 
@@ -37,7 +38,29 @@ const page = () => {
 
   const [images, setImages] = useState<BufferType[]>([]);
 
+  useEffect(() => {
+    fetch('/api/search/mitaka').then(res => res.json()).then(r => console.log(r)
+    )
+  },[])
+
+  
+    // const allImgs = await fetch(`https://api.cloudinary.com/v1_1/ddvfwyoek/resources/image`,{
+    //   mode: 'no-cors',
+    //   headers:{
+    //     Authorization: `Basic ${Buffer.from(process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY + ':' + process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET).toString('base64')}`,
+    //     'Access-Control-Allow-Origin':'*'
+    //   }
+    // });
+
+    // const resp = await allImgs.json();
+
+    // console.log(resp);
+ 
+
+  
+
   return (
+    // <div>Oop</div>
     <div className="mt-10 sm:mx-auto sm:w-full md:w-[800px]">
       <form method="POST" className="space-y-6" encType="multipart/form-data">
         <div>
@@ -118,6 +141,10 @@ const page = () => {
                       return prevState.filter(i => i.id !== src)
                     } )
 
+                    //cloudinary.uploader.destroy("mitko123456");
+
+                    
+
                     console.log(src);
                   },
                   "image.inserted": function ($img: any) {
@@ -137,11 +164,13 @@ const page = () => {
                           buffer: buffer,
                         };
 
+                        
+
                         setImages(prevState => [...prevState,current]);
 
                         // await new Promise((resolve, reject) => {
                         //   cloudinary.uploader.upload_stream({
-                        //     public_id: "mitko123456"
+                        //     public_id: "mitko12"
                         //   }, function (error, result) {
                         //     if (error) {
                         //       reject(error);
