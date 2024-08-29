@@ -16,7 +16,6 @@ import "../../../node_modules/froala-editor/js/froala_editor.pkgd.min.js";
 import "../../../node_modules/froala-editor/js/froala_editor.min.js";
 import { v2 as cloudinary } from "cloudinary";
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
 
 cloudinary.config({
   cloud_name: "ddvfwyoek",
@@ -38,11 +37,10 @@ const page = () => {
 
   const [images, setImages] = useState<BufferType[]>([]);
 
-  useEffect(() => {
-    //axios.get("/api/register");
-    fetch("/api/search/mitko").then(res => res.json()).then(d => console.log(d)
-    )
-  }, []);
+  // useEffect(() => {
+  //   //axios.get("/api/register");
+    
+  // }, []);
 
   // const allImgs = await fetch(`https://api.cloudinary.com/v1_1/ddvfwyoek/resources/image`,{
   //   mode: 'no-cors',
@@ -132,21 +130,24 @@ const page = () => {
                   "image.removed": function ($img: any) {
                     const image = $img;
 
-                    let src = $img.attr("src");
+                    let id = $img.attr("id");
 
                     setImages((prevState) => {
-                      return prevState.filter((i) => i.id !== src);
+                      return prevState.filter((i) => i.id !== id);
                     });
 
-                    //cloudinary.uploader.destroy("mitko123456");
+                    cloudinary.uploader.destroy(id);
 
-                    console.log(src);
+                    console.log(id);
                   },
                   "image.inserted": function ($img: any) {
                     const image = $img;
                     console.log(image);
 
                     const src: string = $img.attr("src");
+
+              
+
                     fetch(src)
                       .then((res) => res.blob())
                       .then(async (blob) => {
@@ -161,22 +162,33 @@ const page = () => {
 
                         setImages((prevState) => [...prevState, current]);
 
-                        // await new Promise((resolve, reject) => {
-                        //   cloudinary.uploader.upload_stream({
-                        //     public_id: "mitko12"
-                        //   }, function (error, result) {
-                        //     if (error) {
-                        //       reject(error);
-                        //       return;
-                        //     }
-                        //     resolve(result);
-                        //   })
-                        //   .end(buffer);
-                        // });
+                        const currentId = uuidv4();
+
+                        console.log(currentId);
+                        
+                        
+
+                        await new Promise((resolve, reject) => {
+                          cloudinary.uploader.upload_stream({
+                            public_id: currentId
+                          }, function (error, result) {
+                            if (error) {
+                              reject(error);
+                              return;
+                            }
+                            resolve(result);
+                          })
+                          .end(buffer);
+                        });
+
+                        await fetch(`/api/search?publicId=${currentId}`).then(res => res.json()).then(d => {
+                          $img.attr("src",d.result.secure_url);
+                          $img.attr("id",d.result.public_id)
+                        } )
+                        
+
+
                       });
-                  },
-                  "image.beforeUpload": function (images: any) {
-                    //console.log(images);
                   },
                 },
               }}
