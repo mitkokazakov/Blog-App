@@ -16,6 +16,9 @@ import "../../../node_modules/froala-editor/js/froala_editor.pkgd.min.js";
 import "../../../node_modules/froala-editor/js/froala_editor.min.js";
 import { v2 as cloudinary } from "cloudinary";
 import { v4 as uuidv4 } from "uuid";
+import { z } from "zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 cloudinary.config({
   cloud_name: "ddvfwyoek",
@@ -28,36 +31,60 @@ type BufferType = {
   buffer: Buffer;
 };
 
+type TextEditorFields = {
+  blogtitle: string,
+  description: string,
+  body: string
+
+}
+
+const TextEditorScheme = z.object({
+  blogtitle: z.string().min(4, {message: "Title should be at least 4 characters long!"}),
+  description: z
+    .string()
+    .min(4, { message: "Description should be at least 4 characters long!" }),
+});
+
+
+
 const page = () => {
+
   const [blog, setBlog] = useState(() => {
     let fromLocaleStorage = localStorage.getItem("blog") || "";
 
     return fromLocaleStorage;
   });
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TextEditorFields>({
+    resolver: zodResolver(TextEditorScheme),
+  });
+
   const [images, setImages] = useState<BufferType[]>([]);
 
-  // useEffect(() => {
-  //   //axios.get("/api/register");
+  const sendBlogInfo: SubmitHandler<TextEditorFields> = (data) => {
+   
+    const blogtitle = data.blogtitle;
+    const description = data.description;
+    const body = blog;
+
+    const dataInput = {
+      bolgtitle: blogtitle,
+      description: description,
+      body: body
+    };
+
+    console.log(dataInput);
     
-  // }, []);
+  };
 
-  // const allImgs = await fetch(`https://api.cloudinary.com/v1_1/ddvfwyoek/resources/image`,{
-  //   mode: 'no-cors',
-  //   headers:{
-  //     Authorization: `Basic ${Buffer.from(process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY + ':' + process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET).toString('base64')}`,
-  //     'Access-Control-Allow-Origin':'*'
-  //   }
-  // });
-
-  // const resp = await allImgs.json();
-
-  // console.log(resp);
 
   return (
-    // <div>Oop</div>
     <div className="mt-10 sm:mx-auto sm:w-full md:w-[800px]">
-      <form method="POST" className="space-y-6" encType="multipart/form-data">
+      <form onSubmit={handleSubmit(sendBlogInfo)} method="POST" className="space-y-6" encType="multipart/form-data">
         <div>
           <label
             htmlFor="blogtitle"
@@ -70,9 +97,10 @@ const page = () => {
               id="blogtitle"
               type="text"
               required
-              className="block w-full border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="block w-full border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              {...register("blogtitle")}
             />
-            <span className="text-red-600 tracking-widest text-sm"></span>
+            <span className="text-red-600 tracking-widest text-sm">{errors.blogtitle?.message}</span>
           </div>
         </div>
 
@@ -87,10 +115,11 @@ const page = () => {
             <textarea
               id="description"
               required
-              className="block w-full border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="block w-full border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               rows={7}
+              {...register("description")}
             />
-            <span className="text-red-600 tracking-widest text-sm"></span>
+            <span className="text-red-600 tracking-widest text-sm">{errors.description?.message}</span>
           </div>
         </div>
 
@@ -99,8 +128,9 @@ const page = () => {
             Body
           </label>
           <div className="mt-2">
-            {/* <Tiptap /> */}
+
             <FroalaEditor
+            
               config={{
                 placeholderText: "Insert here",
                 imageAllowedTypes: ["jpeg", "jpg", "png"],
@@ -128,7 +158,6 @@ const page = () => {
                     localStorage.setItem("blog", html);
                   },
                   "image.removed": function ($img: any) {
-                    const image = $img;
 
                     let id = $img.attr("id");
 
@@ -186,7 +215,7 @@ const page = () => {
                           $img.attr("id",d.result.public_id)
                         } )
                         
-
+                        
 
                       });
                   },
@@ -195,6 +224,7 @@ const page = () => {
               model={blog}
               onModelChange={(e: string) => setBlog(e)}
               tag="textarea"
+              
             />
 
             <span className="text-red-600 tracking-widest text-sm"></span>
