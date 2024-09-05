@@ -20,6 +20,8 @@ import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { IoClose } from "react-icons/io5";
+
 cloudinary.config({
   cloud_name: "ddvfwyoek",
   api_key: "419694577789571",
@@ -53,6 +55,8 @@ const page = () => {
     return fromLocaleStorage;
   });
 
+  const [tags, setTags] = useState<string[]>([]);
+
   const {
     register,
     handleSubmit,
@@ -77,9 +81,33 @@ const page = () => {
     console.log(dataInput);
   };
 
+  const addTag = (currentTag: string) => {
+
+    if (!tags.includes(currentTag)) {
+      setTags((prevState) => [...prevState, currentTag]);
+    }
+
+  }
+
+  const removeTag = (currentTag: string) => {
+
+    if (tags.includes(currentTag)) {
+
+      setTags((prevState) => {
+        return prevState.filter((i) => i !== currentTag);
+      });
+    }
+
+  }
+
   return (
-    <div className="mt-10 sm:mx-auto sm:w-full md:w-[800px]">
+    <div className="mt-10 pb-10 sm:mx-auto sm:w-full md:w-[800px]">
       <form
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+          }
+        }}
         onSubmit={handleSubmit(sendBlogInfo)}
         method="POST"
         className="space-y-6"
@@ -241,13 +269,34 @@ const page = () => {
           </div>
           <div className="mt-2 pl-2 flex items-center bg-white">
 
-            <p className="mr-2">nextjs</p>
-            <p  className="mr-2">C#</p>
+            {
+              tags?.map((tag) => {
+                return <div key={tag} className="flex items-center bg-slate-100 rounded-lg px-2 mr-2">
+                  <p className="mr-2">{tag}</p>
+                  <IoClose id={tag} className="cursor-pointer" onClick={(e) => {
+                    const currentTag = e.currentTarget.id;
+                    console.log(currentTag);
+                    removeTag(currentTag);
+
+                  }} />
+                </div>
+              })
+            }
+
             <input
               id="tags"
               type="text"
               required
               className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm placeholder:text-gray-400 sm:text-sm sm:leading-6 outline-none border-none"
+              onKeyUp={(e) => {
+                if (e.key === "Enter") {
+                  console.log(e.key);
+
+                  addTag(e.currentTarget.value);
+
+                  e.currentTarget.value = "";
+                }
+              }}
             />
             <span className="text-red-600 tracking-widest text-sm"></span>
           </div>
