@@ -13,14 +13,14 @@ type SearchParamsType = {
 
 const page = ({ searchParams }: SearchParamsType) => {
   return (
-    <div className="w-full min-h-screen bg-black text-white grid grid-cols-3">
+    <div className="w-[300px] min-h-screen bg-black text-white">
       {/* <div className="w-[300px] min-h-screen border-r-[1px] border-r-white">
         <Link href={"/dashboard?tab=users"}>Users</Link>
       </div> */}
 
       <DashboardContent />
-      <DasboardMiddleColumn tabInfo={searchParams?.tab} />
-      <DashboardRightColumn tabInfo={searchParams?.tab} idInfo={searchParams?.id}/>
+      {/* <DasboardMiddleColumn tabInfo={searchParams?.tab} />
+      <DashboardRightColumn tabInfo={searchParams?.tab} idInfo={searchParams?.id}/> */}
     </div>
   );
 };

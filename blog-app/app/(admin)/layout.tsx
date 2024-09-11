@@ -22,7 +22,6 @@ export default function RootLayout({
           <Link href={"/"}>NorthBlogs</Link>
         </div>
         {children}
-
       </body>
     </html>
   );
