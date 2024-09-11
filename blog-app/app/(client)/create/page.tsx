@@ -37,6 +37,7 @@ type TextEditorFields = {
   blogtitle: string;
   description: string;
   body: string;
+  tags: string[];
 };
 
 const TextEditorScheme = z.object({
@@ -76,6 +77,7 @@ const page = () => {
       bolgtitle: blogtitle,
       description: description,
       body: body,
+      tags: tags
     };
 
     console.log(dataInput);
@@ -162,6 +164,9 @@ const page = () => {
           <div className="mt-2">
             <FroalaEditor
               config={{
+                fontFamily:{
+                  "Fira Mono, monospace": "Fira Mono"
+                },
                 placeholderText: "Insert here",
                 imageAllowedTypes: ["jpeg", "jpg", "png"],
                 saveInterval: 1000,

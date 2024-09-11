@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Fira_Code } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
-const inter = Inter({ subsets: ["latin"] });
+const fira = Fira_Code({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={fira.className}>
+        <div className="w-full h-20 bg-black text-white px-10 flex justify-between items-center border-b-[1px] border-b-white">
+          <Link href={"/"}>NorthBlogs</Link>
+        </div>
         {children}
 
       </body>
