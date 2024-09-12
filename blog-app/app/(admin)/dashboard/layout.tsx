@@ -1,3 +1,4 @@
+import DashboardContent from "@/components/AdminComponents/DashboardContent";
 import React from "react";
 
 const layout = ({
@@ -11,6 +12,7 @@ const layout = ({
 }) => {
   return (
     <div className="w-full min-h-screen bg-black flex">
+      <DashboardContent />
       {children}
       {list}
       {details}

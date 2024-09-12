@@ -1,7 +1,4 @@
-import DasboardMiddleColumn from "@/components/AdminComponents/DasboardMiddleColumn";
-import DashboardContent from "@/components/AdminComponents/DashboardContent";
-import DashboardRightColumn from "@/components/AdminComponents/DashboardRightColumn";
-import Link from "next/link";
+
 import React from "react";
 
 type SearchParamsType = {
@@ -13,14 +10,9 @@ type SearchParamsType = {
 
 const page = ({ searchParams }: SearchParamsType) => {
   return (
-    <div className="w-[300px] min-h-screen bg-black text-white">
-      {/* <div className="w-[300px] min-h-screen border-r-[1px] border-r-white">
-        <Link href={"/dashboard?tab=users"}>Users</Link>
-      </div> */}
+    <div className="w-full min-h-screen bg-black text-white">
 
-      <DashboardContent />
-      {/* <DasboardMiddleColumn tabInfo={searchParams?.tab} />
-      <DashboardRightColumn tabInfo={searchParams?.tab} idInfo={searchParams?.id}/> */}
+      <h1>Please select tab</h1>
     </div>
   );
 };
