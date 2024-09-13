@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={fira.className}>
-        <div className="w-full h-20 bg-black text-white px-10 flex justify-between items-center border-b-[1px] border-b-white">
+        <div className="w-full h-20 bg-[#0e0e10] text-white px-10 flex justify-between items-center border-b-[1px] border-b-white">
           <Link href={"/"}>NorthBlogs</Link>
         </div>
         {children}

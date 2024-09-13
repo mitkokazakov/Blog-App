@@ -11,7 +11,7 @@ const layout = ({
   details: React.ReactNode;
 }) => {
   return (
-    <div className="w-full min-h-screen bg-black flex">
+    <div className="w-full min-h-screen bg-[#0e0e10] flex">
       <DashboardContent />
       {children}
       {list}

@@ -3,10 +3,9 @@ import React from 'react'
 
 const DashboardContent = () => {
   return (
-    <div className="w-[300px] min-h-screen border-r-[1px] text-white border-r-white grid grid-cols-1">
-        <Link href={"/dashboard/users"}>Users</Link>
-        <Link href={"/dashboard/details"}>Posts</Link>
-        <Link href={"/dashboard/update"}>Tags</Link>
+    <div className="w-[400px] min-h-screen border-r-[1px] text-white border-r-white flex flex-col gap-3 py-5 px-2">
+        <Link href={"/dashboard/users"} className='px-5 py-3 hover:bg-[#21334c] font-bold tracking-widest'>Users</Link>
+        <Link href={"/dashboard/details"} className='px-5 py-3 hover:bg-[#21334c] font-bold tracking-widest'>Posts</Link>
       </div>
   )
 }
