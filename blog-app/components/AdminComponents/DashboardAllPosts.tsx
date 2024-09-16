@@ -82,9 +82,12 @@ const DashboardAllPosts = ({ tab }: { tab: string }) => {
 //     filteredData = data;
 //   }
 
-//   function OnChangeInput(data: PostType[]){
+  function OnChangeInput(input:string){
 
-//   }
+    const tempData = data.filter(p => p.title.includes(input))
+
+    SetFilteredData(tempData);
+  }
 
   return (
     <div>
@@ -95,7 +98,7 @@ const DashboardAllPosts = ({ tab }: { tab: string }) => {
           id="username"
           className="px-4 py-1 bg-slate-800 rounded-lg"
           placeholder="Search for a post"
-          onChange={(e) => setInputSearch(e.target.value)}
+          onChange={(e) => OnChangeInput(e.target.value)}
         />
 
         <div className="flex justify-center items-center gap-5">
