@@ -105,7 +105,7 @@ const page = ({ searchParams }: UsersFilterParams) => {
                 </td>
                 <td className="text-left border border-slate-800 px-4 py-4 ">
                   <Link
-                    href={"/"}
+                    href={"/dashboard/users/33"}
                     className="bg-green-500 px-3 py-1 rounded-lg mr-5"
                   >
                     View
