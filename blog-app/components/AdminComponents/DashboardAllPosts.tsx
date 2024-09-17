@@ -72,15 +72,7 @@ const DashboardAllPosts = ({ tab }: { tab: string }) => {
       }
   },[tab])
 
-//   if (tab == "approved") {
-//     filteredData = data.filter((p) => p.status == "approved");
-//   }
-//   if (tab == "not approved") {
-//     filteredData = data.filter((p) => p.status == "not approved");
-//   }
-//   if (tab == "all") {
-//     filteredData = data;
-//   }
+
 
   function OnChangeInput(input:string){
 

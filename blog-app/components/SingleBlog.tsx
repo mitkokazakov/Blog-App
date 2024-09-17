@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const SingleBlog = () => {
@@ -16,11 +17,13 @@ const SingleBlog = () => {
 
         <p className="line-clamp-3 md:line-clamp-5 text-sm">
           Embark on an joourney of exploration where technology intersects with
-          art,design and creativity. Embark on an joourney of exploration where technology intersects with
-          art,design and creativity. Embark on an joourney of exploration where technology intersects with
-          art,design and creativity. Embark on an joourney of exploration where technology intersects with
-          art,design and creativity. Embark on an joourney of exploration where technology intersects with
-          art,design and creativity. 
+          art,design and creativity. Embark on an joourney of exploration where
+          technology intersects with art,design and creativity. Embark on an
+          joourney of exploration where technology intersects with art,design
+          and creativity. Embark on an joourney of exploration where technology
+          intersects with art,design and creativity. Embark on an joourney of
+          exploration where technology intersects with art,design and
+          creativity.
         </p>
 
         <div className="w-full flex justify-between items-center md:justify-end">
@@ -28,10 +31,16 @@ const SingleBlog = () => {
           <p>Sara De Cortes</p>
         </div>
 
-        <div className="w-full flex justify-start items-center gap-3">
-          <p className="cursor-pointer">#tech</p>
-          <p className="cursor-pointer">#art</p>
-          <p className="cursor-pointer">#design</p>
+        <div className="w-full flex justify-between items-center gap-3">
+          <div className="flex justify-start items-center gap-3">
+            <p className="cursor-pointer">#tech</p>
+            <p className="cursor-pointer">#art</p>
+            <p className="cursor-pointer">#design</p>
+          </div>
+
+          <div>
+            <Link href={'/change'} className="bg-orange-500 px-3 py-2 rounded-lg">Change</Link>
+          </div>
         </div>
       </div>
     </div>
