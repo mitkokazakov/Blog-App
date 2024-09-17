@@ -49,14 +49,31 @@ const TextEditorScheme = z.object({
     .min(4, { message: "Description should be at least 4 characters long!" }),
 });
 
+//Fake Data
+
+const fakeTags = ["react", "C#", "CSS", "HTML5"];
+
+const fakeTitle = "Programming in nowadays";
+
+const fakeDescr =
+  "Everyone want to be a programmer, but it is not that easy. XAXAXAXA";
+
+const fakeBody = "Just randmo text";
+
 const page = () => {
   const [blog, setBlog] = useState(() => {
-    let fromLocaleStorage = localStorage.getItem("blog") || "";
+    let fromLocaleStorage = localStorage.getItem("changeBlog") || "";
+
+    console.log(fromLocaleStorage);
+
+    if (fromLocaleStorage == "") {
+      return fakeBody;
+    }
 
     return fromLocaleStorage;
   });
 
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>(fakeTags);
 
   const {
     register,
@@ -77,30 +94,25 @@ const page = () => {
       bolgtitle: blogtitle,
       description: description,
       body: body,
-      tags: tags
+      tags: tags,
     };
 
     console.log(dataInput);
   };
 
   const addTag = (currentTag: string) => {
-
     if (!tags.includes(currentTag)) {
       setTags((prevState) => [...prevState, currentTag]);
     }
-
-  }
+  };
 
   const removeTag = (currentTag: string) => {
-
     if (tags.includes(currentTag)) {
-
       setTags((prevState) => {
         return prevState.filter((i) => i !== currentTag);
       });
     }
-
-  }
+  };
 
   return (
     <div className="mt-10 pb-10 sm:mx-auto sm:w-full md:w-[800px]">
@@ -124,6 +136,7 @@ const page = () => {
           </label>
           <div className="mt-2">
             <input
+              value={fakeTitle}
               id="blogtitle"
               type="text"
               required
@@ -145,6 +158,7 @@ const page = () => {
           </label>
           <div className="mt-2">
             <textarea
+              value={fakeDescr}
               id="description"
               required
               className="block w-full border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -164,8 +178,8 @@ const page = () => {
           <div className="mt-2">
             <FroalaEditor
               config={{
-                fontFamily:{
-                  "Fira Mono, monospace": "Fira Mono"
+                fontFamily: {
+                  "Fira Mono, monospace": "Fira Mono",
                 },
                 placeholderText: "Insert here",
                 imageAllowedTypes: ["jpeg", "jpg", "png"],
@@ -190,7 +204,7 @@ const page = () => {
                 },
                 events: {
                   "save.before": function (html: string) {
-                    localStorage.setItem("blog", html);
+                    localStorage.setItem("changeBlog", html);
                   },
                   "image.removed": function ($img: any) {
                     let id = $img.attr("id");
@@ -273,20 +287,25 @@ const page = () => {
             </label>
           </div>
           <div className="mt-2 pl-2 flex items-center bg-white">
-
-            {
-              tags?.map((tag) => {
-                return <div key={tag} className="flex items-center bg-slate-100 rounded-lg px-2 mr-2">
+            {tags?.map((tag) => {
+              return (
+                <div
+                  key={tag}
+                  className="flex items-center bg-slate-100 rounded-lg px-2 mr-2"
+                >
                   <p className="mr-2">{tag}</p>
-                  <IoClose id={tag} className="cursor-pointer" onClick={(e) => {
-                    const currentTag = e.currentTarget.id;
-                    console.log(currentTag);
-                    removeTag(currentTag);
-
-                  }} />
+                  <IoClose
+                    id={tag}
+                    className="cursor-pointer"
+                    onClick={(e) => {
+                      const currentTag = e.currentTarget.id;
+                      console.log(currentTag);
+                      removeTag(currentTag);
+                    }}
+                  />
                 </div>
-              })
-            }
+              );
+            })}
 
             <input
               id="tags"
