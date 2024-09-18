@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 
 const LoginSchema = z.object({
   email: z.string().email(),
@@ -106,7 +107,9 @@ const LoginForm = () => {
       </div>
 
       <div className="w-full flex justify-center items-center mt-5">
-        <button>
+        <button onClick={async () =>
+            await signIn("google", { redirect: true, callbackUrl: "/" })
+          }>
           <div className="flex justify-center items-center gap-3 border-zinc-400 border-[1px] px-16 py-1 rounded-lg">
             <img
               className="w-8 h-8 bg-transparent"

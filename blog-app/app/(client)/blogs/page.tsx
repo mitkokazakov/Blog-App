@@ -1,13 +1,22 @@
 import SingleBlog from "@/components/SingleBlog";
 import React from "react";
 
-const page = () => {
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
+const page = async () => {
+
+  const session = await getServerSession(authOptions);
+  const sessionText = JSON.stringify(session);
+
   return (
     <div className=" w-full min-h-screen bg-[#ffffd7] px-5 py-5 ">
       <div className="w-full pb-5 mb-5 text-left md:text-center">
         <h1 className=" text-3xl font-bold mb-3">Write. Share. Inspire. </h1>
 
         <p className="text-lg">Where Words Transcend Boundaries, Navigating the Blogging Seas.</p>
+
+        <p>{session == null ? "not logged in" : sessionText}</p>
       </div>
 
       <div className="w-full flex flex-col gap-8 md:items-center md:justify-center">
