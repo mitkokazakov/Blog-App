@@ -109,8 +109,8 @@ const LoginForm = () => {
         <button>
           <div className="flex justify-center items-center gap-3 border-zinc-400 border-[1px] px-16 py-1 rounded-lg">
             <img
-              className="w-8 h-8"
-              src="https://cdn-icons-png.freepik.com/256/13170/13170545.png?semt=ais_hybrid"
+              className="w-8 h-8 bg-transparent"
+              src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
               alt="Google"
             />
             <p>Google</p>

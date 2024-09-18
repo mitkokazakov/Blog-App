@@ -3,7 +3,7 @@ import React from "react";
 
 const SingleBlog = () => {
   return (
-    <div className="w-full flex justify-center items-start md:gap-5 border-b-[0.1px] border-b-black py-2 md:max-w-[1440px]">
+    <div className="w-full flex justify-center items-start md:gap-5 border-b-[0.1px] border-b-black py-4 md:max-w-[1440px]">
       <div className="hidden md:flex md:flex-col justify-center items-end">
         <p className="text-lg font-bold">23</p>
         <p className="text-lg font-bold">JUL</p>
@@ -39,7 +39,7 @@ const SingleBlog = () => {
           </div>
 
           <div>
-            <Link href={'/change'} className="bg-orange-500 px-3 py-2 rounded-lg">Change</Link>
+            <Link href={'/change'} className="bg-yellow-200 px-3 py-2 rounded-lg">Change</Link>
           </div>
         </div>
       </div>
