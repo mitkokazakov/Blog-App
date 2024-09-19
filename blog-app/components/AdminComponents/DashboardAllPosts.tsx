@@ -96,19 +96,19 @@ const DashboardAllPosts = ({ tab }: { tab: string }) => {
         <div className="flex justify-center items-center gap-5">
           <Link
             href={"/dashboard/posts?tab=approved"}
-            className="bg-yellow-600 px-3 py-2 rounded-lg tracking-widest"
+            className="focus:bg-yellow-600 px-3 py-2 rounded-lg tracking-widest"
           >
             Approved
           </Link>
           <Link
             href={"/dashboard/posts?tab=not approved"}
-            className="bg-yellow-600 px-3 py-2 rounded-lg tracking-widest"
+            className="focus:bg-yellow-600 px-3 py-2 rounded-lg tracking-widest"
           >
             Not approved
           </Link>
           <Link
             href={"/dashboard/posts?tab=all"}
-            className="bg-yellow-600 px-3 py-2 rounded-lg tracking-widest"
+            className="focus:bg-yellow-600 px-3 py-2 rounded-lg tracking-widest"
           >
             All
           </Link>
