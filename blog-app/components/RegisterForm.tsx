@@ -5,6 +5,7 @@ import React, { FormEvent } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 
 type RegisterFormFields = {
   name: string;
@@ -38,29 +39,28 @@ const RegisterForm = () => {
     const email = data.email;
     const password = data.password;
 
-    // try {
-    //   const resp = await axios.post("/api/register", {
-    //     name: name,
-    //     email: email,
-    //     password: password,
-    //   });
+    try {
+      const resp = await axios.post("/api/register", {
+        name: name,
+        email: email,
+        password: password,
+      });
 
-    //   console.log(resp);
+      console.log(resp);
 
-    //   if (resp.request.status === 200) {
-    //     console.log("OK");
-    //     router.push("/login");
-    //     toast.success("Registration was successfuly");
-    //   } else {
-    //     console.log("Something went wrong");
-    //     console.log(resp.request.responseText);
-    //     toast.error(resp.request.responseText);
-    //   }
-    // } catch (error: any) {
-    //   console.log(error?.request?.responseText);
-    //   router.push("/");
-    //   toast.error(error.request.responseText);
-    // }
+      if (resp.request.status === 200) {
+        router.push("/login");
+        alert("Registration was successfuly");
+        //toast.success("Registration was successfuly");
+      } else {
+        alert(resp.request.responseText)
+        //toast.error(resp.request.responseText);
+      }
+    } catch (error: any) {
+      router.push("/");
+      alert(error.request.responseText);
+      //toast.error(error.request.responseText);
+    }
   };
 
  
