@@ -1,13 +1,10 @@
-
 import Link from "next/link";
 import React from "react";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 
-
 export default async function Home() {
-
   const session = await getServerSession(authOptions);
   const sessionText = JSON.stringify(session);
 
@@ -23,19 +20,34 @@ export default async function Home() {
         </div>
 
         <div className="w-full px-10 flex flex-col justify-center items-center  gap-10">
-          <Link
-            href={"/login"}
-            className="w-full bg-[#ffffd7] px-8 py-2 cursor-pointer opacity-80 hover:opacity-100 font-medium text-xl tracking-widest text-center sm:w-64"
-          >
-            Login
-          </Link>
-          <Link
-            href={"/register"}
-            className="w-full bg-[#ffffd7] px-8 py-2 cursor-pointer opacity-80 hover:opacity-100 font-medium text-xl tracking-widest text-center sm:w-64"
-          >
-            Register
-          </Link>
+          {session == null ? (
+            <Link
+              href={"/login"}
+              className="w-full bg-[#ffffd7] px-8 py-2 cursor-pointer opacity-80 hover:opacity-100 font-medium text-xl tracking-widest text-center sm:w-64"
+            >
+              Login
+            </Link>
+          ) : null}
+
+          {session == null ? (
+            <Link
+              href={"/register"}
+              className="w-full bg-[#ffffd7] px-8 py-2 cursor-pointer opacity-80 hover:opacity-100 font-medium text-xl tracking-widest text-center sm:w-64"
+            >
+              Register
+            </Link>
+          ) : null}
+
+          {session != null ? (
+            <Link
+              href={"/"}
+              className="w-full bg-[#ffffd7] px-8 py-2 cursor-pointer opacity-80 hover:opacity-100 font-medium text-xl tracking-widest text-center sm:w-64"
+            >
+              Logout
+            </Link>
+          ) : null}
           <p className="font-bold text-xl text-white">OR</p>
+
           <Link
             href={"/blogs"}
             className="w-full bg-[#ffffd7] px-8 py-2 cursor-pointer opacity-80 hover:opacity-100 font-medium text-xl tracking-widest text-center sm:w-64"

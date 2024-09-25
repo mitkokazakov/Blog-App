@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fira_Code } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import AuthContext from "@/context/AuthContext";
 // import sdsa from '../../node_modules/froala-editor/css/plugins/froala_style.min.css'
 const fira = Fira_Code({ subsets: ["cyrillic"] });
 
@@ -17,11 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={fira.className + ' bg-[#ffffd7]'}>
-
-        <Navbar />
-        {children}
-
+      <body className={fira.className + " bg-[#ffffd7]"}>
+        <AuthContext>
+          <Navbar />
+          {children}
+        </AuthContext>
       </body>
     </html>
   );
