@@ -38,6 +38,25 @@ const LoginForm = () => {
       email: email,
       password: password,
     };
+
+    signIn("credentials", {
+      ...dataInput,
+      redirect: false,
+      callbackUrl: "/",
+    }).then((callback) => {
+      if (callback?.error) {
+        alert(callback.error);
+        //toast.error(callback.error)
+      }
+
+      if (callback?.ok) {
+        router.push("/");
+        router.refresh();
+        alert("User logged in successful");
+        //toast.success("User logged in successful", {duration: 4000, style:{ background: "rgba(76, 175, 80, 0.5)"}});
+      }
+    });
+
   };
 
   return (
