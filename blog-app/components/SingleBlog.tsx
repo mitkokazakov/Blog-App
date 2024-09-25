@@ -1,7 +1,11 @@
 import Link from "next/link";
 import React from "react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-const SingleBlog = () => {
+const SingleBlog = async () => {
+
+  const session = await getServerSession(authOptions);
   return (
     <div className="w-full flex justify-center items-start md:gap-5 border-b-[0.1px] border-b-black py-4 md:max-w-[1440px]">
       <div className="hidden md:flex md:flex-col justify-center items-end">
@@ -39,7 +43,9 @@ const SingleBlog = () => {
           </div>
 
           <div>
-            <Link href={'/change'} className="bg-yellow-200 px-3 py-2 rounded-lg">Change</Link>
+            {
+              session != null ? <Link href={'/change'} className="bg-yellow-200 px-3 py-2 rounded-lg">Change</Link> : null
+            }
           </div>
         </div>
       </div>

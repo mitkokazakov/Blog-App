@@ -108,7 +108,7 @@ const LoginForm = () => {
 
       <div className="w-full flex justify-center items-center mt-5">
         <button onClick={async () =>
-            await signIn("google", { redirect: true, callbackUrl: "/" })
+            await signIn("google", { redirect: true, callbackUrl: "/blogs" })
           }>
           <div className="flex justify-center items-center gap-3 border-zinc-400 border-[1px] px-16 py-1 rounded-lg">
             <img
