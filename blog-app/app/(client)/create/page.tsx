@@ -22,6 +22,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { IoClose } from "react-icons/io5";
 
+import { useSession } from "next-auth/react";
+import { SubmitBlog } from "@/app/lib/services";
+import axios from "axios";
+
+
 cloudinary.config({
   cloud_name: "ddvfwyoek",
   api_key: "419694577789571",
@@ -50,6 +55,7 @@ const TextEditorScheme = z.object({
 });
 
 const page = () => {
+
   const [blog, setBlog] = useState(() => {
     let fromLocaleStorage = localStorage.getItem("blog") || "";
 
@@ -57,6 +63,8 @@ const page = () => {
   });
 
   const [tags, setTags] = useState<string[]>([]);
+
+  const { data: session,status } = useSession();
 
   const {
     register,
@@ -68,19 +76,26 @@ const page = () => {
 
   const [images, setImages] = useState<BufferType[]>([]);
 
-  const sendBlogInfo: SubmitHandler<TextEditorFields> = (data) => {
+  const sendBlogInfo: SubmitHandler<TextEditorFields> = async (data) => {
     const blogtitle = data.blogtitle;
     const description = data.description;
     const body = blog;
 
-    const dataInput = {
-      bolgtitle: blogtitle,
-      description: description,
-      body: body,
-      tags: tags
-    };
+    // const dataInput = {
+    //   title: blogtitle,
+    //   description: description,
+    //   bodyContent: body,
+    //   tags: tags.join(','),
+    //   userId: session?.user.id as string
+    // };
 
-    console.log(dataInput);
+    const resp = await axios.post("/api/sendblog", {
+      title: blogtitle,
+      description: description,
+      bodyContent: body,
+      tags: tags.join(','),
+      userId: session?.user.id as string
+    });
   };
 
   const addTag = (currentTag: string) => {
@@ -291,7 +306,6 @@ const page = () => {
             <input
               id="tags"
               type="text"
-              required
               className="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm placeholder:text-gray-400 sm:text-sm sm:leading-6 outline-none border-none"
               onKeyUp={(e) => {
                 if (e.key === "Enter") {
@@ -309,9 +323,6 @@ const page = () => {
 
         <div>
           <button
-            onClick={() => {
-              console.log(images);
-            }}
             type="submit"
             className="flex w-full justify-center rounded-md bg-[#ffffd7] px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-[2px_2px_8px_0px_rgba(0,0,0,0.3)]  hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
           >

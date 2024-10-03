@@ -1,0 +1,36 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- AlterTable
+ALTER TABLE [dbo].[User] ADD [isDeleted] BIT NOT NULL CONSTRAINT [User_isDeleted_df] DEFAULT 0;
+
+-- CreateTable
+CREATE TABLE [dbo].[Blog] (
+    [id] NVARCHAR(1000) NOT NULL,
+    [title] NVARCHAR(1000) NOT NULL,
+    [description] NVARCHAR(1000) NOT NULL,
+    [body] NVARCHAR(1000) NOT NULL,
+    [tags] NVARCHAR(1000) NOT NULL,
+    [images] NVARCHAR(1000),
+    [createdAt] DATETIME2 NOT NULL CONSTRAINT [Blog_createdAt_df] DEFAULT CURRENT_TIMESTAMP,
+    [isDeleted] BIT NOT NULL CONSTRAINT [Blog_isDeleted_df] DEFAULT 0,
+    [userId] NVARCHAR(1000) NOT NULL,
+    CONSTRAINT [Blog_pkey] PRIMARY KEY CLUSTERED ([id])
+);
+
+-- AddForeignKey
+ALTER TABLE [dbo].[Blog] ADD CONSTRAINT [Blog_userId_fkey] FOREIGN KEY ([userId]) REFERENCES [dbo].[User]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH
