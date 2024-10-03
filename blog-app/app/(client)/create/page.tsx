@@ -26,7 +26,6 @@ import { useSession } from "next-auth/react";
 import { SubmitBlog } from "@/app/lib/services";
 import axios from "axios";
 
-
 cloudinary.config({
   cloud_name: "ddvfwyoek",
   api_key: "419694577789571",
@@ -55,7 +54,6 @@ const TextEditorScheme = z.object({
 });
 
 const page = () => {
-
   const [blog, setBlog] = useState(() => {
     let fromLocaleStorage = localStorage.getItem("blog") || "";
 
@@ -64,7 +62,9 @@ const page = () => {
 
   const [tags, setTags] = useState<string[]>([]);
 
-  const { data: session,status } = useSession();
+  const [errorTags, setErrorTags] = useState<boolean>(false);
+
+  const { data: session, status } = useSession();
 
   const {
     register,
@@ -89,33 +89,35 @@ const page = () => {
     //   userId: session?.user.id as string
     // };
 
+    if (tags.length == 0) {
+      setErrorTags(true);
+      return;
+    }
+
     const resp = await axios.post("/api/sendblog", {
       title: blogtitle,
       description: description,
       bodyContent: body,
-      tags: tags.join(','),
-      userId: session?.user.id as string
+      tags: tags.join(","),
+      userId: session?.user.id as string,
     });
+
+    setErrorTags(false);
   };
 
   const addTag = (currentTag: string) => {
-
     if (!tags.includes(currentTag)) {
       setTags((prevState) => [...prevState, currentTag]);
     }
-
-  }
+  };
 
   const removeTag = (currentTag: string) => {
-
     if (tags.includes(currentTag)) {
-
       setTags((prevState) => {
         return prevState.filter((i) => i !== currentTag);
       });
     }
-
-  }
+  };
 
   return (
     <div className="mt-10 pb-10 sm:mx-auto sm:w-full md:w-[800px]">
@@ -179,8 +181,8 @@ const page = () => {
           <div className="mt-2">
             <FroalaEditor
               config={{
-                fontFamily:{
-                  "Fira Mono, monospace": "Fira Mono"
+                fontFamily: {
+                  "Fira Mono, monospace": "Fira Mono",
                 },
                 placeholderText: "Insert here",
                 imageAllowedTypes: ["jpeg", "jpg", "png"],
@@ -288,20 +290,28 @@ const page = () => {
             </label>
           </div>
           <div className="mt-2 pl-2 flex items-center bg-white">
-
-            {
-              tags?.map((tag) => {
-                return <div key={tag} className="flex items-center bg-slate-100 rounded-lg px-2 mr-2">
+            {tags?.map((tag) => {
+              return (
+                <div
+                  key={tag}
+                  className="flex items-center bg-slate-100 rounded-lg px-2 mr-2"
+                >
                   <p className="mr-2">{tag}</p>
-                  <IoClose id={tag} className="cursor-pointer" onClick={(e) => {
-                    const currentTag = e.currentTarget.id;
-                    console.log(currentTag);
-                    removeTag(currentTag);
-
-                  }} />
+                  <IoClose
+                    id={tag}
+                    className="cursor-pointer"
+                    onClick={(e) => {
+                      const currentTag = e.currentTarget.id;
+                      console.log(currentTag);
+                      removeTag(currentTag);
+                      if (tags.length == 0) {
+                        setErrorTags(true);
+                      }
+                    }}
+                  />
                 </div>
-              })
-            }
+              );
+            })}
 
             <input
               id="tags"
@@ -313,12 +323,16 @@ const page = () => {
 
                   addTag(e.currentTarget.value);
 
+                  setErrorTags(false);
+
                   e.currentTarget.value = "";
                 }
               }}
             />
-            <span className="text-red-600 tracking-widest text-sm"></span>
           </div>
+          <span className="text-red-600 tracking-widest text-sm">
+            {errorTags == true ? "You should have at least one tag" : ""}
+          </span>
         </div>
 
         <div>
