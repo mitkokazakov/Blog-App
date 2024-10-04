@@ -1,4 +1,5 @@
 import React from "react";
+import prisma from "@/app/lib/prismadb";
 
 type ParamsType = {
   params: {
@@ -6,7 +7,12 @@ type ParamsType = {
   };
 };
 
-const page = ({ params }: ParamsType) => {
+const page = async ({ params }: ParamsType) => {
+
+  const firstBlog = await prisma.blog.findFirst();
+
+  const body: any = firstBlog?.body as string;
+
   return (
     <div className="px-5 py-8 max-w-[1440px] mx-auto">
       <h1 className="text-2xl font-bold tracking-wider">
@@ -35,6 +41,10 @@ const page = ({ params }: ParamsType) => {
           art,design and creativity. Embark on an joourney of exploration where technology intersects with
           art,design and creativity. 
       </p>
+
+      <div className="blog-content" dangerouslySetInnerHTML={{__html: firstBlog && body}}>
+        
+      </div>
     </div>
   );
 };

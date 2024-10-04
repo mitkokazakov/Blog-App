@@ -21,7 +21,6 @@
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.4.0",
-    "froala-editor": "^4.2.1",
     "fs.promises": "^0.1.2",
     "lucide-react": "^0.435.0",
     "next": "^14.2.6",
@@ -33,6 +32,7 @@
     "react-froala-wysiwyg": "^4.2.1",
     "react-hook-form": "^7.52.2",
     "react-icons": "^5.3.0",
+    "react-quill": "^2.0.0",
     "uuid": "^10.0.0",
     "zod": "^3.23.8"
   },

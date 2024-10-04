@@ -1,19 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "../../../node_modules/froala-editor/css/froala_style.min.css";
-import FroalaEditor from "react-froala-wysiwyg";
-import "../../../node_modules/froala-editor/css/froala_style.css";
-import "../../../node_modules/froala-editor/css/froala_editor.css";
-import "../../../node_modules/froala-editor/js/plugins/image.min.js";
-import "../../../node_modules/froala-editor/js/plugins/image_manager.min.js";
-import "../../../node_modules/froala-editor/js/plugins/align.min.js";
-import "../../../node_modules/froala-editor/js/plugins/paragraph_format.min.js";
-import "../../../node_modules/froala-editor/js/plugins/paragraph_style.min.js";
-import "../../../node_modules/froala-editor/js/plugins/align.min.js";
-import "../../../node_modules/froala-editor/js/plugins/lists.min.js";
-import "../../../node_modules/froala-editor/js/plugins/save.min.js";
-import "../../../node_modules/froala-editor/js/froala_editor.pkgd.min.js";
-import "../../../node_modules/froala-editor/js/froala_editor.min.js";
 import { v2 as cloudinary } from "cloudinary";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
@@ -23,8 +9,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { IoClose } from "react-icons/io5";
 
 import { useSession } from "next-auth/react";
-import { SubmitBlog } from "@/app/lib/services";
 import axios from "axios";
+
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 cloudinary.config({
   cloud_name: "ddvfwyoek",
@@ -32,10 +20,6 @@ cloudinary.config({
   api_secret: "Lk_axhjstubw3CycN61LQYceDUQ",
 });
 
-type BufferType = {
-  id: string;
-  buffer: Buffer;
-};
 
 type TextEditorFields = {
   blogtitle: string;
@@ -62,6 +46,10 @@ const page = () => {
 
   const [tags, setTags] = useState<string[]>([]);
 
+  const [image, setImage] = useState<File>();
+
+  const [imageUrl, setImageUrl] = useState('');
+
   const [errorTags, setErrorTags] = useState<boolean>(false);
 
   const { data: session, status } = useSession();
@@ -74,25 +62,44 @@ const page = () => {
     resolver: zodResolver(TextEditorScheme),
   });
 
-  const [images, setImages] = useState<BufferType[]>([]);
-
   const sendBlogInfo: SubmitHandler<TextEditorFields> = async (data) => {
     const blogtitle = data.blogtitle;
     const description = data.description;
     const body = blog;
 
-    // const dataInput = {
-    //   title: blogtitle,
-    //   description: description,
-    //   bodyContent: body,
-    //   tags: tags.join(','),
-    //   userId: session?.user.id as string
-    // };
-
     if (tags.length == 0) {
       setErrorTags(true);
       return;
     }
+
+    const bytes: any = await image?.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
+    const currentId = uuidv4();
+
+    await new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          {
+            public_id: currentId,
+          },
+          function (error, result) {
+            if (error) {
+              reject(error);
+              return;
+            }
+            resolve(result);
+          }
+        )
+        .end(buffer);
+    });
+
+    await fetch(`/api/search?publicId=${currentId}`)
+                          .then((res) => res.json())
+                          .then((d) => {
+                            setImageUrl(d.result.secure_url);
+                          });
+
 
     const resp = await axios.post("/api/sendblog", {
       title: blogtitle,
@@ -100,6 +107,7 @@ const page = () => {
       bodyContent: body,
       tags: tags.join(","),
       userId: session?.user.id as string,
+      imageUrl: imageUrl
     });
 
     setErrorTags(false);
@@ -175,11 +183,34 @@ const page = () => {
         </div>
 
         <div>
+          <label
+            htmlFor="image"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            Image
+          </label>
+          <div className="mt-2">
+            <input
+              id="image"
+              required
+              className="bg-white block w-full border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              type="file"
+              onChange={(e) => {
+                if (e.target.files) {
+                  setImage(e.target.files[0]);
+                }
+              }}
+            />
+            <span className="text-red-600 tracking-widest text-sm"></span>
+          </div>
+        </div>
+
+        <div>
           <label className="block text-sm font-medium leading-6 text-gray-900">
             Body
           </label>
           <div className="mt-2">
-            <FroalaEditor
+            {/* <FroalaEditor
               config={{
                 fontFamily: {
                   "Fira Mono, monospace": "Fira Mono",
@@ -274,6 +305,13 @@ const page = () => {
               model={blog}
               onModelChange={(e: string) => setBlog(e)}
               tag="textarea"
+            /> */}
+
+            <ReactQuill
+              className="bg-white"
+              theme="snow"
+              value={blog}
+              onChange={setBlog}
             />
 
             <span className="text-red-600 tracking-widest text-sm"></span>

@@ -10,12 +10,14 @@ export async function POST(request: NextRequest) {
     bodyContent,
     tags,
     userId,
+    imageUrl
   }: {
     title: string;
     description: string;
     bodyContent: string;
     tags: string;
     userId: string;
+    imageUrl: string
   } = body;
 
   const blog = await prisma.blog.create({
@@ -25,6 +27,7 @@ export async function POST(request: NextRequest) {
       body: bodyContent,
       tags: tags,
       userId: userId,
+      images: imageUrl
     },
   });
 

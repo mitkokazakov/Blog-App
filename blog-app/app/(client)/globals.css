@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.blog-content img{
+
+    width: 800px ;
+}
+
+.blog-content p {
+    font-style: italic;
+}

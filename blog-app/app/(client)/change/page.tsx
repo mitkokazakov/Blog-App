@@ -1,19 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "../../../node_modules/froala-editor/css/froala_style.min.css";
-import FroalaEditor from "react-froala-wysiwyg";
-import "../../../node_modules/froala-editor/css/froala_style.css";
-import "../../../node_modules/froala-editor/css/froala_editor.css";
-import "../../../node_modules/froala-editor/js/plugins/image.min.js";
-import "../../../node_modules/froala-editor/js/plugins/image_manager.min.js";
-import "../../../node_modules/froala-editor/js/plugins/align.min.js";
-import "../../../node_modules/froala-editor/js/plugins/paragraph_format.min.js";
-import "../../../node_modules/froala-editor/js/plugins/paragraph_style.min.js";
-import "../../../node_modules/froala-editor/js/plugins/align.min.js";
-import "../../../node_modules/froala-editor/js/plugins/lists.min.js";
-import "../../../node_modules/froala-editor/js/plugins/save.min.js";
-import "../../../node_modules/froala-editor/js/froala_editor.pkgd.min.js";
-import "../../../node_modules/froala-editor/js/froala_editor.min.js";
 import { v2 as cloudinary } from "cloudinary";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
@@ -176,7 +162,7 @@ const page = () => {
             Body
           </label>
           <div className="mt-2">
-            <FroalaEditor
+            {/* <FroalaEditor
               config={{
                 fontFamily: {
                   "Fira Mono, monospace": "Fira Mono",
@@ -271,7 +257,7 @@ const page = () => {
               model={blog}
               onModelChange={(e: string) => setBlog(e)}
               tag="textarea"
-            />
+            /> */}
 
             <span className="text-red-600 tracking-widest text-sm"></span>
           </div>
