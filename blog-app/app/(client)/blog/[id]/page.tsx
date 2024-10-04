@@ -43,8 +43,12 @@ const page = async ({ params }: ParamsType) => {
       </p>
 
       <div className="blog-content" dangerouslySetInnerHTML={{__html: firstBlog && body}}>
+
+        
         
       </div>
+
+      <img src={firstBlog?.images as string} alt="" />
     </div>
   );
 };

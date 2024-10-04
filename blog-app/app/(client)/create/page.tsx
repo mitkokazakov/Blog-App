@@ -48,8 +48,6 @@ const page = () => {
 
   const [image, setImage] = useState<File>();
 
-  const [imageUrl, setImageUrl] = useState('');
-
   const [errorTags, setErrorTags] = useState<boolean>(false);
 
   const { data: session, status } = useSession();
@@ -94,12 +92,15 @@ const page = () => {
         .end(buffer);
     });
 
+    let imageUrl = '';
     await fetch(`/api/search?publicId=${currentId}`)
                           .then((res) => res.json())
                           .then((d) => {
-                            setImageUrl(d.result.secure_url);
+                            //setImageUrl(d.result.secure_url);
+                            imageUrl = d.result.secure_url;
+                            
                           });
-
+                          
 
     const resp = await axios.post("/api/sendblog", {
       title: blogtitle,
@@ -311,7 +312,11 @@ const page = () => {
               className="bg-white"
               theme="snow"
               value={blog}
-              onChange={setBlog}
+              onChange={(e) => {
+                setBlog(e);
+                localStorage.setItem("blog", e);
+
+              }}
             />
 
             <span className="text-red-600 tracking-widest text-sm"></span>
