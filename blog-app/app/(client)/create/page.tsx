@@ -13,13 +13,13 @@ import axios from "axios";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useRouter } from "next/navigation";
 
 cloudinary.config({
   cloud_name: "ddvfwyoek",
   api_key: "419694577789571",
   api_secret: "Lk_axhjstubw3CycN61LQYceDUQ",
 });
-
 
 type TextEditorFields = {
   blogtitle: string;
@@ -43,6 +43,8 @@ const page = () => {
 
     return fromLocaleStorage;
   });
+
+  const router = useRouter();
 
   const [tags, setTags] = useState<string[]>([]);
 
@@ -92,24 +94,40 @@ const page = () => {
         .end(buffer);
     });
 
-    let imageUrl = '';
+    let imageUrl = "";
     await fetch(`/api/search?publicId=${currentId}`)
-                          .then((res) => res.json())
-                          .then((d) => {
-                            //setImageUrl(d.result.secure_url);
-                            imageUrl = d.result.secure_url;
-                            
-                          });
-                          
+      .then((res) => res.json())
+      .then((d) => {
+        //setImageUrl(d.result.secure_url);
+        imageUrl = d.result.secure_url;
+      });
 
-    const resp = await axios.post("/api/sendblog", {
-      title: blogtitle,
-      description: description,
-      bodyContent: body,
-      tags: tags.join(","),
-      userId: session?.user.id as string,
-      imageUrl: imageUrl
-    });
+    const blogId = uuidv4();
+
+    try {
+      const resp = await axios.post("/api/sendblog", {
+        id: blogId,
+        title: blogtitle,
+        description: description,
+        bodyContent: body,
+        tags: tags.join(","),
+        userId: session?.user.id as string,
+        imageUrl: imageUrl,
+      });
+
+      if (resp.request.status === 200) {
+        router.push(`/blog/${blogId}`);
+        alert("You have successfully added post!");
+        //toast.success("Registration was successfuly");
+      } else {
+        alert(resp.request.responseText);
+        //toast.error(resp.request.responseText);
+      }
+    } catch (error: any) {
+      router.push("/blogs");
+      alert(error.request.responseText);
+      //toast.error(error.request.responseText);
+    }
 
     setErrorTags(false);
   };
@@ -207,7 +225,10 @@ const page = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium leading-6 text-gray-900">
+          <label
+            htmlFor="body"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
             Body
           </label>
           <div className="mt-2">
@@ -309,13 +330,13 @@ const page = () => {
             /> */}
 
             <ReactQuill
+              id="body"
               className="bg-white"
               theme="snow"
               value={blog}
               onChange={(e) => {
                 setBlog(e);
                 localStorage.setItem("blog", e);
-
               }}
             />
 
@@ -326,7 +347,7 @@ const page = () => {
         <div>
           <div className="flex items-center justify-between">
             <label
-              htmlFor="password"
+              htmlFor="tags"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               Tags

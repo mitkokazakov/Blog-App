@@ -2,9 +2,20 @@ import Link from "next/link";
 import React from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { DateTime } from "next-auth/providers/kakao";
 
-const SingleBlog = async () => {
+type BlogProps = {
+  blogProps: {
+    date: DateTime;
+    title: string;
+    body: string;
+    description: string;
+    username: string;
+    tags: string[];
+  };
+};
 
+const SingleBlog = async ({ blogProps }: BlogProps) => {
   const session = await getServerSession(authOptions);
   return (
     <div className="w-full flex justify-center items-start md:gap-5 border-b-[0.1px] border-b-black py-4 md:max-w-[1440px]">
@@ -43,9 +54,14 @@ const SingleBlog = async () => {
           </div>
 
           <div>
-            {
-              session != null ? <Link href={'/change'} className="bg-yellow-200 px-3 py-2 rounded-lg">Change</Link> : null
-            }
+            {session != null ? (
+              <Link
+                href={"/change"}
+                className="bg-yellow-200 px-3 py-2 rounded-lg"
+              >
+                Change
+              </Link>
+            ) : null}
           </div>
         </div>
       </div>
