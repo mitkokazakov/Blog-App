@@ -3,10 +3,13 @@ import React from "react";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { GetAllBlogs } from "@/app/lib/services";
 
 const page = async () => {
 
   const session = await getServerSession(authOptions);
+
+  const blogs = await GetAllBlogs();
 
   return (
     <div className=" w-full min-h-screen bg-[#ffffd7] px-5 py-5 ">
@@ -17,9 +20,11 @@ const page = async () => {
       </div>
 
       <div className="w-full flex flex-col gap-8 md:items-center md:justify-center">
-        <SingleBlog />
-        <SingleBlog />
-        <SingleBlog />
+        {
+          blogs.map(blog => {
+            return <SingleBlog blogProps={blog}/>
+          })
+        }
       </div>
     </div>
   );

@@ -6,12 +6,12 @@ import { DateTime } from "next-auth/providers/kakao";
 
 type BlogProps = {
   blogProps: {
-    blogId: string,
+    id: string,
     createdAt: Date;
     title: string;
     body: string;
     description: string;
-    username: string;
+    username?: string;
     tags: string;
   };
 };

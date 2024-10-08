@@ -22,9 +22,6 @@ const page = async () => {
             return <SingleBlog blogProps={b}/>
           })
         }
-        {/* <SingleBlog />
-        <SingleBlog />
-        <SingleBlog /> */}
       </div>
     </div>
   )

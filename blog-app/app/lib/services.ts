@@ -54,7 +54,7 @@ export async function GetUser(userId: string) {
 }
 
 type SingleBlogProps = {
-  blogId: string;
+  id: string;
   createdAt: Date;
   title: string;
   body: string;
@@ -79,7 +79,7 @@ export async function GetAllUserBlogs(userId: string) {
 
   userBlogs?.map((blog) => {
     const currentBlog = {
-      blogId: blog.id,
+      id: blog.id,
       createdAt: blog.createdAt,
       title: blog.title,
       body: blog.body,
@@ -92,4 +92,11 @@ export async function GetAllUserBlogs(userId: string) {
   });
 
   return userBlogsArray;
+}
+
+export async function GetAllBlogs(){
+
+  const allBlogs = await prisma.blog.findMany();
+
+  return allBlogs;
 }
