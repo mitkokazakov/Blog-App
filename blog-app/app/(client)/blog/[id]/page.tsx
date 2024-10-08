@@ -1,5 +1,4 @@
 import React from "react";
-import prisma from "@/app/lib/prismadb";
 import { GetBlogById } from "@/app/lib/services";
 
 type ParamsType = {
@@ -9,19 +8,18 @@ type ParamsType = {
 };
 
 const page = async ({ params }: ParamsType) => {
-  const firstBlog = await prisma.blog.findFirst();
-
-  
-
   const blog = await GetBlogById(params.id);
 
   const day = blog?.createdAt.getDate().toString().padStart(2, "0");
+
   const month = blog?.createdAt
     .toLocaleString("en-EN", { month: "short" })
     .toUpperCase();
+
   const monthLong = blog?.createdAt.toLocaleString("en-EN", {
     month: "long",
   });
+
   const year = blog?.createdAt.getFullYear();
 
   const body: any = blog?.body as string;
@@ -47,8 +45,6 @@ const page = async ({ params }: ParamsType) => {
         className="blog-content"
         dangerouslySetInnerHTML={{ __html: blog && body }}
       ></div>
-
-      
     </div>
   );
 };

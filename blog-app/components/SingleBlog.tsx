@@ -62,7 +62,7 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
           <div>
             {session != null ? (
               <Link
-                href={"/change"}
+                href={`/change/${blogProps.id}`}
                 className="bg-yellow-200 px-3 py-2 rounded-lg"
               >
                 Change
