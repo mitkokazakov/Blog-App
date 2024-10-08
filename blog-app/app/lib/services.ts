@@ -100,3 +100,17 @@ export async function GetAllBlogs(){
 
   return allBlogs;
 }
+
+export async function GetBlogById(id: string){
+
+  const currentBlog = await prisma.blog.findFirst({
+    where:{
+      id: id
+    },
+    include:{
+      user: true
+    }
+  })
+
+  return currentBlog;
+}

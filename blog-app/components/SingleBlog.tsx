@@ -6,7 +6,7 @@ import { DateTime } from "next-auth/providers/kakao";
 
 type BlogProps = {
   blogProps: {
-    id: string,
+    id: string;
     createdAt: Date;
     title: string;
     body: string;
@@ -19,9 +19,13 @@ type BlogProps = {
 const SingleBlog = async ({ blogProps }: BlogProps) => {
   const session = await getServerSession(authOptions);
 
-  const day = blogProps.createdAt.getDate().toString().padStart(2,'0');
-  const month = blogProps.createdAt.toLocaleString('en-EN', { month: 'short' }).toUpperCase();
-  const monthLong = blogProps.createdAt.toLocaleString('en-EN', { month: 'long' });
+  const day = blogProps.createdAt.getDate().toString().padStart(2, "0");
+  const month = blogProps.createdAt
+    .toLocaleString("en-EN", { month: "short" })
+    .toUpperCase();
+  const monthLong = blogProps.createdAt.toLocaleString("en-EN", {
+    month: "long",
+  });
   const year = blogProps.createdAt.getFullYear();
 
   return (
@@ -33,10 +37,11 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
       </div>
 
       <div className="w-full flex flex-col gap-5 justify-center items-start">
-        <h1 className="text-xl font-bold tracking-wider">
-          {blogProps.title}
-          
-        </h1>
+        <Link href={`/blog/${blogProps.id}`}>
+          <h1 className="text-xl font-bold tracking-wider">
+            {blogProps.title}
+          </h1>
+        </Link>
 
         <p className="line-clamp-3 md:line-clamp-5 text-sm">
           {blogProps.description}
@@ -49,11 +54,9 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
 
         <div className="w-full flex justify-between items-center gap-3">
           <div className="flex justify-start items-center gap-3">
-            {
-              blogProps.tags.split(',').map(t => {
-                return <p className="cursor-pointer">#{t}</p>
-              })
-            }
+            {blogProps.tags.split(",").map((t) => {
+              return <p className="cursor-pointer">#{t}</p>;
+            })}
           </div>
 
           <div>
