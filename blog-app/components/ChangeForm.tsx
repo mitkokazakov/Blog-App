@@ -53,6 +53,10 @@ const page = ({ blogData }: BlogData) => {
   const [blog, setBlog] = useState(() => {
     let fromLocaleStorage = localStorage.getItem("changeBlog") || "";
 
+    if (!fromLocaleStorage) {
+      return blogData.body;
+    }
+
     return fromLocaleStorage;
   });
 
@@ -100,50 +104,66 @@ const page = ({ blogData }: BlogData) => {
 
     const currentId = uuidv4();
 
-    await new Promise((resolve, reject) => {
-      cloudinary.uploader
-        .upload_stream(
-          {
-            public_id: currentId,
-          },
-          function (error, result) {
-            if (error) {
-              reject(error);
-              return;
-            }
-            resolve(result);
-          }
-        )
-        .end(buffer);
-    });
+    // await new Promise((resolve, reject) => {
+    //   cloudinary.uploader
+    //     .upload_stream(
+    //       {
+    //         public_id: currentId,
+    //       },
+    //       function (error, result) {
+    //         if (error) {
+    //           reject(error);
+    //           return;
+    //         }
+    //         resolve(result);
+    //       }
+    //     )
+    //     .end(buffer);
+    // });
 
-    let imageUrl = "";
-    await fetch(`/api/search?publicId=${currentId}`)
-      .then((res) => res.json())
-      .then((d) => {
-        //setImageUrl(d.result.secure_url);
-        imageUrl = d.result.secure_url;
-      });
-
-    const blogId = uuidv4();
+    // let imageUrl = "";
+    // await fetch(`/api/search?publicId=${currentId}`)
+    //   .then((res) => res.json())
+    //   .then((d) => {
+    //     //setImageUrl(d.result.secure_url);
+    //     imageUrl = d.result.secure_url;
+    //   });
 
     try {
-      const resp = await axios.post("/api/sendblog", {
-        id: blogId,
-        title: blogtitle,
-        description: description,
-        bodyContent: body,
-        tags: tags.join(","),
-        userId: session?.user.id as string,
-        imageUrl: imageUrl,
+      // const resp = await axios.put(`/api/updateblog/${blogData.id}`, {
+      //   id: blogData.id,
+      //   title: blogtitle,
+      //   description: description,
+      //   bodyContent: body,
+      //   tags: tags.join(","),
+      //   userId: session?.user.id as string,
+      //   imageUrl: 'dddd',
+      // });
+
+      const resp = await fetch(`/api/updateblog/${blogData.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: blogData.id,
+          title: blogtitle,
+          description: description,
+          bodyContent: body,
+          tags: tags.join(","),
+          userId: session?.user.id as string,
+          imageUrl: "dddd",
+        }),
       });
 
-      if (resp.request.status === 200) {
-        router.push(`/blog/${blogId}`);
-        alert("You have successfully added post!");
+      if (resp.status === 200) {
+        console.log(resp);
+
+        router.push(`/blog/${blogData.id}`);
+        alert("You have successfully update post!");
         //toast.success("Registration was successfuly");
       } else {
-        alert(resp.request.responseText);
+        alert(resp.statusText);
         //toast.error(resp.request.responseText);
       }
     } catch (error: any) {
@@ -177,7 +197,7 @@ const page = ({ blogData }: BlogData) => {
         }
       }}
       onSubmit={handleSubmit(sendBlogInfo)}
-      method="POST"
+      method="PUT"
       className="space-y-6"
       encType="multipart/form-data"
     >
@@ -212,7 +232,7 @@ const page = ({ blogData }: BlogData) => {
         </label>
         <div className="mt-2">
           <textarea
-          value={description}
+            value={description}
             id="description"
             required
             className="block w-full border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
