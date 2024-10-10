@@ -1,10 +1,19 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(req: NextApiRequest, res: NextResponse){
+type UpdateParams = {
+    blogId: string
+}
 
-    //const {blogid} = req.query;
 
-    return NextResponse.json({message: `Okayy lets see the id ${req}`})
+export async function PUT(req: NextRequest, {params}: {params: UpdateParams}){
+
+    const blogId = params.blogId;
+
+    const body = await req.json();
+
+    const {id, title, description, bodyContent, tags, userId, imageUrl}:{ id: string; title: string, description: string, bodyContent: string, tags: string, userId: string, imageUrl: string } = body;
+
+    return NextResponse.json({message: `Okayy lets see the id ${blogId}`})
 
 }

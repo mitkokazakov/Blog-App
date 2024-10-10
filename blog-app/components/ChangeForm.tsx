@@ -51,14 +51,17 @@ type BlogData = {
 
 const page = ({ blogData }: BlogData) => {
   const [blog, setBlog] = useState(() => {
-    let fromLocaleStorage = localStorage.getItem("changeBlog") || "";
+    let fromLocaleStorage = localStorage.getItem("changeBlog");
 
-    if (!fromLocaleStorage) {
+    if (fromLocaleStorage == null || fromLocaleStorage == '') {
       return blogData.body;
     }
 
     return fromLocaleStorage;
   });
+
+  console.log(blog);
+  
 
   const router = useRouter();
 
@@ -130,37 +133,38 @@ const page = ({ blogData }: BlogData) => {
     //   });
 
     try {
-      // const resp = await axios.put(`/api/updateblog/${blogData.id}`, {
-      //   id: blogData.id,
-      //   title: blogtitle,
-      //   description: description,
-      //   bodyContent: body,
-      //   tags: tags.join(","),
-      //   userId: session?.user.id as string,
-      //   imageUrl: 'dddd',
-      // });
-
-      const resp = await fetch(`/api/updateblog/${blogData.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: blogData.id,
-          title: blogtitle,
-          description: description,
-          bodyContent: body,
-          tags: tags.join(","),
-          userId: session?.user.id as string,
-          imageUrl: "dddd",
-        }),
+      const resp = await axios.put(`/api/updateblog/${blogData.id}`, {
+        id: blogData.id,
+        title: blogtitle,
+        description: description,
+        bodyContent: body,
+        tags: tags.join(","),
+        userId: session?.user.id as string,
+        imageUrl: 'dddd',
       });
+
+      // const resp = await fetch(`/api/updateblog/${blogData.id}`, {
+      //   method: "PUT",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     id: blogData.id,
+      //     title: blogtitle,
+      //     description: description,
+      //     bodyContent: body,
+      //     tags: tags.join(","),
+      //     userId: session?.user.id as string,
+      //     imageUrl: "dddd",
+      //   }),
+      // });
 
       if (resp.status === 200) {
         console.log(resp);
 
         router.push(`/blog/${blogData.id}`);
         alert("You have successfully update post!");
+        localStorage.setItem("changeBlog", "");
         //toast.success("Registration was successfuly");
       } else {
         alert(resp.statusText);
