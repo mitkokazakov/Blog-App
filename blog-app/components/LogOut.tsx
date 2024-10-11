@@ -5,7 +5,7 @@ import React from 'react'
 const LogOut = () => {
   return (
     <div>
-       <button onClick={() => signOut()} className='font-medium'>Log Out</button>
+       <button onClick={() => signOut({redirect: true, callbackUrl: "/"})} className='font-medium'>Log Out</button>
     </div>
   )
 }

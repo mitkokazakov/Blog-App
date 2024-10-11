@@ -6,6 +6,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 const Navbar = async () => {
   const session = await getServerSession(authOptions);
 
+  const currentuserId = session?.user.id as string;
+
   const sessionStatus: boolean = session != null ? true : false;
 
   return (
@@ -16,7 +18,7 @@ const Navbar = async () => {
         </Link>
       </div>
 
-      <NavBarAuthPanel sessionStatus={sessionStatus} />
+      <NavBarAuthPanel sessionStatus={sessionStatus} userId={currentuserId}/>
     </div>
   );
 };

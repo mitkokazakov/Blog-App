@@ -1,23 +1,48 @@
-"use client"
-import Link from 'next/link';
-import React, { useState } from 'react'
+"use client";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { SlLogout } from "react-icons/sl";
 import { PiReadCvLogoLight } from "react-icons/pi";
-import LogOut from './LogOut';
+import LogOut from "./LogOut";
+import axios from "axios";
 
-const NavBarAuthPanel = ({sessionStatus}: {sessionStatus: boolean}) => {
+const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, userId: string }) => {
+  const [dropdownActive, setDropdown] = useState(false);
 
-    const [dropdownActive, setDropdown] = useState(false);
+  const [userImage, setUserImage] = useState<string>("");
 
-    const { data: session, status } = useSession();
+  const [userLetters, setUserLetters] = useState<string>("");
+  
+
+  useEffect(() => {
+    async function FetchUserImage() {
+      try {
+        
+        const response = await axios.get(`/api/userimage/${userId}`);
+
+        console.log(response);
+        
+
+        setUserImage(response?.data.user.image);
+
+        setUserLetters(response?.data.user.name[0].toUpperCase());
+      } catch (error: any) {
+        alert(error);
+        console.log(error);
+        
+      }
+    }
+
+    if (sessionStatus == true) {
+      FetchUserImage();
+    }
+  }, []);
 
   return (
     <div className="">
-      
-
       <div className="flex justify-center items-center gap-5">
         {sessionStatus == false ? (
           <Link href={"/"} className="text-xl tracking-widest font-medium">
@@ -36,12 +61,13 @@ const NavBarAuthPanel = ({sessionStatus}: {sessionStatus: boolean}) => {
             onClick={() => {
               setDropdown(!dropdownActive);
             }}
-            className="w-16 h-16 rounded-full bg-white flex justify-center items-center text-2xl cursor-pointer"
+            className="w-16 h-16 overflow-hidden rounded-full bg-white flex justify-center items-center text-2xl cursor-pointer"
           >
-            M
+            {userImage && <img src={userImage}></img>}
+
+            {userImage == null ? <p>{userLetters}</p> : null}
           </div>
         ) : null}
-
       </div>
 
       <div
@@ -90,7 +116,7 @@ const NavBarAuthPanel = ({sessionStatus}: {sessionStatus: boolean}) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NavBarAuthPanel
+export default NavBarAuthPanel;
