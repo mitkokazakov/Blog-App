@@ -106,7 +106,6 @@ const page = () => {
 
     try {
       const resp = await axios.post("/api/sendblog", {
-        id: blogId,
         title: blogtitle,
         description: description,
         bodyContent: body,
@@ -116,8 +115,11 @@ const page = () => {
       });
 
       if (resp.request.status === 200) {
-        router.push(`/blog/${blogId}`);
+        console.log(resp);
+        
+        router.push(`/blog/${resp.data.blog.id}`);
         alert("You have successfully added post!");
+        localStorage.setItem("blog", "")
         //toast.success("Registration was successfuly");
       } else {
         alert(resp.request.responseText);
