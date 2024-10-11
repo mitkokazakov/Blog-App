@@ -113,4 +113,6 @@ export async function GetBlogById(id: string){
   })
 
   return currentBlog;
+
+  
 }

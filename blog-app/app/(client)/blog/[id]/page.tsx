@@ -8,6 +8,7 @@ type ParamsType = {
 };
 
 const page = async ({ params }: ParamsType) => {
+
   const blog = await GetBlogById(params.id);
 
   const day = blog?.createdAt.getDate().toString().padStart(2, "0");
@@ -23,6 +24,10 @@ const page = async ({ params }: ParamsType) => {
   const year = blog?.createdAt.getFullYear();
 
   const body: any = blog?.body as string;
+
+  if(!blog){
+    return <h1>Blog with that id does not exist. Sorry!</h1>
+  }
 
   return (
     <div className="px-5 py-8 max-w-[1440px] mx-auto">
