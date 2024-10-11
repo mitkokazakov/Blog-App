@@ -53,15 +53,12 @@ const page = ({ blogData }: BlogData) => {
   const [blog, setBlog] = useState(() => {
     let fromLocaleStorage = localStorage.getItem("changeBlog");
 
-    if (fromLocaleStorage == null || fromLocaleStorage == '') {
+    if (fromLocaleStorage == null || fromLocaleStorage == "") {
       return blogData.body;
     }
 
     return fromLocaleStorage;
   });
-
-  console.log(blog);
-  
 
   const router = useRouter();
 
@@ -102,35 +99,38 @@ const page = ({ blogData }: BlogData) => {
       return;
     }
 
-    const bytes: any = await image?.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    let imageUrl = null
 
-    const currentId = uuidv4();
+    if (image) {
+      const bytes: any = await image?.arrayBuffer();
+      const buffer = Buffer.from(bytes);
 
-    // await new Promise((resolve, reject) => {
-    //   cloudinary.uploader
-    //     .upload_stream(
-    //       {
-    //         public_id: currentId,
-    //       },
-    //       function (error, result) {
-    //         if (error) {
-    //           reject(error);
-    //           return;
-    //         }
-    //         resolve(result);
-    //       }
-    //     )
-    //     .end(buffer);
-    // });
+      const currentId = uuidv4();
 
-    // let imageUrl = "";
-    // await fetch(`/api/search?publicId=${currentId}`)
-    //   .then((res) => res.json())
-    //   .then((d) => {
-    //     //setImageUrl(d.result.secure_url);
-    //     imageUrl = d.result.secure_url;
-    //   });
+      await new Promise((resolve, reject) => {
+        cloudinary.uploader
+          .upload_stream(
+            {
+              public_id: currentId,
+            },
+            function (error, result) {
+              if (error) {
+                reject(error);
+                return;
+              }
+              resolve(result);
+            }
+          )
+          .end(buffer);
+      });
+
+      await fetch(`/api/search?publicId=${currentId}`)
+        .then((res) => res.json())
+        .then((d) => {
+          //setImageUrl(d.result.secure_url);
+          imageUrl = d.result.secure_url;
+        });
+    }
 
     try {
       const resp = await axios.put(`/api/updateblog/${blogData.id}`, {
@@ -140,24 +140,8 @@ const page = ({ blogData }: BlogData) => {
         bodyContent: body,
         tags: tags.join(","),
         userId: session?.user.id as string,
-        imageUrl: 'dddd',
+        imageUrl: imageUrl,
       });
-
-      // const resp = await fetch(`/api/updateblog/${blogData.id}`, {
-      //   method: "PUT",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     id: blogData.id,
-      //     title: blogtitle,
-      //     description: description,
-      //     bodyContent: body,
-      //     tags: tags.join(","),
-      //     userId: session?.user.id as string,
-      //     imageUrl: "dddd",
-      //   }),
-      // });
 
       if (resp.status === 200) {
         console.log(resp);
@@ -220,6 +204,9 @@ const page = ({ blogData }: BlogData) => {
             required
             className="block w-full border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             {...register("blogtitle")}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
           />
           <span className="text-red-600 tracking-widest text-sm">
             {errors.blogtitle?.message}
@@ -242,6 +229,9 @@ const page = ({ blogData }: BlogData) => {
             className="block w-full border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             rows={7}
             {...register("description")}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
           />
           <span className="text-red-600 tracking-widest text-sm">
             {errors.description?.message}
@@ -259,7 +249,6 @@ const page = ({ blogData }: BlogData) => {
         <div className="mt-2">
           <input
             id="image"
-            required
             className="bg-white block w-full border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             type="file"
             onChange={(e) => {

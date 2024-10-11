@@ -1,3 +1,4 @@
+import prisma from "@/app/lib/prismadb";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -14,6 +15,26 @@ export async function PUT(req: NextRequest, {params}: {params: UpdateParams}){
 
     const {id, title, description, bodyContent, tags, userId, imageUrl}:{ id: string; title: string, description: string, bodyContent: string, tags: string, userId: string, imageUrl: string } = body;
 
-    return NextResponse.json({message: `Okayy lets see the id ${blogId}`})
+    const currentBlog = await prisma.blog.findFirst({
+        where: {
+            id: blogId
+        }
+    });
+
+    const updatedBlog = await prisma.blog.update({
+        data:{
+            title: title,
+            description: description,
+            body: bodyContent,
+            tags: tags,
+            images: imageUrl == null ? currentBlog?.images : imageUrl,
+            createdAt: new Date(),
+        },
+        where:{
+            id: blogId
+        }
+    })
+
+    return NextResponse.json({message: `The Blog is updated successfully`})
 
 }
