@@ -139,3 +139,17 @@ export async function GetAllUsers(){
 
   return users;
 }
+
+export async function GetUserByIdWithBlogs(userId: string){
+
+  const currentUser = prisma.user.findFirst({
+    where: {
+      id: userId,
+    },
+    include:{
+      blogs: true
+    }
+  });
+
+  return currentUser;
+}

@@ -4,6 +4,7 @@ import "../../globals.css";
 import Image from "next/image";
 import { GetAllUsers } from "@/app/lib/services";
 import UserRow from "@/components/AdminComponents/UserRow";
+import UsersTable from "@/components/AdminComponents/UsersTable";
 
 //import image1 from '../../../../images/user.png';
 
@@ -39,7 +40,8 @@ const page = async ({ searchParams }: UsersFilterParams) => {
         <h1 className="font-bold tracking-widest text-2xl">All Users</h1>
       </div>
 
-      <div className="flex flex-col gap-8">
+      <UsersTable users={users} />
+      {/* <div className="flex flex-col gap-8">
         <div className="flex justify-between">
           <input
             type="text"
@@ -79,40 +81,6 @@ const page = async ({ searchParams }: UsersFilterParams) => {
               </tr>
             </thead>
             <tbody>
-              {/* <tr>
-                <td className="text-left border border-slate-800 px-4 py-4 ">
-                  <div className="flex justify-start items-center gap-5">
-                    <div className="w-12 h-12 rounded-full flex justify-center items-center ">
-                      
-                      <img src="/user.png" alt="op" className="w-full h-full rounded-full"/>
-                    </div>
-                    <p>Mitko Kazakov</p>
-                  </div>
-                </td>
-                <td className="text-left border border-slate-800 px-4 py-4">
-                  dimitark@gmail.com
-                </td>
-                <td className="text-left border border-slate-800 px-4 py-4">
-                  Nov 04 2024
-                </td>
-                <td className="text-left border border-slate-800 px-4 py-4">
-                  client
-                </td>
-                <td className="text-left border border-slate-800 px-4 py-4">
-                  active
-                </td>
-                <td className="text-left border border-slate-800 px-4 py-4 ">
-                  <Link
-                    href={"/dashboard/users/33"}
-                    className="bg-green-500 px-3 py-1 rounded-lg mr-5"
-                  >
-                    View
-                  </Link>
-                  <Link href={"/"} className="bg-red-500 px-3 py-1 rounded-lg">
-                    Delete
-                  </Link>
-                </td>
-              </tr> */}
 
               {
                 users && users?.map(user => {
@@ -122,7 +90,7 @@ const page = async ({ searchParams }: UsersFilterParams) => {
             </tbody>
           </table>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

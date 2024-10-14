@@ -1,7 +1,18 @@
+import { GetUserByIdWithBlogs } from '@/app/lib/services'
+import BlogRow from '@/components/AdminComponents/BlogRow'
 import Link from 'next/link'
 import React from 'react'
 
-const page = () => {
+type UserParams = {
+  params:{
+    userId: string
+  }
+}
+
+const page = async ({params}: UserParams) => {
+
+  const user = await GetUserByIdWithBlogs(params.userId);
+
   return (
     <div className='w-full bg-[#0f0f11] h-screen text-white flex flex-col gap-8 px-10 py-10'>
      <div>
@@ -9,14 +20,19 @@ const page = () => {
       </div>
 
       <div className='flex justify-center items-center gap-40'>
-        <div className='w-72 h-72 rounded-full'>
-            <img src="/user.png" alt="user" className='w-full h-full rounded-full'/>
+        <div className='w-72 h-72 rounded-full overflow-hidden'>
+            {
+              user?.image != null ? <img src={user?.image as string} alt="user" className='w-full h-full rounded-full'/> : null
+            }
+            {
+              user?.image == null ? <img src="https://i2.pngimg.me/thumb/f/720/freesvgorg44928.jpg" alt="user" className='w-full h-full rounded-full bg-white'/> : null
+            }
         </div>
 
         <div className='flex flex-col justify-start items-start gap-5'>
-            <h1 className='text-2xl font-bold tracking-widest'>Mitko Kazakov</h1>
+            <h1 className='text-2xl font-bold tracking-widest'>{user?.name}</h1>
             <p>Phone Number: <span className='font-bold tracking-widest'>08966523223</span></p>
-            <p>Email: <span className='font-bold tracking-widest'>dimitark@gmail.com</span></p>
+            <p>Email: <span className='font-bold tracking-widest'>{user?.email}</span></p>
         </div>
       </div>
 
@@ -42,31 +58,11 @@ const page = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="text-left border border-slate-800 px-4 py-4 ">
-                  <p className=' line-clamp-1'>Best places to see the northern lights</p>
-                </td>
-                <td className="text-left border border-slate-800 px-4 py-4 ">
-                  <p className=' line-clamp-1 max-w-[300px]'>The best places to see the northern light is probably Norway, Finland, Iceland and Canada.</p> 
-                </td>
-                <td className="text-left border border-slate-800 px-4 py-4">
-                  Nov 04 2024
-                </td>
-                <td className="text-left border border-slate-800 px-4 py-4">
-                  approved
-                </td>
-                <td className="text-left border border-slate-800 px-4 py-4 ">
-                  <Link
-                    href={"/dashboard/users/33"}
-                    className="bg-green-500 px-3 py-1 rounded-lg mr-5"
-                  >
-                    View
-                  </Link>
-                  <Link href={"/"} className="bg-red-500 px-3 py-1 rounded-lg">
-                    Delete
-                  </Link>
-                </td>
-              </tr>
+              {
+                user?.blogs.map(blog => {
+                  return <BlogRow blogProps={blog}/>
+                })
+              }
             </tbody>
           </table>
       </div>

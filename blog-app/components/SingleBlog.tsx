@@ -23,15 +23,6 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
 
   const dateInfo  = ExtractDayYearMonth(blogProps.createdAt);
 
-  const day = blogProps.createdAt.getDate().toString().padStart(2, "0");
-  const month = blogProps.createdAt
-    .toLocaleString("en-EN", { month: "short" })
-    .toUpperCase();
-  const monthLong = blogProps.createdAt.toLocaleString("en-EN", {
-    month: "long",
-  });
-  const year = blogProps.createdAt.getFullYear();
-
   return (
     <div className="w-full flex justify-center items-start md:gap-5 border-b-[0.1px] border-b-black py-4 md:max-w-[1440px]">
       <div className="hidden md:flex md:flex-col justify-center items-end">

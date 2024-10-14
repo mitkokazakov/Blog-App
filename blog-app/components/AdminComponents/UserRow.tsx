@@ -2,6 +2,8 @@ import { ExtractDayYearMonth } from "@/app/lib/helpers";
 import Link from "next/link";
 import React from "react";
 
+import { FaRegUser } from "react-icons/fa";
+
 type UserRowParams = {
   id: string;
   name: string | null;
@@ -28,12 +30,18 @@ const UserRow = ({
     <tr>
       <td className="text-left border border-slate-800 px-4 py-4 ">
         <div className="flex justify-start items-center gap-5">
-          <div className="w-12 h-12 rounded-full flex justify-center items-center ">
-            <img
-              src={image}
-              alt="op"
-              className="w-full h-full rounded-full"
-            />
+          <div className="w-12 h-12 rounded-full flex justify-center items-center bg-white">
+            {
+                image != null ? <img
+                src={image}
+                alt="op"
+                className="w-full h-full rounded-full"
+              /> : null
+            }
+
+            {
+                image == null ? <FaRegUser className="text-3xl text-black" /> : null
+            }
           </div>
           <p>{name}</p>
         </div>
@@ -48,7 +56,7 @@ const UserRow = ({
       <td className="text-left border border-slate-800 px-4 py-4">{isDeleted == true ? "deleted" : "active"}</td>
       <td className="text-left border border-slate-800 px-4 py-4 ">
         <Link
-          href={"/dashboard/users/33"}
+          href={`/dashboard/users/${id}`}
           className="bg-green-500 px-3 py-1 rounded-lg mr-5"
         >
           View
