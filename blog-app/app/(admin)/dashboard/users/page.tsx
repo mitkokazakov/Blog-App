@@ -2,6 +2,8 @@ import Link from "next/link";
 import React from "react";
 import "../../globals.css";
 import Image from "next/image";
+import { GetAllUsers } from "@/app/lib/services";
+import UserRow from "@/components/AdminComponents/UserRow";
 
 //import image1 from '../../../../images/user.png';
 
@@ -11,7 +13,7 @@ type UsersFilterParams = {
   };
 };
 
-const page = ({ searchParams }: UsersFilterParams) => {
+const page = async ({ searchParams }: UsersFilterParams) => {
   // const data: number[] = [1, 2, 3, 4, 20, 34, 45, 55];
 
   // console.log(searchParams.tab);
@@ -28,6 +30,8 @@ const page = ({ searchParams }: UsersFilterParams) => {
   // if (searchParams.tab == "all") {
   //   filteredData = data;
   // }
+
+  const users = await GetAllUsers();
 
   return (
     <div className="w-full bg-[#0f0f11] h-screen text-white flex flex-col gap-8 px-10 py-10">
@@ -75,17 +79,11 @@ const page = ({ searchParams }: UsersFilterParams) => {
               </tr>
             </thead>
             <tbody>
-              <tr>
+              {/* <tr>
                 <td className="text-left border border-slate-800 px-4 py-4 ">
                   <div className="flex justify-start items-center gap-5">
                     <div className="w-12 h-12 rounded-full flex justify-center items-center ">
-                      {/* <Image
-                        src="/user.png"
-                        width={40}
-                        height={40}
-                        alt="Picture of the author"
-                        className="rounded-full"
-                      /> */}
+                      
                       <img src="/user.png" alt="op" className="w-full h-full rounded-full"/>
                     </div>
                     <p>Mitko Kazakov</p>
@@ -114,7 +112,13 @@ const page = ({ searchParams }: UsersFilterParams) => {
                     Delete
                   </Link>
                 </td>
-              </tr>
+              </tr> */}
+
+              {
+                users && users?.map(user => {
+                  return <UserRow id={user.id} name={user.name} email={user.email as string} createdAt={user.createdAt} isDeleted={user.isDeleted} image={user.image as string} role={user.role as string} />
+                })
+              }
             </tbody>
           </table>
         </div>

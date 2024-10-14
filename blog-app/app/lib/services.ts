@@ -61,6 +61,7 @@ type SingleBlogProps = {
   description: string;
   username: string;
   tags: string;
+  userId: string
 };
 
 export async function GetAllUserBlogs(userId: string) {
@@ -86,6 +87,7 @@ export async function GetAllUserBlogs(userId: string) {
       description: blog.description,
       username: currentUser?.name as string,
       tags: blog.tags,
+      userId: blog.userId
     };
 
     userBlogsArray.push(currentBlog)
@@ -96,7 +98,11 @@ export async function GetAllUserBlogs(userId: string) {
 
 export async function GetAllBlogs(){
 
-  const allBlogs = await prisma.blog.findMany();
+  const allBlogs = await prisma.blog.findMany({
+    include:{
+      user: true
+    }
+  });
 
   return allBlogs;
 }
@@ -115,4 +121,21 @@ export async function GetBlogById(id: string){
   return currentBlog;
 
   
+}
+
+export async function GetAllUsers(){
+
+  const users = await prisma.user.findMany({
+    select:{
+      id: true,
+      image: true,
+      name: true,
+      isDeleted: true,
+      createdAt: true,
+      role: true,
+      email: true
+    }
+  });
+
+  return users;
 }
