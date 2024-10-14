@@ -3,6 +3,7 @@ import React from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { DateTime } from "next-auth/providers/kakao";
+import { ExtractDayYearMonth } from "@/app/lib/helpers";
 
 type BlogProps = {
   blogProps: {
@@ -13,11 +14,14 @@ type BlogProps = {
     description: string;
     username?: string;
     tags: string;
+    userId: string
   };
 };
 
 const SingleBlog = async ({ blogProps }: BlogProps) => {
   const session = await getServerSession(authOptions);
+
+  const dateInfo  = ExtractDayYearMonth(blogProps.createdAt);
 
   const day = blogProps.createdAt.getDate().toString().padStart(2, "0");
   const month = blogProps.createdAt
@@ -31,9 +35,9 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
   return (
     <div className="w-full flex justify-center items-start md:gap-5 border-b-[0.1px] border-b-black py-4 md:max-w-[1440px]">
       <div className="hidden md:flex md:flex-col justify-center items-end">
-        <p className="text-lg font-bold">{day}</p>
-        <p className="text-lg font-bold">{month}</p>
-        <p className="text-lg font-bold">{year}</p>
+        <p className="text-lg font-bold">{dateInfo.day}</p>
+        <p className="text-lg font-bold">{dateInfo.monthShort.toUpperCase()}</p>
+        <p className="text-lg font-bold">{dateInfo.year}</p>
       </div>
 
       <div className="w-full flex flex-col gap-5 justify-center items-start">
@@ -48,7 +52,7 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
         </p>
 
         <div className="w-full flex justify-between items-center md:justify-end">
-          <p className="md:hidden">{`${day} ${monthLong} ${year}`}</p>
+          <p className="md:hidden">{`${dateInfo.day} ${dateInfo.monthLong} ${dateInfo.year}`}</p>
           <p>{blogProps.username}</p>
         </div>
 
@@ -60,7 +64,7 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
           </div>
 
           <div>
-            {session != null ? (
+            {session?.user.id == blogProps.userId ? (
               <Link
                 href={`/change/${blogProps.id}`}
                 className="bg-yellow-200 px-3 py-2 rounded-lg"

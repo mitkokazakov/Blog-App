@@ -120,6 +120,7 @@ const page = () => {
         router.push(`/blog/${resp.data.blog.id}`);
         alert("You have successfully added post!");
         localStorage.setItem("blog", "")
+        router.refresh();
         //toast.success("Registration was successfuly");
       } else {
         alert(resp.request.responseText);
