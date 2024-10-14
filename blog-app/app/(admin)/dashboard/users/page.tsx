@@ -41,56 +41,7 @@ const page = async ({ searchParams }: UsersFilterParams) => {
       </div>
 
       <UsersTable users={users} />
-      {/* <div className="flex flex-col gap-8">
-        <div className="flex justify-between">
-          <input
-            type="text"
-            name="username"
-            id="username"
-            className="px-4 py-1 bg-slate-800 rounded-lg"
-            placeholder="Search for a user"
-          />
-
-          <Link href={"/"} className="bg-purple-600 px-3 py-2 rounded-lg">
-            Add User
-          </Link>
-        </div>
-
-        <div>
-          <table className="table-auto border-collapse border border-slate-400 w-full">
-            <thead>
-              <tr>
-                <th className="text-left border border-slate-800 px-4 py-4">
-                  Name
-                </th>
-                <th className="text-left border border-slate-800 px-4 py-4">
-                  Email
-                </th>
-                <th className="text-left border border-slate-800 px-4 py-4">
-                  Created at
-                </th>
-                <th className="text-left border border-slate-800 px-4 py-4">
-                  Role
-                </th>
-                <th className="text-left border border-slate-800 px-4 py-4">
-                  Status
-                </th>
-                <th className="text-left border border-slate-800 px-4 py-4">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-
-              {
-                users && users?.map(user => {
-                  return <UserRow id={user.id} name={user.name} email={user.email as string} createdAt={user.createdAt} isDeleted={user.isDeleted} image={user.image as string} role={user.role as string} />
-                })
-              }
-            </tbody>
-          </table>
-        </div>
-      </div> */}
+      
     </div>
   );
 };
