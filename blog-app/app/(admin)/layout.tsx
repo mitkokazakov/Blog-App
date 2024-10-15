@@ -3,7 +3,7 @@ import { Fira_Code } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 
-const fira = Fira_Code({ subsets: ["latin"] });
+const fira = Fira_Code({ subsets: ["cyrillic"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",

@@ -22,7 +22,7 @@ const page = async () => {
       <div className="w-full flex flex-col gap-8 md:items-center md:justify-center">
         {
           blogs.map(blog => {
-            return <SingleBlog blogProps={blog}/>
+            return <SingleBlog key={blog.id} blogProps={blog}/>
           })
         }
       </div>

@@ -60,7 +60,7 @@ const page = async ({params}: UserParams) => {
             <tbody>
               {
                 user?.blogs.map(blog => {
-                  return <BlogRow blogProps={blog}/>
+                  return <BlogRow key={blog.id} blogProps={blog}/>
                 })
               }
             </tbody>

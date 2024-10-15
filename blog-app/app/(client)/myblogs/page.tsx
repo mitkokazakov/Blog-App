@@ -19,7 +19,7 @@ const page = async () => {
 
         {
           blogs.map(b => {
-            return <SingleBlog blogProps={b}/>
+            return <SingleBlog key={b.id} blogProps={b}/>
           })
         }
       </div>

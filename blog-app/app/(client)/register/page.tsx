@@ -28,7 +28,7 @@ const page = async () => {
           </h2>
         </div>
 
-        <RegisterForm />
+        <RegisterForm color={"gray-900"} />
         
       </div>
     </div>

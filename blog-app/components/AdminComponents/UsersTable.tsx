@@ -40,7 +40,7 @@ const UsersTable = ({users}: UserProps) => {
           onChange={(e) => {OnChangeInput(e.target.value)}}
         />
 
-        <Link href={"/"} className="bg-purple-600 px-3 py-2 rounded-lg">
+        <Link href={"/dashboard/registeruser"} className="bg-purple-600 px-3 py-2 rounded-lg">
           Add User
         </Link>
       </div>

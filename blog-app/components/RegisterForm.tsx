@@ -23,7 +23,7 @@ const RegisterSchema = z.object({
     .min(4, { message: "Password should be at least 4 characters long!" }),
 });
 
-const RegisterForm = () => {
+const RegisterForm = ({color}: {color: string}) => {
   const router = useRouter();
 
   const {
@@ -75,7 +75,7 @@ const RegisterForm = () => {
         <div>
           <label
             htmlFor="name"
-            className="block text-sm font-medium leading-6 text-gray-900"
+            className={`block text-sm font-medium leading-6 text-${color}`}
           >
             Full Name
           </label>
@@ -96,7 +96,7 @@ const RegisterForm = () => {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium leading-6 text-gray-900"
+            className={`block text-sm font-medium leading-6 text-${color}`}
           >
             Email address
           </label>
@@ -119,7 +119,7 @@ const RegisterForm = () => {
           <div className="flex items-center justify-between">
             <label
               htmlFor="password"
-              className="block text-sm font-medium leading-6 text-gray-900"
+              className={`block text-sm font-medium leading-6 text-${color}`}
             >
               Password
             </label>
