@@ -1,9 +1,7 @@
-import Link from "next/link";
+
 import React from "react";
 import "../../globals.css";
-import Image from "next/image";
 import { GetAllUsers } from "@/app/lib/services";
-import UserRow from "@/components/AdminComponents/UserRow";
 import UsersTable from "@/components/AdminComponents/UsersTable";
 
 //import image1 from '../../../../images/user.png';
@@ -15,22 +13,7 @@ type UsersFilterParams = {
 };
 
 const page = async ({ searchParams }: UsersFilterParams) => {
-  // const data: number[] = [1, 2, 3, 4, 20, 34, 45, 55];
-
-  // console.log(searchParams.tab);
-
-  // let filteredData: number[] = data;
-
-  // if (searchParams.tab == "below") {
-  //   filteredData = data.filter((num) => num < 18);
-  // }
-
-  // if (searchParams.tab == "above") {
-  //   filteredData = data.filter((num) => num > 18);
-  // }
-  // if (searchParams.tab == "all") {
-  //   filteredData = data;
-  // }
+  
 
   const users = await GetAllUsers();
 

@@ -43,7 +43,7 @@ export default async function Home() {
             <div
               className="w-full bg-[#ffffd7] px-8 py-2 cursor-pointer opacity-80 hover:opacity-100 font-medium text-xl tracking-widest text-center sm:w-64"
             >
-              <LogOut />
+              <LogOut color={"black"}/>
             </div>
           ) : null}
           <p className="font-bold text-xl text-white">OR</p>

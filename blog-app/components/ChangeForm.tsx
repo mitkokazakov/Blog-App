@@ -38,18 +38,8 @@ const TextEditorScheme = z.object({
     .min(4, { message: "Description should be at least 4 characters long!" }),
 });
 
-type BlogData = {
-  blogData: {
-    id: string;
-    createdAt: Date;
-    title: string;
-    body: string;
-    description: string;
-    tags: string;
-  };
-};
 
-const page = ({ blogData }: BlogData) => {
+const page = ({ blogData }: ChangeBlogType) => {
   const [blog, setBlog] = useState(() => {
     let fromLocaleStorage = localStorage.getItem("changeBlog");
 

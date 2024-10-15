@@ -1,6 +1,5 @@
 import { GetUserByIdWithBlogs } from '@/app/lib/services'
 import BlogRow from '@/components/AdminComponents/BlogRow'
-import Link from 'next/link'
 import React from 'react'
 
 type UserParams = {

@@ -7,11 +7,6 @@ import RegisterForm from "@/components/RegisterForm";
 
 const page = async () => {
 
-  // const session = await getServerSession(authOptions)
-
-  // if(session){
-  //   redirect("/");
-  // }
 
 
   return (
