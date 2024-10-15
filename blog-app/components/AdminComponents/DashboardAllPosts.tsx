@@ -145,18 +145,18 @@ const DashboardAllPosts = ({ tab, allPosts }: { tab: string, allPosts: BlogType[
             </tr>
           </thead>
           <tbody>
-            {filteredData?.map((p) => {
+            {filteredData?.map((blog) => {
 
-              const dateInfo = ExtractDayYearMonth(p.createdAt);
+              const dateInfo = ExtractDayYearMonth(blog.createdAt);
 
               return (
-                <tr key={p.id}>
+                <tr key={blog.id}>
                   <td className="text-left border border-slate-800 px-4 py-4 ">
-                    <p className=" line-clamp-1">{p.title}</p>
+                    <p className=" line-clamp-1">{blog.title}</p>
                   </td>
                   <td className="text-left border border-slate-800 px-4 py-4 ">
                     <p className=" line-clamp-1 max-w-[300px]">
-                      {p.description}
+                      {blog.description}
                     </p>
                   </td>
                   <td className="text-left border border-slate-800 px-4 py-4">
@@ -164,12 +164,12 @@ const DashboardAllPosts = ({ tab, allPosts }: { tab: string, allPosts: BlogType[
                   </td>
                   <td className="text-left border border-slate-800 px-4 py-4">
                     {
-                      p.isApproved == true ? "approved" : "not approved"
+                      blog.isApproved == true ? "approved" : "not approved"
                     }
                   </td>
                   <td className="text-left border border-slate-800 px-4 py-4 ">
                     <Link
-                      href={"/dashboard/users/33"}
+                      href={`/blog/${blog.id}`}
                       className="bg-green-500 px-3 py-1 rounded-lg mr-5"
                     >
                       View

@@ -42,12 +42,12 @@ const page = async ({ params }: ParamsType) => {
         <p>{blog?.user.name}</p>
       </div>
 
-      <p className="mt-5">{blog?.description}</p>
+      <p className="mt-5 text-lg font-medium mb-5">{blog?.description}</p>
 
-      <img src={blog?.images as string} alt="" />
+      <img src={blog?.images as string} alt="" className="w-full max-h-[700px] mb-5"/>
 
       <div
-        className="blog-content"
+        className="blog-content text-lg "
         dangerouslySetInnerHTML={{ __html: blog && body }}
       ></div>
     </div>
