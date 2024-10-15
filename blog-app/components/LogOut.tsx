@@ -2,10 +2,10 @@
 import { signOut } from 'next-auth/react'
 import React from 'react'
 
-const LogOut = () => {
+const LogOut = ({color}: {color: string}) => {
   return (
     <div>
-       <button onClick={() => signOut({redirect: true, callbackUrl: "/"})} className='font-medium'>Log Out</button>
+       <button onClick={() => signOut({redirect: true, callbackUrl: "/"})} className={`font-medium text-${color}`}>Log Out</button>
     </div>
   )
 }

@@ -71,7 +71,7 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
       </div>
 
       <div
-        className={`absolute overflow-hidden min-w-[250px] right-3 lg:right-20 top-[101%] rounded-3xl bg-transparent backdrop-blur-sm flex flex-col gap-9 justify-start items-start px-8 py-5 duration-500 ${
+        className={`absolute bg-white overflow-hidden min-w-[250px] right-3 lg:right-20 top-[101%] rounded-3xl bg-transparent backdrop-blur-sm flex flex-col gap-9 justify-start items-start px-8 py-5 duration-500 ${
           dropdownActive
             ? "h-64 opacity-1 pointer-events-auto"
             : "h-0 opacity-0 pointer-events-none"
@@ -81,10 +81,10 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
           onClick={() => {
             setDropdown(!dropdownActive);
           }}
-          className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 hover:bg-[#fffbc2]"
+          className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 "
         >
-          <PiReadCvLogoLight className="text-2xl" />
-          <Link href={"/blogs"} className="font-medium">
+          <PiReadCvLogoLight className="text-2xl text-black" />
+          <Link href={"/blogs"} className="font-medium text-black ">
             All Blogs
           </Link>
         </div>
@@ -94,13 +94,13 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
           onClick={() => {
             setDropdown(!dropdownActive);
           }}
-          className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 hover:bg-[#fffbc2]"
+          className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 "
         >
-          <SlLogout className="text-2xl" />
+          <SlLogout className="text-2xl text-black" />
           {/* <Link href={"/"} className="font-medium">
             Log Out
           </Link> */}
-          <LogOut />
+          <LogOut color={"black"}/>
         </div>
       </div>
     </div>

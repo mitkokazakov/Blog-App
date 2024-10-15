@@ -1,4 +1,6 @@
 "use client";
+import { ExtractDayYearMonth } from "@/app/lib/helpers";
+import { all } from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -45,9 +47,9 @@ const data: PostType[] = [
   },
 ];
 
-const DashboardAllPosts = ({ tab }: { tab: string }) => {
-  const [inputSearch, setInputSearch] = useState("");
-  const [filteredData, SetFilteredData] = useState<PostType[]>(data);
+const DashboardAllPosts = ({ tab, allPosts }: { tab: string, allPosts: BlogType[] }) => {
+  const [filteredData, SetFilteredData] = useState<BlogType[]>(allPosts);
+  const [posts, SetPosts] = useState<PostType[]>(data);
 
   //let filteredData = data;
 
@@ -55,20 +57,20 @@ const DashboardAllPosts = ({ tab }: { tab: string }) => {
     if (tab == "approved") {
         //filteredData = data.filter((p) => p.status == "approved");
 
-        const tempData = data.filter(p => p.status == "approved")
+        const tempData = allPosts.filter(p => p.isApproved == true)
 
         SetFilteredData(tempData)
       }
       if (tab == "not approved") {
         //filteredData = data.filter((p) => p.status == "not approved");
 
-        const tempData = data.filter(p => p.status == "not approved")
+        const tempData = allPosts.filter(p => p.isApproved == false)
 
         SetFilteredData(tempData)
       }
       if (tab == "all") {
         //filteredData = data;
-        SetFilteredData(data)
+        SetFilteredData(allPosts)
       }
   },[tab])
 
@@ -76,7 +78,7 @@ const DashboardAllPosts = ({ tab }: { tab: string }) => {
 
   function OnChangeInput(input:string){
 
-    const tempData = data.filter(p => p.title.includes(input))
+    const tempData = allPosts.filter(p => p.title.includes(input))
 
     SetFilteredData(tempData);
   }
@@ -144,6 +146,9 @@ const DashboardAllPosts = ({ tab }: { tab: string }) => {
           </thead>
           <tbody>
             {filteredData?.map((p) => {
+
+              const dateInfo = ExtractDayYearMonth(p.createdAt);
+
               return (
                 <tr key={p.id}>
                   <td className="text-left border border-slate-800 px-4 py-4 ">
@@ -155,10 +160,12 @@ const DashboardAllPosts = ({ tab }: { tab: string }) => {
                     </p>
                   </td>
                   <td className="text-left border border-slate-800 px-4 py-4">
-                    {p.createdAt}
+                    {`${dateInfo.monthShort} ${dateInfo.day} ${dateInfo.year}`}
                   </td>
                   <td className="text-left border border-slate-800 px-4 py-4">
-                    {p.status}
+                    {
+                      p.isApproved == true ? "approved" : "not approved"
+                    }
                   </td>
                   <td className="text-left border border-slate-800 px-4 py-4 ">
                     <Link

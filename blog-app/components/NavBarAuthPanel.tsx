@@ -112,7 +112,7 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
           {/* <Link href={"/"} className="font-medium">
             Log Out
           </Link> */}
-          <LogOut />
+          <LogOut color={"black"}/>
         </div>
       </div>
     </div>
