@@ -11,7 +11,8 @@ type BlogProps = {
       description: string;
       username?: string;
       tags: string;
-      userId: string
+      userId: string;
+      isApproved: boolean
     };
   };
 
@@ -33,7 +34,7 @@ const BlogRow = ({blogProps}: BlogProps) => {
       <td className="text-left border border-slate-800 px-4 py-4">
         {`${dateInfo.monthShort} ${dateInfo.day} ${dateInfo.year}`}
       </td>
-      <td className="text-left border border-slate-800 px-4 py-4">approved</td>
+      <td className="text-left border border-slate-800 px-4 py-4">{blogProps.isApproved == true ? "approved" : "not approved"}</td>
       <td className="text-left border border-slate-800 px-4 py-4 ">
         <Link
           href={`/blog/${blogProps.id}`}
