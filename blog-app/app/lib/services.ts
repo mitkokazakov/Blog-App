@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import prisma from "./prismadb";
 
 export async function FetchImages() {
@@ -153,3 +154,17 @@ export async function GetUserByIdWithBlogs(userId: string){
 
   return currentUser;
 }
+
+export const ApproveBlog = async (blogId: string, userId: string) => {
+  "use server"
+  const updatedBlog = await prisma.blog.update({
+    data: {
+      isApproved: true,
+    },
+    where: {
+      id: blogId,
+    },
+  });
+
+  revalidatePath(`/dashboard/users/${userId}`);
+};
