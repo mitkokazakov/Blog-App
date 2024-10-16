@@ -155,8 +155,7 @@ export async function GetUserByIdWithBlogs(userId: string){
   return currentUser;
 }
 
-export const ApproveBlog = async (blogId: string, userId: string) => {
-  "use server"
+export async function ApproveBlog  (blogId: string, userId: string) {
   const updatedBlog = await prisma.blog.update({
     data: {
       isApproved: true,
@@ -167,4 +166,13 @@ export const ApproveBlog = async (blogId: string, userId: string) => {
   });
 
   revalidatePath(`/dashboard/users/${userId}`);
+
+  if(!updatedBlog){
+    return {error: "Could not approve blog!"}
+  }
+
+  return { success: "Blog has been approved successufull!"}
+  
+
+  
 };

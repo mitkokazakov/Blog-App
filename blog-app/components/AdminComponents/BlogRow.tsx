@@ -1,18 +1,21 @@
 import { ExtractDayYearMonth } from "@/app/lib/helpers";
 import prisma from "@/app/lib/prismadb";
 import { ApproveBlog } from "@/app/lib/services";
-import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import React from "react";
+import toast from "react-hot-toast";
+import ApproveDelete from "./ApproveDelete";
 
 const BlogRow = ({ blogProps }: BlogProps) => {
+
+
   const dateInfo = ExtractDayYearMonth(blogProps.createdAt);
 
-  const HandleApproveBlog = async () => {
+   async function HandleApproveBlog () {
+     "use server"
+   
 
-    "use server"
-
-    await ApproveBlog(blogProps.id,blogProps.userId);
+    const resp = await ApproveBlog(blogProps.id,blogProps.userId);
   };
 
   return (
@@ -30,7 +33,9 @@ const BlogRow = ({ blogProps }: BlogProps) => {
         {blogProps.isApproved == true ? "approved" : "not approved"}
       </td>
       <td className="text-left border border-slate-800 px-4 py-4 ">
-        <div className="flex justify-start gap-5">
+
+        <ApproveDelete userId={blogProps.userId} blogId={blogProps.id} isApproved={blogProps.isApproved}/>
+        {/* <div className="flex justify-start gap-5">
           <Link
             href={`/blog/${blogProps.id}`}
             className="bg-green-500 px-3 py-1 rounded-lg "
@@ -51,7 +56,7 @@ const BlogRow = ({ blogProps }: BlogProps) => {
             </button>
           </form> : null
           }
-        </div>
+        </div> */}
       </td>
     </tr>
   );
