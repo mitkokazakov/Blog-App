@@ -3,16 +3,6 @@ import Link from "next/link";
 import React, { useState } from "react";
 import UserRow from "./UserRow";
 
-type UserParams = {
-    id: string ;
-    name: string | null;
-    image?: string | null;
-    isDeleted: boolean;
-    createdAt: Date;
-    email: string | null;
-    role: string | null;
-};
-
 type UserProps = {
     users: UserParams[];
 }

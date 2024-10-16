@@ -14,7 +14,7 @@ const layout = ({
   details: React.ReactNode;
 }) => {
   return (
-    <div className={`w-full min-h-screen bg-[#0e0e10] flex ${fira.className}`}>
+    <div className={`w-full min-h-screen bg-[#0e0e10] flex font-froala`}>
       <DashboardContent />
       {children}
       {list}

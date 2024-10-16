@@ -4,16 +4,6 @@ import React from "react";
 
 import { FaRegUser } from "react-icons/fa";
 
-type UserRowParams = {
-  id: string;
-  name: string | null;
-  image?: string;
-  isDeleted: boolean;
-  createdAt: Date;
-  email: string;
-  role: string;
-};
-
 const UserRow = ({
   id,
   name,

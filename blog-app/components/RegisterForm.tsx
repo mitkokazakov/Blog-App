@@ -23,7 +23,7 @@ const RegisterSchema = z.object({
     .min(4, { message: "Password should be at least 4 characters long!" }),
 });
 
-const RegisterForm = ({color}: {color: string}) => {
+const RegisterForm = ({color, role}: {color: string, role: string}) => {
   const router = useRouter();
 
   const {
@@ -49,7 +49,14 @@ const RegisterForm = ({color}: {color: string}) => {
       console.log(resp);
 
       if (resp.request.status === 200) {
-        router.push("/login");
+        if(role == 'user'){
+          router.push("/login");
+        }
+
+        if(role == "admin"){
+          router.push("/dashboard/users");
+          router.refresh();
+        }
         alert("Registration was successfuly");
         //toast.success("Registration was successfuly");
       } else {
@@ -57,7 +64,9 @@ const RegisterForm = ({color}: {color: string}) => {
         //toast.error(resp.request.responseText);
       }
     } catch (error: any) {
-      router.push("/");
+      if(role == "user"){
+        router.push("/");
+      }
       alert(error.request.responseText);
       //toast.error(error.request.responseText);
     }

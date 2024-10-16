@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={fira.className}>
+      <body className="font-froala">
         <div className="w-full h-20 bg-[#0e0e10] text-white px-10 flex justify-between items-center border-b-[1px] border-b-white relative">
           <Link href={"/"}>NorthBlogs</Link>
           <AdminAuthPanel />

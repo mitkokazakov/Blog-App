@@ -2,20 +2,6 @@ import { ExtractDayYearMonth } from "@/app/lib/helpers";
 import Link from "next/link";
 import React from "react";
 
-type BlogProps = {
-    blogProps: {
-      id: string;
-      createdAt: Date;
-      title: string;
-      body: string;
-      description: string;
-      username?: string;
-      tags: string;
-      userId: string;
-      isApproved: boolean
-    };
-  };
-
 const BlogRow = ({blogProps}: BlogProps) => {
 
     const dateInfo = ExtractDayYearMonth(blogProps.createdAt);

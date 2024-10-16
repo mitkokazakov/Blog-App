@@ -1,75 +1,28 @@
 "use client";
 import { ExtractDayYearMonth } from "@/app/lib/helpers";
-import { all } from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-type PostType = {
-  id: string;
-  title: string;
-  description: string;
-  createdAt: string;
-  status: string;
-};
-
-const data: PostType[] = [
-  {
-    id: "1a",
-    title: "Best places to see the northern lights",
-    description:
-      "The best places to see the northern light is probably Norway, Finland, Iceland and Canada.",
-    createdAt: "Nov 04 2024",
-    status: "approved",
-  },
-  {
-    id: "2a",
-    title: "Tromso - the northernmost city",
-    description:
-      "The best places to see the northern light is probably Norway, Finland, Iceland and Canada.",
-    createdAt: "Nov 04 2024",
-    status: "not approved",
-  },
-  {
-    id: "3a",
-    title: "Big snowstorm is comming?",
-    description:
-      "The best places to see the northern light is probably Norway, Finland, Iceland and Canada.",
-    createdAt: "Nov 04 2024",
-    status: "approved",
-  },
-  {
-    id: "4a",
-    title: "Which country is best for living",
-    description:
-      "The best places to see the northern light is probably Norway, Finland, Iceland and Canada.",
-    createdAt: "Nov 06 2024",
-    status: "not approved",
-  },
-];
 
 const DashboardAllPosts = ({ tab, allPosts }: { tab: string, allPosts: BlogType[] }) => {
   const [filteredData, SetFilteredData] = useState<BlogType[]>(allPosts);
-  const [posts, SetPosts] = useState<PostType[]>(data);
 
   //let filteredData = data;
 
   useEffect(() => {
     if (tab == "approved") {
-        //filteredData = data.filter((p) => p.status == "approved");
 
         const tempData = allPosts.filter(p => p.isApproved == true)
 
         SetFilteredData(tempData)
       }
       if (tab == "not approved") {
-        //filteredData = data.filter((p) => p.status == "not approved");
 
         const tempData = allPosts.filter(p => p.isApproved == false)
 
         SetFilteredData(tempData)
       }
       if (tab == "all") {
-        //filteredData = data;
         SetFilteredData(allPosts)
       }
   },[tab])

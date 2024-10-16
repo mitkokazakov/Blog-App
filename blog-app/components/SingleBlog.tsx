@@ -2,21 +2,8 @@ import Link from "next/link";
 import React from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { DateTime } from "next-auth/providers/kakao";
 import { ExtractDayYearMonth } from "@/app/lib/helpers";
 
-type BlogProps = {
-  blogProps: {
-    id: string;
-    createdAt: Date;
-    title: string;
-    body: string;
-    description: string;
-    username?: string;
-    tags: string;
-    userId: string
-  };
-};
 
 const SingleBlog = async ({ blogProps }: BlogProps) => {
   const session = await getServerSession(authOptions);

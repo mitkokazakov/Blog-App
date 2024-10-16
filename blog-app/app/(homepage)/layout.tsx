@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={fira.className}>
+      <body className="font-froala">
         <AuthContext>
         {children}
         </AuthContext>

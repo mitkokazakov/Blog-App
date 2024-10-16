@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={fira.className + " bg-[#ffffd7]"}>
+      <body className=" bg-[#ffffd7] font-froala">
         <AuthContext>
           <Navbar />
           {children}
