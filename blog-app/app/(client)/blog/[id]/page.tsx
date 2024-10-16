@@ -1,5 +1,6 @@
 import React from "react";
 import { GetBlogById } from "@/app/lib/services";
+import Link from "next/link";
 
 type ParamsType = {
   params: {
@@ -47,9 +48,13 @@ const page = async ({ params }: ParamsType) => {
       <img src={blog?.images as string} alt="" className="w-full max-h-[700px] mb-5"/>
 
       <div
-        className="blog-content text-lg "
+        className="blog-content text-lg mb-5"
         dangerouslySetInnerHTML={{ __html: blog && body }}
       ></div>
+
+      <div className="w-full flex justify-center">
+        <Link href={'/dashboard/posts'} className="text-center bg-black text-white px-5 py-3 tracking-widest font-medium rounded-lg hover:bg-white hover:text-black hover:border-[1px] hover:border-black">Back to Dashboard</Link>
+      </div>
     </div>
   );
 };
