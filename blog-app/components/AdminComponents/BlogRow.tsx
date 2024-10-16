@@ -6,6 +6,8 @@ const BlogRow = ({blogProps}: BlogProps) => {
 
     const dateInfo = ExtractDayYearMonth(blogProps.createdAt);
 
+    
+
   return (
     <tr>
       <td className="text-left border border-slate-800 px-4 py-4 ">
@@ -28,8 +30,12 @@ const BlogRow = ({blogProps}: BlogProps) => {
         >
           View
         </Link>
-        <Link href={"/"} className="bg-red-500 px-3 py-1 rounded-lg">
+        <Link href={"/"} className="bg-red-500 px-3 py-1 rounded-lg mr-5">
           Delete
+        </Link>
+
+        <Link href={"/"} className="bg-yellow-500 px-3 py-1 rounded-lg">
+          Approve
         </Link>
       </td>
     </tr>

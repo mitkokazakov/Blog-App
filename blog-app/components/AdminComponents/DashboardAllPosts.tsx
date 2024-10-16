@@ -129,9 +129,16 @@ const DashboardAllPosts = ({ tab, allPosts }: { tab: string, allPosts: BlogType[
                     </Link>
                     <Link
                       href={"/"}
-                      className="bg-red-500 px-3 py-1 rounded-lg"
+                      className="bg-red-500 px-3 py-1 rounded-lg mr-5"
                     >
                       Delete
+                    </Link>
+
+                    <Link
+                      href={"/"}
+                      className="bg-yellow-500 px-3 py-1 rounded-lg"
+                    >
+                      Approve
                     </Link>
                   </td>
                 </tr>
