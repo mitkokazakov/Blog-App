@@ -157,6 +157,7 @@ export async function GetUserByIdWithBlogs(userId: string){
 }
 
 export async function ApproveBlog  (blogId: string, userId: string) {
+  "use server"
   const updatedBlog = await prisma.blog.update({
     data: {
       isApproved: true,

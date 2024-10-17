@@ -25,7 +25,7 @@ const ApproveDelete = ({
 
       if (res.status == 200) {
         toast.success("Blog has been successfully approved");
-        //router.refresh();
+        router.refresh();
       }
     } catch (error: any) {
       router.push("/dashboard/users");
