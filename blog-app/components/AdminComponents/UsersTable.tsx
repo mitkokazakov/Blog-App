@@ -1,22 +1,20 @@
-"use client"
+"use client";
 import Link from "next/link";
 import React, { useState } from "react";
 import UserRow from "./UserRow";
 
 type UserProps = {
-    users: UserParams[];
-}
+  users: UserParams[];
+};
 
-const UsersTable = ({users}: UserProps) => {
+const UsersTable = ({ users }: UserProps) => {
+  const [userData, SetUserData] = useState<UserParams[]>(users);
 
-    const [userData, SetUserData] = useState<UserParams[]>(users);
+  function OnChangeInput(input: string) {
+    const tempData = users.filter((u) => u.name?.includes(input));
 
-    function OnChangeInput(input:string){
-
-        const tempData = users.filter(u => u.name?.includes(input))
-    
-        SetUserData(tempData);
-      }
+    SetUserData(tempData);
+  }
 
   return (
     <div className="flex flex-col gap-8">
@@ -27,10 +25,15 @@ const UsersTable = ({users}: UserProps) => {
           id="username"
           className="px-4 py-1 bg-slate-800 rounded-lg"
           placeholder="Search for a user"
-          onChange={(e) => {OnChangeInput(e.target.value)}}
+          onChange={(e) => {
+            OnChangeInput(e.target.value);
+          }}
         />
 
-        <Link href={"/dashboard/registeruser"} className="bg-purple-600 px-3 py-2 rounded-lg">
+        <Link
+          href={"/dashboard/registeruser"}
+          className="bg-purple-600 px-3 py-2 rounded-lg"
+        >
           Add User
         </Link>
       </div>
@@ -64,6 +67,7 @@ const UsersTable = ({users}: UserProps) => {
               userData?.map((user) => {
                 return (
                   <UserRow
+                    key={user.id}
                     id={user.id}
                     name={user.name}
                     email={user.email as string}

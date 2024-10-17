@@ -13,7 +13,7 @@ const page = async ({params}: UserParams) => {
   const user = await GetUserByIdWithBlogs(params.userId);
 
   return (
-    <div className='w-full bg-[#0f0f11] h-screen text-white flex flex-col gap-8 px-10 py-10'>
+    <div className='w-full bg-[#0f0f11] mih-h-screen text-white flex flex-col gap-8 px-10 py-10'>
      <div>
         <h1 className="font-bold tracking-widest text-2xl mb-10">User Info</h1>
       </div>

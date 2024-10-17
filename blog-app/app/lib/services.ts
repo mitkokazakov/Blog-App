@@ -1,5 +1,6 @@
 import { revalidatePath } from "next/cache";
 import prisma from "./prismadb";
+export const dynamic = 'force-dynamic'
 
 export async function FetchImages() {
   // "use server"
