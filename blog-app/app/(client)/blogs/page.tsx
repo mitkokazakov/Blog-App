@@ -2,10 +2,10 @@ import SingleBlog from "@/components/SingleBlog";
 import React from "react";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/lib/authoptions";
 import { GetAllBlogs } from "@/app/lib/services";
 
-const page = async () => {
+const BlogsPage = async () => {
 
   const session = await getServerSession(authOptions);
 
@@ -30,4 +30,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default BlogsPage;

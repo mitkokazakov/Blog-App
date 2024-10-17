@@ -17,7 +17,7 @@ type ParamsType = {
   };
 };
 
-const page = async ({ params }: ParamsType) => {
+const ChangePage = async ({ params }: ParamsType) => {
 
   const blogId = params.id;
 
@@ -29,7 +29,8 @@ const page = async ({ params }: ParamsType) => {
     description: blog?.description as string,
     body: blog?.body as string,
     tags: blog?.tags as string,
-    createdAt: blog?.createdAt as Date
+    createdAt: blog?.createdAt as Date,
+    userId: blog?.userId as string
   }
 
   return (
@@ -41,4 +42,4 @@ const page = async ({ params }: ParamsType) => {
   );
 };
 
-export default page;
+export default ChangePage;

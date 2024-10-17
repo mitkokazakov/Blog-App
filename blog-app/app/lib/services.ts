@@ -63,7 +63,8 @@ type SingleBlogProps = {
   description: string;
   username: string;
   tags: string;
-  userId: string
+  userId: string,
+  isApproved: boolean
 };
 
 export async function GetAllUserBlogs(userId: string) {
@@ -89,7 +90,8 @@ export async function GetAllUserBlogs(userId: string) {
       description: blog.description,
       username: currentUser?.name as string,
       tags: blog.tags,
-      userId: blog.userId
+      userId: blog.userId,
+      isApproved: blog.isApproved
     };
 
     userBlogsArray.push(currentBlog)

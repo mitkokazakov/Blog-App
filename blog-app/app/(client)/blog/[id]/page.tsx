@@ -8,7 +8,7 @@ type ParamsType = {
   };
 };
 
-const page = async ({ params }: ParamsType) => {
+const BlogPage = async ({ params }: ParamsType) => {
 
   const blog = await GetBlogById(params.id);
 
@@ -59,4 +59,4 @@ const page = async ({ params }: ParamsType) => {
   );
 };
 
-export default page;
+export default BlogPage;

@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  swcMinify: false,
     future: {
         webpack5: true, // by default, if you customize webpack config, they switch back to version 4. 
           // Looks like backward compatibility approach.

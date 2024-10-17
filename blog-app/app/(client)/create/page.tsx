@@ -37,7 +37,7 @@ const TextEditorScheme = z.object({
     .min(4, { message: "Description should be at least 4 characters long!" }),
 });
 
-const page = () => {
+const CreatePage = () => {
   const [blog, setBlog] = useState(() => {
     let fromLocaleStorage = localStorage.getItem("blog") || "";
 
@@ -319,4 +319,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default CreatePage;

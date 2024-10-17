@@ -1,7 +1,7 @@
 import Link from "next/link";
 import NavBarAuthPanel from "./NavBarAuthPanel";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/lib/authoptions";
 
 const Navbar = async () => {
   const session = await getServerSession(authOptions);

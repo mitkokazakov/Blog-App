@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../lib/authoptions";
 import LogOut from "@/components/LogOut";
 
 export default async function Home() {

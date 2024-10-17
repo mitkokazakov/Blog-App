@@ -39,7 +39,7 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
     if (sessionStatus == true) {
       FetchUserImage();
     }
-  }, []);
+  });
 
   return (
     <div className="">
