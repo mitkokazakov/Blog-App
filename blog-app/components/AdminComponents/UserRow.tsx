@@ -1,7 +1,7 @@
 import { ExtractDayYearMonth } from "@/app/lib/helpers";
 import Link from "next/link";
 import React from "react";
-
+import Image from "next/image";
 import { FaRegUser } from "react-icons/fa";
 
 const UserRow = ({
@@ -22,11 +22,9 @@ const UserRow = ({
         <div className="flex justify-start items-center gap-5">
           <div className="w-12 h-12 rounded-full flex justify-center items-center bg-white">
             {
-                image != null ? <img
-                src={image}
+                image != null ? <Image src={image} width={48} height={48}
                 alt="op"
-                className="w-full h-full rounded-full"
-              /> : null
+                className="w-full h-full rounded-full"></Image> : null
             }
 
             {

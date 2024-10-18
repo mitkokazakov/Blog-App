@@ -1,6 +1,8 @@
 import { GetUserByIdWithBlogs } from '@/app/lib/services'
 import BlogRow from '@/components/AdminComponents/BlogRow'
 import React from 'react'
+import nouserImg from '../../../../../public/admindesktop.png';
+import Image from 'next/image';
 
 type UserParams = {
   params:{
@@ -20,11 +22,16 @@ const page = async ({params}: UserParams) => {
 
       <div className='flex justify-center items-center gap-40'>
         <div className='w-72 h-72 rounded-full overflow-hidden'>
+          
+          
+
             {
-              user?.image != null ? <img src={user?.image as string} alt="user" className='w-full h-full rounded-full'/> : null
+              //user?.image != null ? <img src={user?.image as string} alt="user" className='w-full h-full rounded-full'/> : null
+              user?.image != null ? <Image src={user?.image as string} width={288} height={288} alt='no user image' className='w-full h-full rounded-full'></Image> : null
             }
             {
-              user?.image == null ? <img src="/admindesktop.png" alt="user" className='w-full h-full rounded-full bg-white'/> : null
+              // user?.image == null ? <img src="/admindesktop.png" alt="user" className='w-full h-full rounded-full bg-white'/> : null
+              user?.image == null ? <Image src={nouserImg} width={288} height={288} alt='no user image' className='w-full h-full rounded-full'></Image> : null
             }
         </div>
 

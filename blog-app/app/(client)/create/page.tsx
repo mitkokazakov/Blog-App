@@ -15,11 +15,17 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
 
-cloudinary.config({
-  cloud_name: "ddvfwyoek",
-  api_key: "419694577789571",
-  api_secret: "Lk_axhjstubw3CycN61LQYceDUQ",
-});
+// cloudinary.config({
+//   cloud_name: "ddvfwyoek",
+//   api_key: "419694577789571",
+//   api_secret: "Lk_axhjstubw3CycN61LQYceDUQ",
+// });
+
+// cloudinary.config({
+//   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+//   api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+//   api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
+// });
 
 type TextEditorFields = {
   blogtitle: string;
@@ -38,11 +44,7 @@ const TextEditorScheme = z.object({
 });
 
 const CreatePage = () => {
-  const [blog, setBlog] = useState(() => {
-    let fromLocaleStorage = localStorage.getItem("blog") || "";
-
-    return fromLocaleStorage;
-  });
+  const [blog, setBlog] = useState("");
 
   const router = useRouter();
 
@@ -53,6 +55,11 @@ const CreatePage = () => {
   const [errorTags, setErrorTags] = useState<boolean>(false);
 
   const { data: session, status } = useSession();
+
+  useEffect(() => {
+    let fromLocaleStorage = localStorage.getItem("blog") || "";
+    setBlog(fromLocaleStorage);
+  }, []);
 
   const {
     register,
@@ -72,27 +79,38 @@ const CreatePage = () => {
       return;
     }
 
-    const bytes: any = await image?.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    // const bytes: any = await image?.arrayBuffer();
+    // const buffer = Buffer.from(bytes);
 
     const currentId = uuidv4();
 
-    await new Promise((resolve, reject) => {
-      cloudinary.uploader
-        .upload_stream(
-          {
-            public_id: currentId,
-          },
-          function (error, result) {
-            if (error) {
-              reject(error);
-              return;
-            }
-            resolve(result);
-          }
-        )
-        .end(buffer);
+    const formData = new FormData();
+
+    const resp = await axios.post("/api/uploadimage", {
+      imageId: currentId,
+      image: image,
     });
+
+    if (resp.request.status != 200) {
+      alert("Something went wrong!");
+    }
+
+    // await new Promise((resolve, reject) => {
+    //   cloudinary.uploader
+    //     .upload_stream(
+    //       {
+    //         public_id: currentId,
+    //       },
+    //       function (error, result) {
+    //         if (error) {
+    //           reject(error);
+    //           return;
+    //         }
+    //         resolve(result);
+    //       }
+    //     )
+    //     .end(buffer);
+    // });
 
     let imageUrl = "";
     await fetch(`/api/search?publicId=${currentId}`)
@@ -116,10 +134,10 @@ const CreatePage = () => {
 
       if (resp.request.status === 200) {
         console.log(resp);
-        
+
         router.push(`/blog/${resp.data.blog.id}`);
         alert("You have successfully added post!");
-        localStorage.setItem("blog", "")
+        localStorage.setItem("blog", "");
         router.refresh();
         //toast.success("Registration was successfuly");
       } else {
@@ -235,7 +253,6 @@ const CreatePage = () => {
             Body
           </label>
           <div className="mt-2">
-
             <ReactQuill
               id="body"
               className="bg-white"

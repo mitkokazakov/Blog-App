@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 
 const LoginSchema = z.object({
   email: z.string().email(),
@@ -130,11 +131,16 @@ const LoginForm = () => {
             await signIn("google", { redirect: true, callbackUrl: "/blogs" })
           }>
           <div className="flex justify-center items-center gap-3 border-zinc-400 border-[1px] px-16 py-1 rounded-lg">
-            <img
+            {/* <img
               className="w-8 h-8 bg-transparent"
               src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
               alt="Google"
-            />
+            /> */}
+            <Image className="w-8 h-8 bg-transparent"
+              src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+              alt="Google"
+              width={32}
+              height={32}></Image>
             <p>Google</p>
           </div>
         </button>

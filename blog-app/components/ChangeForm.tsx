@@ -38,7 +38,7 @@ const TextEditorScheme = z.object({
 });
 
 
-const page = ({ blogData }: ChangeBlogType) => {
+const ChangeForm = ({ blogData }: ChangeBlogType) => {
   const [blog, setBlog] = useState(() => {
     let fromLocaleStorage = localStorage.getItem("changeBlog");
 
@@ -68,7 +68,7 @@ const page = ({ blogData }: ChangeBlogType) => {
     setDescription(blogData.description);
     setBlog(blogData.body);
     setTags(blogData.tags.split(","));
-  }, []);
+  },[blogData]);
 
   const {
     register,
@@ -340,4 +340,4 @@ const page = ({ blogData }: ChangeBlogType) => {
   );
 };
 
-export default page;
+export default ChangeForm;

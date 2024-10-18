@@ -8,6 +8,7 @@ import { SlLogout } from "react-icons/sl";
 import { PiReadCvLogoLight } from "react-icons/pi";
 import LogOut from "./LogOut";
 import axios from "axios";
+import Image from "next/image";
 
 const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, userId: string }) => {
   const [dropdownActive, setDropdown] = useState(false);
@@ -39,7 +40,7 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
     if (sessionStatus == true) {
       FetchUserImage();
     }
-  }, []);
+  });
 
   return (
     <div className="">
@@ -63,7 +64,7 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
             }}
             className="w-16 h-16 overflow-hidden rounded-full bg-white flex justify-center items-center text-2xl cursor-pointer"
           >
-            {userImage && <img src={userImage}></img>}
+            {userImage && <Image  src={userImage} width={64} height={64} alt="user image"></Image>}
 
             {userImage == null ? <p>{userLetters}</p> : null}
           </div>

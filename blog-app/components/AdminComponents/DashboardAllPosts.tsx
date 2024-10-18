@@ -25,7 +25,7 @@ const DashboardAllPosts = ({ tab, allPosts }: { tab: string, allPosts: BlogType[
       if (tab == "all") {
         SetFilteredData(allPosts)
       }
-  },[tab])
+  },[tab, allPosts])
 
 
 
