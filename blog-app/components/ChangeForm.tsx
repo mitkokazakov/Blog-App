@@ -138,6 +138,7 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
         router.push(`/blog/${blogData.id}`);
         alert("You have successfully update post!");
         localStorage.setItem("changeBlog", "");
+        router.refresh();
         //toast.success("Registration was successfuly");
       } else {
         alert(resp.statusText);
