@@ -1,6 +1,5 @@
-
+"use client";
 import React, { useEffect, useState } from "react";
-import { v2 as cloudinary } from "cloudinary";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -14,153 +13,151 @@ import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
-import CreateBlogForm from "@/components/CreateBlogForm";
 
 
-// type TextEditorFields = {
-//   blogtitle: string;
-//   description: string;
-//   body: string;
-//   tags: string[];
-// };
 
-// const TextEditorScheme = z.object({
-//   blogtitle: z
-//     .string()
-//     .min(4, { message: "Title should be at least 4 characters long!" }),
-//   description: z
-//     .string()
-//     .min(4, { message: "Description should be at least 4 characters long!" }),
-// });
+type TextEditorFields = {
+  blogtitle: string;
+  description: string;
+  body: string;
+  tags: string[];
+};
 
-const CreatePage = () => {
-  // const [blog, setBlog] = useState("");
+const TextEditorScheme = z.object({
+  blogtitle: z
+    .string()
+    .min(4, { message: "Title should be at least 4 characters long!" }),
+  description: z
+    .string()
+    .min(4, { message: "Description should be at least 4 characters long!" }),
+});
 
-  // const router = useRouter();
+const CreateBlogForm = () => {
+  const [blog, setBlog] = useState("");
 
-  // const [tags, setTags] = useState<string[]>([]);
+  const router = useRouter();
 
-  // const [image, setImage] = useState<File>();
+  const [tags, setTags] = useState<string[]>([]);
 
-  // const [errorTags, setErrorTags] = useState<boolean>(false);
+  const [image, setImage] = useState<File>();
 
-  // const { data: session, status } = useSession();
+  const [errorTags, setErrorTags] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   let fromLocaleStorage = localStorage.getItem("blog") || "";
-  //   setBlog(fromLocaleStorage);
-  // }, []);
+  const { data: session, status } = useSession();
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm<TextEditorFields>({
-  //   resolver: zodResolver(TextEditorScheme),
-  // });
+  useEffect(() => {
+    let fromLocaleStorage = localStorage.getItem("blog") || "";
+    setBlog(fromLocaleStorage);
+  }, []);
 
-  // const sendBlogInfo: SubmitHandler<TextEditorFields> = async (data) => {
-  //   const blogtitle = data.blogtitle;
-  //   const description = data.description;
-  //   const body = blog;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TextEditorFields>({
+    resolver: zodResolver(TextEditorScheme),
+  });
 
-  //   if (tags.length == 0) {
-  //     setErrorTags(true);
-  //     return;
-  //   }
+  const sendBlogInfo: SubmitHandler<TextEditorFields> = async (data) => {
+    const blogtitle = data.blogtitle;
+    const description = data.description;
+    const body = blog;
 
-  //   // const bytes: any = await image?.arrayBuffer();
-  //   // const buffer = Buffer.from(bytes);
+    if (tags.length == 0) {
+      setErrorTags(true);
+      return;
+    }
 
-  //   const currentId = uuidv4();
+    // const bytes: any = await image?.arrayBuffer();
+    // const buffer = Buffer.from(bytes);
 
-  //   const formData = new FormData();
+    const currentId = uuidv4();
 
-  //   formData.append("image", image as File);
-  //   formData.append("imageId", currentId);
+    const formData = new FormData();
 
-  //   const response = await axios.post("/api/uploadimage",formData);
+    formData.append("image", image as File);
+    formData.append("imageId", currentId);
+
+    const response = await axios.post("/api/uploadimage",formData);
 
 
-  //   let imageUrl = "";
+    let imageUrl = "";
 
-  //   if(response.status == 200){
+    if(response.status == 200){
 
-  //     console.log(response);
-  //     console.log(response.data?.imageId);
+      console.log(response);
+      console.log(response.data?.imageId);
 
-  //     await fetch(`/api/search?publicId=${currentId}`)
-  //     .then((res) => res.json())
-  //     .then((d) => {
-  //       //setImageUrl(d.result.secure_url);
-  //       imageUrl = d.result.secure_url;
-  //     });
+      await fetch(`/api/search?publicId=${currentId}`)
+      .then((res) => res.json())
+      .then((d) => {
+        //setImageUrl(d.result.secure_url);
+        imageUrl = d.result.secure_url;
+      });
 
-  //     console.log(imageUrl);
+      console.log(imageUrl);
       
       
-  //   }
+    }
 
-  //   if (response.status != 200) {
-  //     alert("Something went wrong!");
-  //   }
+    if (response.status != 200) {
+      alert("Something went wrong!");
+    }
 
     
     
 
-  //   try {
-  //     const resp = await axios.post("/api/sendblog", {
-  //       title: blogtitle,
-  //       description: description,
-  //       bodyContent: body,
-  //       tags: tags.join(","),
-  //       userId: session?.user.id as string,
-  //       imageUrl: imageUrl,
-  //     });
+    try {
+      const resp = await axios.post("/api/sendblog", {
+        title: blogtitle,
+        description: description,
+        bodyContent: body,
+        tags: tags.join(","),
+        userId: session?.user.id as string,
+        imageUrl: imageUrl,
+      });
 
-  //     if (resp.request.status === 200) {
-  //       console.log(resp);
+      if (resp.request.status === 200) {
+        console.log(resp);
 
-  //       router.push(`/blog/${resp.data.blogId}`);
-  //       alert("You have successfully added post!");
-  //       localStorage.setItem("blog", "");
-  //       router.refresh();
-  //       //toast.success("Registration was successfuly");
-  //     } else {
-  //       alert(resp.request.responseText);
-  //       //toast.error(resp.request.responseText);
-  //     }
-  //   } catch (error: any) {
-  //     console.log("Error");
+        router.push(`/blog/${resp.data.blogId}`);
+        alert("You have successfully added post!");
+        localStorage.setItem("blog", "");
+        router.refresh();
+        //toast.success("Registration was successfuly");
+      } else {
+        alert(resp.request.responseText);
+        //toast.error(resp.request.responseText);
+      }
+    } catch (error: any) {
+      console.log("Error");
       
-  //     //router.push("/blogs");
-  //     //alert(error.request.responseText);
-  //     //toast.error(error.request.responseText);
-  //   }
+      //router.push("/blogs");
+      //alert(error.request.responseText);
+      //toast.error(error.request.responseText);
+    }
 
-  //   setErrorTags(false);
-  // };
+    setErrorTags(false);
+  };
 
-  // const addTag = (currentTag: string) => {
-  //   if (!tags.includes(currentTag)) {
-  //     setTags((prevState) => [...prevState, currentTag]);
-  //   }
-  // };
+  const addTag = (currentTag: string) => {
+    if (!tags.includes(currentTag)) {
+      setTags((prevState) => [...prevState, currentTag]);
+    }
+  };
 
-  // const removeTag = (currentTag: string) => {
-  //   if (tags.includes(currentTag)) {
-  //     setTags((prevState) => {
-  //       return prevState.filter((i) => i !== currentTag);
-  //     });
-  //   }
-  // };
+  const removeTag = (currentTag: string) => {
+    if (tags.includes(currentTag)) {
+      setTags((prevState) => {
+        return prevState.filter((i) => i !== currentTag);
+      });
+    }
+  };
 
   return (
     <div className="mt-10 pb-10 sm:mx-auto sm:w-full md:w-[800px]">
       <h1 className=" text-center text-3xl font-bold tracking-widest">Create Blog</h1>
-
-      <CreateBlogForm />
-      {/* <form
+      <form
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.preventDefault();
@@ -322,9 +319,9 @@ const CreatePage = () => {
             Send
           </button>
         </div>
-      </form> */}
+      </form>
     </div>
   );
 };
 
-export default CreatePage;
+export default CreateBlogForm;

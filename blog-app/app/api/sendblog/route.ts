@@ -4,6 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   const body = await request.json();
 
+  //const {title} = body;
+
   const {
     title,
     description,
@@ -31,5 +33,5 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  return NextResponse.json({ blog });
+  return NextResponse.json({ blogId: blog.id });
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
+import formidable from 'formidable';
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -7,11 +8,15 @@ cloudinary.config({
   api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
 });
 
-export async function POST(req: NextRequest) {
-    
-  const body = await req.json();
 
-  const { imageId, image } = body;
+export async function POST(request: NextRequest) {
+    
+  //const form = new formidable.IncomingForm();
+
+  const data = await request.formData();
+
+  const imageId = data.get("imageId") as string;
+  const image = data.get("image") as File;
 
   try {
     const bytes: any = await image?.arrayBuffer();
@@ -34,7 +39,7 @@ export async function POST(req: NextRequest) {
         .end(buffer);
     });
 
-    return NextResponse.json({imageId});
+    return NextResponse.json({imageId: imageId});
 
   } catch (error) {
     return new NextResponse("Something went wrong!", {status: 400});

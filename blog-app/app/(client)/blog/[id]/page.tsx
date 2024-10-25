@@ -49,7 +49,8 @@ const BlogPage = async ({ params }: ParamsType) => {
         alt=""
         className="w-full max-h-[700px] mb-5"
         width={1400}
-        height={1000}></Image>
+        height={1000}
+        priority={false}></Image>
       {/* <img
         src={blog?.images as string}
         alt=""
