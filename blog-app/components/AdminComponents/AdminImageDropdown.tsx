@@ -63,7 +63,7 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
           >
             {userImage && <Image src={userImage} width={64} height={64} alt="user image"></Image>}
 
-            {userImage == null ? <p>{userLetters}</p> : null}
+            {userImage == null ? <p className="text-black">{userLetters}</p> : null}
           </div>
         ) : null}
       </div>

@@ -8,11 +8,11 @@ const fira = Fira_Code({ subsets: ["cyrillic"] });
 const layout = ({
   children,
   list,
-  details,
+  modal,
 }: {
   children: React.ReactNode;
   list: React.ReactNode;
-  details: React.ReactNode;
+  modal: React.ReactNode;
 }) => {
   return (
     <AuthContext>
@@ -20,7 +20,7 @@ const layout = ({
         <DashboardContent />
         {children}
         {list}
-        {details}
+        {modal}
       </div>
     </AuthContext>
   );

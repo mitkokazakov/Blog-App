@@ -37,7 +37,7 @@ const page = async ({params}: UserParams) => {
 
         <div className='flex flex-col justify-start items-start gap-5'>
             <h1 className='text-2xl font-bold tracking-widest'>{user?.name}</h1>
-            <p>Phone Number: <span className='font-bold tracking-widest'>08966523223</span></p>
+            <p>Role: <span className='font-bold tracking-widest'>{user?.role}</span></p>
             <p>Email: <span className='font-bold tracking-widest'>{user?.email}</span></p>
         </div>
       </div>

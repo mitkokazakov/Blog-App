@@ -128,18 +128,20 @@ const DashboardAllPosts = ({ tab, allPosts }: { tab: string, allPosts: BlogType[
                       View
                     </Link>
                     <Link
-                      href={"/"}
+                      href={"/dashboard/deleteblog/Mishok"}
                       className="bg-red-500 px-3 py-1 rounded-lg mr-5"
                     >
                       Delete
                     </Link>
 
-                    <Link
+                    {
+                      blog.isApproved == false ? <Link
                       href={"/"}
                       className="bg-yellow-500 px-3 py-1 rounded-lg"
                     >
                       Approve
-                    </Link>
+                    </Link> : null
+                    }
                   </td>
                 </tr>
               );
