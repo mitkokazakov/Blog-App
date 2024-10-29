@@ -1,29 +1,46 @@
 // app/items/delete/[itemId]/page.js
 "use client";
 
-import { useRouter } from 'next/navigation';
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
-export default function DeleteConfirmationModal({ blogId }: {blogId: string}) {
+export default function DeleteConfirmationModal({
+  blogId,
+  blogTitle,
+}: {
+  blogId: string;
+  blogTitle: string;
+}) {
   const router = useRouter();
 
   const handleConfirmDelete = async () => {
-    // Add deletion logic here, such as an API call
-    console.log(`Deleting item with ID: ${blogId}`);
-    // After deletion, close the modal and navigate back
-    router.push('/items');
+    const response = await axios.delete(`/api/deleteblog/${blogId}`);
+
+    if (response.status == 200) {
+      alert("Blog has been deleted");
+      router.back();
+
+      setTimeout(() => {
+        router.replace("/dashboard/posts"); // Navigate to /dashboard/posts after the modal is gone
+        router.refresh(); // Ensure the page data is refreshed
+      }, 1000);
+
+    } else {
+      alert("Something went wrong!");
+    }
   };
 
   const handleCancel = () => {
-    router.back(); // Close modal without deleting
+    router.back();
   };
 
   return (
     <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
       <div className="bg-white rounded-lg p-6 w-full max-w-md text-center shadow-lg">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">
-          Are you sure you want to delete this item?
+          Are you sure you want to delete this blog?
         </h3>
-        <p className="text-gray-600 mb-6">Item ID: {blogId}</p>
+        <p className="text-gray-600 mb-6">Blog Title: {blogTitle}</p>
         <div className="flex justify-center gap-4">
           <button
             onClick={handleConfirmDelete}

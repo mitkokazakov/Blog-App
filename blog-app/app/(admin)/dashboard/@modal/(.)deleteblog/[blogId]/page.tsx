@@ -1,4 +1,6 @@
+import { GetBlogById } from '@/app/lib/services'
 import DeleteBlogModal from '@/components/AdminComponents/DeleteBlogModal'
+import { revalidatePath } from 'next/cache'
 import React from 'react'
 
 type DeleteBlogParams = {
@@ -7,11 +9,16 @@ type DeleteBlogParams = {
     }
 }
 
-const page = ({params}: DeleteBlogParams) => {
+const page = async ({params}: DeleteBlogParams) => {
+
+  revalidatePath("/dashboard/posts");
+
+  const blog = await GetBlogById(params.blogId);
+
+  const blogTitle = blog?.title as string;
   return (
     <div className='text-white'>
-      {/* {`This is blog with ID: ${params.blogId}`} */}
-      <DeleteBlogModal blogId={params.blogId}/>
+      <DeleteBlogModal blogId={params.blogId} blogTitle={blogTitle}/>
     </div>
   )
 }

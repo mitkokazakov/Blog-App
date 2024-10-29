@@ -1,5 +1,6 @@
 import { GetAllBlogs } from '@/app/lib/services'
 import DashboardAllPosts from '@/components/AdminComponents/DashboardAllPosts'
+import { revalidatePath } from 'next/cache'
 import Link from 'next/link'
 import React from 'react'
 
@@ -10,6 +11,8 @@ type AllPostsParams = {
 }
 
 const page = async ( {searchParams}: AllPostsParams) => {
+
+  revalidatePath("/dashboard/posts")
 
   const allPosts = await GetAllBlogs();
 

@@ -1,4 +1,5 @@
 import prisma from "@/app/lib/prismadb";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 type UpdateParams = {
@@ -19,6 +20,8 @@ export async function DELETE(req: NextRequest, {params}: {params: UpdateParams})
             id: blogId
         }
     });
+
+    revalidatePath("/dashboard/posts");
 
     return NextResponse.json({message: `The Blog has been deleted successfully`})
 

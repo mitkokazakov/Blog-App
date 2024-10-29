@@ -128,7 +128,7 @@ const DashboardAllPosts = ({ tab, allPosts }: { tab: string, allPosts: BlogType[
                       View
                     </Link>
                     <Link
-                      href={"/dashboard/deleteblog/Mishok"}
+                      href={`/dashboard/deleteblog/${blog.id}`}
                       className="bg-red-500 px-3 py-1 rounded-lg mr-5"
                     >
                       Delete
