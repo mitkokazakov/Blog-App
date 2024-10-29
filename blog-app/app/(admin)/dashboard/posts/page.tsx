@@ -10,6 +10,8 @@ type AllPostsParams = {
     }
 }
 
+export const revalidate = 0;
+
 const page = async ( {searchParams}: AllPostsParams) => {
 
   revalidatePath("/dashboard/posts")

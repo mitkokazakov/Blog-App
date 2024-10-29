@@ -14,16 +14,22 @@ export default function DeleteConfirmationModal({
   const router = useRouter();
 
   const handleConfirmDelete = async () => {
-    const response = await axios.delete(`/api/deleteblog/${blogId}`);
+    //const response = await axios.delete(`/api/deleteblog/${blogId}`);
 
-    if (response.status == 200) {
-      alert("Blog has been deleted");
+    const res = await fetch(`/api/deleteblog/${blogId}`,{
+      method:"DELETE",
+      cache: "no-store"
+    })
+
+    if (res.status == 200) {
+      //alert("Blog has been deleted");
+      router.push("/dashboard/posts?tab=all");
+      router.refresh();
       router.back();
-
-      setTimeout(() => {
-        router.replace("/dashboard/posts"); // Navigate to /dashboard/posts after the modal is gone
-        router.refresh(); // Ensure the page data is refreshed
-      }, 1000);
+      // setTimeout(() => {
+      //   router.replace("/dashboard/posts"); // Navigate to /dashboard/posts after the modal is gone
+      //   router.refresh(); // Ensure the page data is refreshed
+      // }, 1000);
 
     } else {
       alert("Something went wrong!");
