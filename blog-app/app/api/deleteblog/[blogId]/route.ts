@@ -21,7 +21,7 @@ export async function DELETE(req: NextRequest, {params}: {params: UpdateParams})
         }
     });
 
-    revalidatePath("/dashboard/posts");
+    //revalidatePath("/dashboard/posts?tab=all");
 
     return NextResponse.json({message: `The Blog has been deleted successfully`})
 

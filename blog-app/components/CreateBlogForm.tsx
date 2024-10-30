@@ -156,7 +156,7 @@ const CreateBlogForm = () => {
 
   return (
     <div className="mt-10 pb-10 sm:mx-auto sm:w-full md:w-[800px]">
-      <h1 className=" text-center text-3xl font-bold tracking-widest">Create Blog</h1>
+      
       <form
         onKeyDown={(e) => {
           if (e.key === "Enter") {

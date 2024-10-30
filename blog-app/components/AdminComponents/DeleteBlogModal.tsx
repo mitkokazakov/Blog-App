@@ -26,10 +26,18 @@ export default function DeleteConfirmationModal({
       router.push("/dashboard/posts?tab=all");
       router.refresh();
       router.back();
+<<<<<<< Updated upstream
       // setTimeout(() => {
       //   router.replace("/dashboard/posts"); // Navigate to /dashboard/posts after the modal is gone
       //   router.refresh(); // Ensure the page data is refreshed
       // }, 1000);
+=======
+
+      setTimeout(() => {
+        router.replace("/dashboard/posts?tab=all"); // Navigate to /dashboard/posts after the modal is gone
+        router.refresh(); // Ensure the page data is refreshed
+      }, 1000);
+>>>>>>> Stashed changes
 
     } else {
       alert("Something went wrong!");

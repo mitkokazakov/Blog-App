@@ -14,7 +14,7 @@ export const revalidate = 0;
 
 const page = async ( {searchParams}: AllPostsParams) => {
 
-  revalidatePath("/dashboard/posts")
+  //revalidatePath("/dashboard/posts?tab=all")
 
   const allPosts = await GetAllBlogs();
 
