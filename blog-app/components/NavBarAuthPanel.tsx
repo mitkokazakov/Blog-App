@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { FaRegUser } from "react-icons/fa6";
 import { SlLogout } from "react-icons/sl";
 import { PiReadCvLogoLight } from "react-icons/pi";
 import LogOut from "./LogOut";
@@ -109,10 +109,21 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
           }}
           className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 hover:bg-[#fffbc2]"
         >
+          <FaRegUser className="text-2xl" />
+
+          <Link href={"/myprofile/33"} className="font-medium">
+            My Profile
+          </Link>
+        </div>
+
+        <div
+          onClick={() => {
+            setDropdown(!dropdownActive);
+          }}
+          className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 hover:bg-[#fffbc2]"
+        >
           <SlLogout className="text-2xl" />
-          {/* <Link href={"/"} className="font-medium">
-            Log Out
-          </Link> */}
+
           <LogOut color={"black"}/>
         </div>
       </div>
