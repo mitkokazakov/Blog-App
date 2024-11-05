@@ -20,11 +20,9 @@ const RegisterSchema = z.object({
   email: z.string().email(),
   newpassword: z
     .union([
-      z
-        .string()
-        .length(0, {
-          message: "Password should be at least 4 characters long!",
-        }),
+      z.string().length(0, {
+        message: "Password should be at least 4 characters long!",
+      }),
       z
         .string()
         .min(4, { message: "Password should be at least 4 characters long!" }),
@@ -44,7 +42,10 @@ const ChangeUserForm = ({
   email: string;
   userId: string;
 }) => {
+
   const [image, setImage] = useState<File>();
+  const [fullName, setFullName] = useState(name);
+  const [userEmail, setUserEmail] = useState(email);
 
   const router = useRouter();
 
@@ -84,7 +85,6 @@ const ChangeUserForm = ({
             //setImageUrl(d.result.secure_url);
             imageUrl = d.result.secure_url;
           });
-          
       } else {
         alert("Something went wrong!");
       }
@@ -102,7 +102,7 @@ const ChangeUserForm = ({
 
     if (updateResponse.status == 200) {
       alert("User has been updated successfully");
-      router.refresh();
+      router.push(`/myprofile/${userId}`);
     } else {
       alert("Wrong!");
     }
@@ -128,12 +128,13 @@ const ChangeUserForm = ({
           </label>
           <div className="mt-2">
             <input
-              value={name}
+              value={fullName}
               id="name"
               type="text"
               required
               className="block w-full px-3 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               {...register("name")}
+              onChange={(e) => {setFullName(e.target.value)}}
             />
             <span className="text-red-600 tracking-widest text-sm">
               {errors?.name?.message}
@@ -150,13 +151,14 @@ const ChangeUserForm = ({
           </label>
           <div className="mt-2">
             <input
-              value={email}
+              value={userEmail}
               id="email"
               type="email"
               required
               autoComplete="email"
               className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               {...register("email")}
+              onChange={(e) => {setUserEmail(e.target.value)}}
             />
             <span className="text-red-600 tracking-widest text-sm">
               {errors?.email?.message}
