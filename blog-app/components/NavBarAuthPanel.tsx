@@ -111,7 +111,7 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
         >
           <FaRegUser className="text-2xl" />
 
-          <Link href={"/myprofile/33"} className="font-medium">
+          <Link href={`/myprofile/${userId}`} className="font-medium">
             My Profile
           </Link>
         </div>
