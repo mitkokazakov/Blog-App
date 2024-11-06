@@ -1,37 +1,43 @@
 "use client";
 import { ExtractDayYearMonth } from "@/app/lib/helpers";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import ApproveDelete from "./ApproveDelete";
 
-
-const DashboardAllPosts = ({ tab, allPosts }: { tab: string, allPosts: BlogType[] }) => {
-  const [filteredData, SetFilteredData] = useState<BlogType[]>(allPosts);
-
-  //let filteredData = data;
+const DashboardAllPosts = ({
+  tab,
+  allPosts,
+}: {
+  tab: string;
+  allPosts: BlogType[];
+}) => {
+  const [filteredData, SetFilteredData] = useState<BlogType[]>();
+  const [allBlogs, setAllBlogs] = useState<BlogType[]>();
 
   useEffect(() => {
+    SetFilteredData(allPosts);
+    setAllBlogs(allPosts);
+
     if (tab == "approved") {
+      const tempData = allBlogs?.filter((p) => p.isApproved == true);
 
-        const tempData = allPosts.filter(p => p.isApproved == true)
+      SetFilteredData(tempData);
+    }
+    if (tab == "not approved") {
+      const tempData = allBlogs?.filter((p) => p.isApproved == false);
 
-        SetFilteredData(tempData)
-      }
-      if (tab == "not approved") {
+      SetFilteredData(tempData);
+    }
+    if (tab == "all") {
+      SetFilteredData(allBlogs);
+    }
+  }, [tab, allPosts]);
 
-        const tempData = allPosts.filter(p => p.isApproved == false)
-
-        SetFilteredData(tempData)
-      }
-      if (tab == "all") {
-        SetFilteredData(allPosts)
-      }
-  },[tab, allPosts])
-
-
-
-  function OnChangeInput(input:string){
-
-    const tempData = allPosts.filter(p => p.title.includes(input))
+  function OnChangeInput(input: string) {
+    const tempData = allPosts.filter((p) => p.title.includes(input));
 
     SetFilteredData(tempData);
   }
@@ -99,7 +105,6 @@ const DashboardAllPosts = ({ tab, allPosts }: { tab: string, allPosts: BlogType[
           </thead>
           <tbody>
             {filteredData?.map((blog) => {
-
               const dateInfo = ExtractDayYearMonth(blog.createdAt);
 
               return (
@@ -116,32 +121,14 @@ const DashboardAllPosts = ({ tab, allPosts }: { tab: string, allPosts: BlogType[
                     {`${dateInfo.monthShort} ${dateInfo.day} ${dateInfo.year}`}
                   </td>
                   <td className="text-left border border-slate-800 px-4 py-4">
-                    {
-                      blog.isApproved == true ? "approved" : "not approved"
-                    }
+                    {blog.isApproved == true ? "approved" : "not approved"}
                   </td>
                   <td className="text-left border border-slate-800 px-4 py-4 ">
-                    <Link
-                      href={`/blog/${blog.id}`}
-                      className="bg-green-500 px-3 py-1 rounded-lg mr-5"
-                    >
-                      View
-                    </Link>
-                    <Link
-                      href={`/dashboard/deleteblog/${blog.id}`}
-                      className="bg-red-500 px-3 py-1 rounded-lg mr-5"
-                    >
-                      Delete
-                    </Link>
-
-                    {
-                      blog.isApproved == false ? <Link
-                      href={"/"}
-                      className="bg-yellow-500 px-3 py-1 rounded-lg"
-                    >
-                      Approve
-                    </Link> : null
-                    }
+                    <ApproveDelete
+                      blogId={blog.id}
+                      userId={blog.userId}
+                      isApproved={blog.isApproved}
+                    />
                   </td>
                 </tr>
               );

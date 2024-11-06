@@ -18,6 +18,7 @@ export async function PUT(req: NextRequest){
       });
     
       revalidatePath(`/dashboard/users/${userId}`);
+      revalidatePath(`/dashboard/posts`);
 
     return NextResponse.json({updatedBlog})
 }

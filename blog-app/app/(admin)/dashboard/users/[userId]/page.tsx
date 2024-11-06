@@ -3,6 +3,7 @@ import BlogRow from '@/components/AdminComponents/BlogRow'
 import React from 'react'
 import nouserImg from '../../../../../public/admindesktop.png';
 import Image from 'next/image';
+import { revalidatePath } from 'next/cache';
 
 type UserParams = {
   params:{
@@ -12,7 +13,9 @@ type UserParams = {
 
 const page = async ({params}: UserParams) => {
 
+  
   const user = await GetUserByIdWithBlogs(params.userId);
+  revalidatePath(`/dashboard/users/${params.userId}`)
 
   return (
     <div className='w-full bg-[#0f0f11] mih-h-screen text-white flex flex-col gap-8 px-10 py-10'>
@@ -43,7 +46,12 @@ const page = async ({params}: UserParams) => {
       </div>
 
       <div>
+
+      <h1 className='text-2xl font-bold tracking-widest text-center mb-5'>User's blogs</h1>
+
       <table className="table-auto border-collapse border border-slate-400 w-full">
+
+        
             <thead>
               <tr>
                 <th className="text-left border border-slate-800 px-4 py-4">

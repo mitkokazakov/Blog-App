@@ -3,6 +3,7 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function DeleteConfirmationModal({
   blogId,
@@ -22,7 +23,8 @@ export default function DeleteConfirmationModal({
     })
 
     if (res.status == 200) {
-      alert("Blog has been deleted");
+      //alert("Blog has been deleted");
+      toast.success("Blog has been deleted");
       router.push("/dashboard/posts?tab=all");
       router.refresh();
       router.back();

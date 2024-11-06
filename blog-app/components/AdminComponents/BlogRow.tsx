@@ -35,28 +35,7 @@ const BlogRow = ({ blogProps }: BlogProps) => {
       <td className="text-left border border-slate-800 px-4 py-4 ">
 
         <ApproveDelete userId={blogProps.userId} blogId={blogProps.id} isApproved={blogProps.isApproved}/>
-        {/* <div className="flex justify-start gap-5">
-          <Link
-            href={`/blog/${blogProps.id}`}
-            className="bg-green-500 px-3 py-1 rounded-lg "
-          >
-            View
-          </Link>
-          <Link href={"/"} className="bg-red-500 px-3 py-1 rounded-lg ">
-            Delete
-          </Link>
-
-          {
-            blogProps.isApproved == false ? <form action={HandleApproveBlog} className="">
-            <button
-              type="submit"
-              className="  bg-yellow-500 px-3 py-1 rounded-lg"
-            >
-              Approve
-            </button>
-          </form> : null
-          }
-        </div> */}
+        
       </td>
     </tr>
   );

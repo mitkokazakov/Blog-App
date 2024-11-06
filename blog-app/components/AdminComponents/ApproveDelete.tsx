@@ -25,7 +25,10 @@ const ApproveDelete = ({
 
       if (res.status == 200) {
         toast.success("Blog has been successfully approved");
+        console.log("approves");
         router.refresh();
+        console.log("refreshed");
+        
       }
     } catch (error: any) {
       router.push("/dashboard/users");
@@ -41,7 +44,7 @@ const ApproveDelete = ({
       >
         View
       </Link>
-      <Link href={"/"} className="bg-red-500 px-3 py-1 rounded-lg ">
+      <Link href={`/dashboard/deleteblog/${blogId}`} className="bg-red-500 px-3 py-1 rounded-lg ">
         Delete
       </Link>
 
