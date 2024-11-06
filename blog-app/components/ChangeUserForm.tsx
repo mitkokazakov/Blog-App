@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
@@ -13,6 +13,8 @@ type ChangeUserProfileProps = {
   newpassword: string;
 };
 
+
+//The validation of a newpassword field is a little bit more complicated because the field is an optional at all, but when user decide o change its password then the filed should has validation.
 const RegisterSchema = z.object({
   name: z
     .string()
@@ -46,6 +48,8 @@ const ChangeUserForm = ({
   const [image, setImage] = useState<File>();
   const [fullName, setFullName] = useState(name);
   const [userEmail, setUserEmail] = useState(email);
+
+  const [fileInputKey, setFileInputKey] = useState(Date.now());
 
   const router = useRouter();
 
@@ -102,7 +106,12 @@ const ChangeUserForm = ({
 
     if (updateResponse.status == 200) {
       alert("User has been updated successfully");
+      setImage(undefined);
+      
+      setFileInputKey(Date.now());
+
       router.push(`/myprofile/${userId}`);
+      router.refresh();
     } else {
       alert("Wrong!");
     }
@@ -201,6 +210,7 @@ const ChangeUserForm = ({
               id="image"
               className="bg-white block w-full border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               type="file"
+              key={fileInputKey}
               onChange={(e) => {
                 if (e.target.files) {
                   setImage(e.target.files[0]);
