@@ -43,15 +43,21 @@ const UserRow = ({
       <td className="text-left border border-slate-800 px-4 py-4">{role}</td>
       <td className="text-left border border-slate-800 px-4 py-4">{isDeleted == true ? "deleted" : "active"}</td>
       <td className="text-left border border-slate-800 px-4 py-4 ">
+        <div className="flex justify-start items-center gap-5">
         <Link
           href={`/dashboard/users/${id}`}
-          className="bg-green-500 px-3 py-1 rounded-lg mr-5"
+          className="bg-green-500 px-3 py-1 rounded-lg"
         >
           View
         </Link>
         <Link href={"/"} className="bg-red-500 px-3 py-1 rounded-lg">
           Delete
         </Link>
+
+        <Link href={`/myprofile/${id}`} className="bg-yellow-500 px-3 py-1 rounded-lg">
+          Change
+        </Link>
+        </div>
       </td>
     </tr>
   );
