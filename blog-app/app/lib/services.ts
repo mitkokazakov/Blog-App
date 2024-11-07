@@ -128,7 +128,7 @@ export async function GetBlogById(id: string){
 }
 
 export async function GetAllUsers(){
-
+"use server"
   const users = await prisma.user.findMany({
     select:{
       id: true,
@@ -141,6 +141,7 @@ export async function GetAllUsers(){
     }
   });
 
+  revalidatePath("/dashboard/users");
   return users;
 }
 

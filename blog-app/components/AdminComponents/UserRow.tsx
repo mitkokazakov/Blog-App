@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import { FaRegUser } from "react-icons/fa";
+import { revalidatePath } from "next/cache";
 
 const UserRow = ({
   id,
@@ -14,49 +15,63 @@ const UserRow = ({
   role,
 }: UserRowParams) => {
 
-    const dateInfo = ExtractDayYearMonth(createdAt);
+  //revalidatePath("/dashboard/users");
+  const dateInfo = ExtractDayYearMonth(createdAt);
 
   return (
     <tr>
       <td className="text-left border border-slate-800 px-4 py-4 ">
         <div className="flex justify-start items-center gap-5">
           <div className="w-12 h-12 rounded-full flex justify-center items-center bg-white">
-            {
-                image != null ? <Image src={image} width={48} height={48}
+            {image != null ? (
+              <Image
+                src={image}
+                width={48}
+                height={48}
                 alt="op"
-                className="w-full h-full rounded-full"></Image> : null
-            }
+                className="w-full h-full rounded-full"
+              ></Image>
+            ) : null}
 
-            {
-                image == null ? <FaRegUser className="text-3xl text-black" /> : null
-            }
+            {image == null ? (
+              <FaRegUser className="text-3xl text-black" />
+            ) : null}
           </div>
           <p>{name}</p>
         </div>
       </td>
+      <td className="text-left border border-slate-800 px-4 py-4">{email}</td>
       <td className="text-left border border-slate-800 px-4 py-4">
-        {email}
-      </td>
-      <td className="text-left border border-slate-800 px-4 py-4">
-       {`${dateInfo.monthShort} ${dateInfo.day} ${dateInfo.year}`}
+        {`${dateInfo.monthShort} ${dateInfo.day} ${dateInfo.year}`}
       </td>
       <td className="text-left border border-slate-800 px-4 py-4">{role}</td>
-      <td className="text-left border border-slate-800 px-4 py-4">{isDeleted == true ? "deleted" : "active"}</td>
+      <td className="text-left border border-slate-800 px-4 py-4">
+        {isDeleted == true ? "deleted" : "active"}
+      </td>
       <td className="text-left border border-slate-800 px-4 py-4 ">
         <div className="flex justify-start items-center gap-5">
-        <Link
-          href={`/dashboard/users/${id}`}
-          className="bg-green-500 px-3 py-1 rounded-lg"
-        >
-          View
-        </Link>
-        <Link href={"/"} className="bg-red-500 px-3 py-1 rounded-lg">
-          Delete
-        </Link>
+          <Link
+            href={`/dashboard/users/${id}`}
+            className="bg-green-500 px-3 py-1 rounded-lg"
+          >
+            View
+          </Link>
 
-        <Link href={`/myprofile/${id}`} className="bg-yellow-500 px-3 py-1 rounded-lg">
-          Change
-        </Link>
+          {isDeleted == false ? (
+            <Link
+              href={`/dashboard/deleteuser/${id}`}
+              className="bg-red-500 px-3 py-1 rounded-lg"
+            >
+              Delete
+            </Link>
+          ) : null}
+
+          <Link
+            href={`/myprofile/${id}`}
+            className="bg-yellow-500 px-3 py-1 rounded-lg"
+          >
+            Change
+          </Link>
         </div>
       </td>
     </tr>

@@ -1,5 +1,7 @@
 export function ExtractDayYearMonth(date: Date) {
 
+  console.log(date);
+  
   const day = date.getDate().toString().padStart(2, "0");
   const month = date
     .toLocaleString("en-EN", { month: "short" })

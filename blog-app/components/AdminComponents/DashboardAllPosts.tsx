@@ -34,7 +34,7 @@ const DashboardAllPosts = ({
     if (tab == "all") {
       SetFilteredData(allBlogs);
     }
-  }, [tab, allPosts]);
+  }, [tab, allPosts, allBlogs]);
 
   function OnChangeInput(input: string) {
     const tempData = allPosts.filter((p) => p.title.includes(input));

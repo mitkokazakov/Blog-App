@@ -8,6 +8,9 @@ type UserProps = {
 };
 
 const UsersTable = ({ users }: UserProps) => {
+
+  console.log(users);
+  
   const [userData, SetUserData] = useState<UserParams[]>(users);
 
   function OnChangeInput(input: string) {

@@ -47,7 +47,7 @@ const page = async ({params}: UserParams) => {
 
       <div>
 
-      <h1 className='text-2xl font-bold tracking-widest text-center mb-5'>User's blogs</h1>
+      <h1 className='text-2xl font-bold tracking-widest text-center mb-5'>User blogs</h1>
 
       <table className="table-auto border-collapse border border-slate-400 w-full">
 
