@@ -9,10 +9,12 @@ const ApproveDelete = ({
   blogId,
   userId,
   isApproved,
+  path
 }: {
   blogId: string;
   userId: string;
   isApproved: boolean;
+  path: string
 }) => {
   const router = useRouter();
 
@@ -44,7 +46,9 @@ const ApproveDelete = ({
       >
         View
       </Link>
-      <Link href={`/dashboard/deleteblog/${blogId}`} className="bg-red-500 px-3 py-1 rounded-lg ">
+
+      {/* dashboard/deleteblog/${blogId} */}
+      <Link href={path} className="bg-red-500 px-3 py-1 rounded-lg ">
         Delete
       </Link>
 

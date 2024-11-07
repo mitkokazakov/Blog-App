@@ -18,17 +18,14 @@ export default function DeleteConfirmationModal({
   const router = useRouter();
 
   const handleConfirmDelete = async () => {
-    //const response = await axios.delete(`/api/deleteblog/${blogId}`);
-
-    const res = await fetch(`/api/deleteblog/${blogId}`, {
-      method: "DELETE",
-      cache: "no-store",
-    });
+    const res = await axios.delete(`/api/deleteblog/${blogId}`);
 
     if (res.status == 200) {
-      //alert("Blog has been deleted");
+
+      const userId = res.data.userId;
+
       toast.success("Blog has been deleted");
-      router.push("/dashboard/posts");
+      router.push(`/dashboard/users/${userId}`);
       router.refresh();
       setIsOpen(false);
     } else {

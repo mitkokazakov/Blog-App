@@ -128,6 +128,7 @@ const DashboardAllPosts = ({
                       blogId={blog.id}
                       userId={blog.userId}
                       isApproved={blog.isApproved}
+                      path={`/dashboard/deleteblog/${blog.id}`}
                     />
                   </td>
                 </tr>

@@ -34,7 +34,7 @@ const BlogRow = ({ blogProps }: BlogProps) => {
       </td>
       <td className="text-left border border-slate-800 px-4 py-4 ">
 
-        <ApproveDelete userId={blogProps.userId} blogId={blogProps.id} isApproved={blogProps.isApproved}/>
+        <ApproveDelete userId={blogProps.userId} blogId={blogProps.id} isApproved={blogProps.isApproved} path={`/dashboard/deleteusersblog/${blogProps.id}`}/>
         
       </td>
     </tr>
