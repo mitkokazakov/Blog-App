@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserRow from "./UserRow";
 
 type UserProps = {
@@ -11,7 +11,11 @@ const UsersTable = ({ users }: UserProps) => {
 
   console.log(users);
   
-  const [userData, SetUserData] = useState<UserParams[]>(users);
+  const [userData, SetUserData] = useState<UserParams[]>();
+
+  useEffect(() => {
+    SetUserData(users)
+  },[users])
 
   function OnChangeInput(input: string) {
     const tempData = users.filter((u) => u.name?.includes(input));

@@ -11,12 +11,6 @@ export async function DELETE(req: NextRequest, {params}: {params: UpdateParams})
 
     const userId = params.userId;
 
-    // const blog = await prisma.blog.findFirst({
-    //     where:{
-    //         id: blogId
-    //     }
-    // })
-
    
     const currentUser = await prisma.user.update({
         data: {
@@ -26,6 +20,12 @@ export async function DELETE(req: NextRequest, {params}: {params: UpdateParams})
             id: userId
         }
     });
+
+    // const currentUser = await prisma.user.delete({
+    //     where: {
+    //         id: userId
+    //     }
+    // });
 
     revalidatePath("/dashboard/users");
 
