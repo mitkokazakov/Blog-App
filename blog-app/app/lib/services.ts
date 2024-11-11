@@ -111,6 +111,22 @@ export async function GetAllBlogs(){
   return allBlogs;
 }
 
+export async function GetAllBlogsByTag(tag: string){
+
+  const allBlogs = await prisma.blog.findMany({
+    where:{
+      tags: {
+        contains: tag
+      }
+    },
+    include:{
+      user: true
+    }
+  });
+
+  return allBlogs;
+}
+
 export async function GetBlogById(id: string){
 
   const currentBlog = await prisma.blog.findFirst({

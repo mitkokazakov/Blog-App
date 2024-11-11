@@ -37,7 +37,7 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
         <div className="w-full flex justify-between items-center gap-3">
           <div className="flex justify-start items-center gap-3">
             {blogProps.tags.split(",").map((t) => {
-              return <p key={t} className="cursor-pointer">#{t}</p>;
+              return <Link href={`/tag/${t}`} key={t} className="cursor-pointer">#{t}</Link>;
             })}
           </div>
 
