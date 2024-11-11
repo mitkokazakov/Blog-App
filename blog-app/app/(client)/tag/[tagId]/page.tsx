@@ -28,8 +28,13 @@ const TagPage = async ({params}: TagParams) => {
       </div>
 
       <div className="w-full flex flex-col gap-8 md:items-center md:justify-center">
+
         {
-          blogs.map(blog => {
+          blogs.length == 0 ? <h1 className="text-center text-3xl tracking-widest font-bold mt-20">There are no blogs related to this tag. Sorry</h1> : null
+        }
+
+        {
+          blogs?.map(blog => {
             return <SingleBlog key={blog.id} blogProps={blog}/>
           })
         }

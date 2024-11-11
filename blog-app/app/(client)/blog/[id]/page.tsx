@@ -2,6 +2,7 @@ import React from "react";
 import { GetBlogById } from "@/app/lib/services";
 import Link from "next/link";
 import Image from "next/image";
+import ErrorPage from "@/components/ErrorPage";
 
 type ParamsType = {
   params: {
@@ -27,15 +28,12 @@ const BlogPage = async ({ params }: ParamsType) => {
   const body: any = blog?.body as string;
 
   if (!blog) {
-    return <h1>Blog with that id does not exist. Sorry!</h1>;
+    return <ErrorPage />
   }
 
   return (
     <div className="px-5 py-8 max-w-[1440px] mx-auto">
-      <h1 className="text-2xl font-bold tracking-wider">
-        {/* Bytes & Beyond: Where Tech meets imagination */}
-        {blog?.title}
-      </h1>
+      <h1 className="text-2xl font-bold tracking-wider">{blog?.title}</h1>
 
       <div className="flex justify-start items-center gap-3 mt-5 text-sm pb-5 border-b border-b-slate-300">
         <p className="">{`${day} ${monthLong} ${year}`}</p>
@@ -45,17 +43,14 @@ const BlogPage = async ({ params }: ParamsType) => {
 
       <p className="mt-5 text-lg font-medium mb-5">{blog?.description}</p>
 
-      <Image src={blog?.images as string}
+      <Image
+        src={blog?.images as string}
         alt=""
         className="w-full max-h-[700px] mb-5"
         width={1400}
         height={1000}
-        priority={false}></Image>
-      {/* <img
-        src={blog?.images as string}
-        alt=""
-        className="w-full max-h-[700px] mb-5"
-      /> */}
+        priority={false}
+      ></Image>
 
       <div
         className="blog-content text-lg mb-5"
