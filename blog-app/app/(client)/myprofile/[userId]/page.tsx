@@ -4,6 +4,7 @@ import ChangeUserForm from "@/components/ChangeUserForm";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/authoptions";
 import { GetUser } from "@/app/lib/services";
+import ErrorPage from "@/components/ErrorPage";
 
 type ProfileParams = {
   params: {
@@ -15,6 +16,10 @@ const page = async ({ params }: ProfileParams) => {
   //const session = await getServerSession(authOptions);
 
   const user = await GetUser(params.userId);
+
+  if(!user){
+    return <ErrorPage text={"User with that id does not exist! Sorry."}/>
+  }
 
   return (
     <div className="w-full min-h-screen p-5">

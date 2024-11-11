@@ -21,6 +21,9 @@ const BlogsPage = async () => {
 
       <div className="w-full flex flex-col gap-8 md:items-center md:justify-center">
         {
+          blogs.length == 0 ? <h1 className="text-center text-3xl tracking-widest font-bold mt-20">Currently there are no blogs!</h1> : null
+        }
+        {
           blogs.map(blog => {
             return <SingleBlog key={blog.id} blogProps={blog}/>
           })

@@ -11,11 +11,7 @@ const page = () => {
           className="mx-auto h-10 w-auto"
           width={86}
           height={86}></Image>
-        {/* <img
-          alt="Your Company"
-          src="https://logowik.com/content/uploads/images/pirate-skull-with-snakes-and-swords3958.logowik.com.webp"
-          className="mx-auto h-10 w-auto"
-        /> */}
+        
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign in to your account
         </h2>

@@ -4,6 +4,7 @@ import { v2 as cloudinary } from "cloudinary";
 import "react-quill/dist/quill.snow.css";
 import { GetBlogById } from "@/app/lib/services";
 import ChangeForm from "@/components/ChangeForm";
+import ErrorPage from "@/components/ErrorPage";
 
 cloudinary.config({
   cloud_name: "ddvfwyoek",
@@ -31,6 +32,10 @@ const ChangePage = async ({ params }: ParamsType) => {
     tags: blog?.tags as string,
     createdAt: blog?.createdAt as Date,
     userId: blog?.userId as string
+  }
+
+  if(!blog){
+    return <ErrorPage text={"Blog with that id does not exist! Sorry."}/>
   }
 
   return (

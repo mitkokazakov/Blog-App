@@ -104,6 +104,9 @@ const DashboardAllPosts = ({
             </tr>
           </thead>
           <tbody>
+            {
+              allBlogs?.length == 0 ? <h1 className="text-2xl font-bold tracking-widest">"No blogs!"</h1> : null
+            }
             {filteredData?.map((blog) => {
               const dateInfo = ExtractDayYearMonth(blog.createdAt);
 

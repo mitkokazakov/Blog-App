@@ -4,6 +4,7 @@ import React from 'react'
 import nouserImg from '../../../../../public/admindesktop.png';
 import Image from 'next/image';
 import { revalidatePath } from 'next/cache';
+import ErrorAdminPage from '@/components/AdminComponents/ErrorAdminPage';
 
 type UserParams = {
   params:{
@@ -16,6 +17,10 @@ const page = async ({params}: UserParams) => {
   
   const user = await GetUserByIdWithBlogs(params.userId);
   revalidatePath(`/dashboard/users/${params.userId}`)
+
+  if(!user){
+    return <ErrorAdminPage text={"User with that id does not exist! Sorry."}/>
+  }
 
   return (
     <div className='w-full bg-[#0f0f11] mih-h-screen text-white flex flex-col gap-8 px-10 py-10'>

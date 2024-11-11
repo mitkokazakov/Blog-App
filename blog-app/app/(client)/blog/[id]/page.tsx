@@ -28,7 +28,7 @@ const BlogPage = async ({ params }: ParamsType) => {
   const body: any = blog?.body as string;
 
   if (!blog) {
-    return <ErrorPage />
+    return <ErrorPage text={"Blog with that id does not exist! Sorry."}/>
   }
 
   return (
