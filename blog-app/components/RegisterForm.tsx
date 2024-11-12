@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 type RegisterFormFields = {
   name: string;
@@ -57,18 +58,18 @@ const RegisterForm = ({color, role}: {color: string, role: string}) => {
           router.push("/dashboard/users");
           router.refresh();
         }
-        alert("Registration was successfuly");
-        //toast.success("Registration was successfuly");
+        //alert("Registration was successfuly");
+        toast.success("Registration was successfuly");
       } else {
-        alert(resp.request.responseText)
-        //toast.error(resp.request.responseText);
+        //alert(resp.request.responseText)
+        toast.error(resp.request.responseText);
       }
     } catch (error: any) {
       if(role == "user"){
         router.push("/");
       }
-      alert(error.request.responseText);
-      //toast.error(error.request.responseText);
+      //alert(error.request.responseText);
+      toast.error("Something went wrong!");
     }
   };
 

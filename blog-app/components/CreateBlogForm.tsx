@@ -13,8 +13,7 @@ import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
-
-
+import toast from "react-hot-toast";
 
 type TextEditorFields = {
   blogtitle: string;
@@ -78,34 +77,31 @@ const CreateBlogForm = () => {
     formData.append("image", image as File);
     formData.append("imageId", currentId);
 
-    const response = await axios.post("/api/uploadimage",formData);
-
-
     let imageUrl = "";
 
-    if(response.status == 200){
+    try {
+      const response = await axios.post("/api/uploadimage", formData);
 
-      console.log(response);
-      console.log(response.data?.imageId);
+      if (response.status == 200) {
+        console.log(response);
+        console.log(response.data?.imageId);
 
-      await fetch(`/api/search?publicId=${currentId}`)
-      .then((res) => res.json())
-      .then((d) => {
-        //setImageUrl(d.result.secure_url);
-        imageUrl = d.result.secure_url;
-      });
+        await fetch(`/api/search?publicId=${currentId}`)
+          .then((res) => res.json())
+          .then((d) => {
+            //setImageUrl(d.result.secure_url);
+            imageUrl = d.result.secure_url;
+          });
 
-      console.log(imageUrl);
-      
-      
+        console.log(imageUrl);
+      }
+
+      if (response.status != 200) {
+        toast.error("something went wrong!");
+      }
+    } catch (error: any) {
+      toast.error("Something went wrong during uploading the image!");
     }
-
-    if (response.status != 200) {
-      alert("Something went wrong!");
-    }
-
-    
-    
 
     try {
       const resp = await axios.post("/api/sendblog", {
@@ -121,17 +117,16 @@ const CreateBlogForm = () => {
         console.log(resp);
 
         router.push(`/blog/${resp.data.blogId}`);
-        alert("You have successfully added post!");
+        toast.success("You have successfully added post!");
         localStorage.setItem("blog", "");
         router.refresh();
-        //toast.success("Registration was successfuly");
       } else {
-        alert(resp.request.responseText);
-        //toast.error(resp.request.responseText);
+        //alert(resp.request.responseText);
+        toast.error(resp.request.responseText);
       }
     } catch (error: any) {
       console.log("Error");
-      
+      toast.error("Something went wrong when tried to upload the blog!");
       //router.push("/blogs");
       //alert(error.request.responseText);
       //toast.error(error.request.responseText);
@@ -156,7 +151,6 @@ const CreateBlogForm = () => {
 
   return (
     <div className="mt-10 pb-10 sm:mx-auto sm:w-full md:w-[800px]">
-      
       <form
         onKeyDown={(e) => {
           if (e.key === "Enter") {

@@ -6,6 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 const LoginSchema = z.object({
   email: z.string().email(),
@@ -46,15 +47,15 @@ const LoginForm = () => {
       callbackUrl: "/",
     }).then((callback) => {
       if (callback?.error) {
-        alert(callback.error);
-        //toast.error(callback.error)
+        //alert(callback.error);
+        toast.error(callback.error)
       }
 
       if (callback?.ok) {
         router.push("/");
         router.refresh();
-        alert("User logged in successful");
-        //toast.success("User logged in successful", {duration: 4000, style:{ background: "rgba(76, 175, 80, 0.5)"}});
+        //alert("User logged in successful");
+        toast.success("User logged in successful");
       }
     });
 

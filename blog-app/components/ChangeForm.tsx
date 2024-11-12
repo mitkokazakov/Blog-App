@@ -14,6 +14,7 @@ import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 cloudinary.config({
   cloud_name: "ddvfwyoek",
@@ -96,29 +97,41 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
 
       const currentId = uuidv4();
 
-      await new Promise((resolve, reject) => {
-        cloudinary.uploader
-          .upload_stream(
-            {
-              public_id: currentId,
-            },
-            function (error, result) {
-              if (error) {
-                reject(error);
-                return;
+      try {
+        await new Promise((resolve, reject) => {
+          cloudinary.uploader
+            .upload_stream(
+              {
+                public_id: currentId,
+              },
+              function (error, result) {
+                if (error) {
+                  
+                  reject(error);
+                  return;
+                }
+                resolve(result);
               }
-              resolve(result);
-            }
-          )
-          .end(buffer);
-      });
+            )
+            .end(buffer);
+        });
+      } catch (error: any) {
+        
+        
+        toast.error("Something went wrong!");
+        return;
+      }
 
-      await fetch(`/api/search?publicId=${currentId}`)
+      try {
+        await fetch(`/api/search?publicId=${currentId}`)
         .then((res) => res.json())
         .then((d) => {
           //setImageUrl(d.result.secure_url);
           imageUrl = d.result.secure_url;
         });
+      } catch (error: any) {
+        toast.error("Some problem occured when tried to upload image! Sorry.");
+      }
     }
 
     try {
@@ -136,18 +149,17 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
         console.log(resp);
 
         router.push(`/blog/${blogData.id}`);
-        alert("You have successfully update post!");
+        toast.success("You have successfully update post!");
         localStorage.setItem("changeBlog", "");
         router.refresh();
-        //toast.success("Registration was successfuly");
       } else {
-        alert(resp.statusText);
-        //toast.error(resp.request.responseText);
+        //alert(resp.statusText);
+        toast.error(resp.request.responseText);
       }
     } catch (error: any) {
       router.push("/blogs");
-      alert(error.request.responseText);
-      //toast.error(error.request.responseText);
+      //alert(error.request.responseText);
+      toast.error("Something went wrong! Sorry.");
     }
 
     setErrorTags(false);

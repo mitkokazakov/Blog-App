@@ -3,6 +3,7 @@ import { Fira_Code } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import AuthContext from "@/context/AuthContext";
+import { Toaster } from "react-hot-toast";
 // import sdsa from '../../node_modules/froala-editor/css/plugins/froala_style.min.css'
 const fira = Fira_Code({ subsets: ["cyrillic"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
         <AuthContext>
           <Navbar />
           {children}
+          <Toaster position="top-right" />
         </AuthContext>
       </body>
     </html>
