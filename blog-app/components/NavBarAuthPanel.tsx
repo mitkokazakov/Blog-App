@@ -44,15 +44,15 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
 
   return (
     <div className="">
-      <div className="flex justify-center items-center gap-5">
+      <div className="flex justify-center items-center gap-16">
         {sessionStatus == false ? (
-          <Link href={"/"} className="text-xl tracking-widest font-medium">
+          <Link href={"/"} className=" tracking-widest font-medium">
             Login
           </Link>
         ) : null}
 
         {sessionStatus == false ? (
-          <Link href={"/"} className="text-xl tracking-widest font-medium">
+          <Link href={"/"} className=" tracking-widest font-medium">
             Register
           </Link>
         ) : null}

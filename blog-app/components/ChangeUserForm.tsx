@@ -6,13 +6,13 @@ import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 type ChangeUserProfileProps = {
   name: string;
   email: string;
   newpassword: string;
 };
-
 
 //The validation of a newpassword field is a little bit more complicated because the field is an optional at all, but when user decide o change its password then the filed should has validation.
 const RegisterSchema = z.object({
@@ -44,7 +44,6 @@ const ChangeUserForm = ({
   email: string;
   userId: string;
 }) => {
-
   const [image, setImage] = useState<File>();
   const [fullName, setFullName] = useState(name);
   const [userEmail, setUserEmail] = useState(email);
@@ -71,26 +70,32 @@ const ChangeUserForm = ({
     let imageUrl = "";
 
     if (image) {
-      const currentImageId = uuidv4();
+      try {
+        const currentImageId = uuidv4();
 
-      const formImageData = new FormData();
+        const formImageData = new FormData();
 
-      formImageData.append("image", image as File);
-      formImageData.append("imageId", currentImageId);
+        formImageData.append("image", image as File);
+        formImageData.append("imageId", currentImageId);
 
-      const res = await axios.post("/api/uploadimage", formImageData);
+        const res = await axios.post("/api/uploadimage", formImageData);
 
-      if (res.status === 200) {
-        const imageId = res.data?.imageId;
+        if (res.status === 200) {
+          const imageId = res.data?.imageId;
 
-        await fetch(`/api/search?publicId=${imageId}`)
-          .then((res) => res.json())
-          .then((d) => {
-            //setImageUrl(d.result.secure_url);
-            imageUrl = d.result.secure_url;
-          });
-      } else {
-        alert("Something went wrong!");
+          await fetch(`/api/search?publicId=${imageId}`)
+            .then((res) => res.json())
+            .then((d) => {
+              //setImageUrl(d.result.secure_url);
+              imageUrl = d.result.secure_url;
+            });
+        } else {
+          toast.error("Something went wrong!");
+          return;
+        }
+      } catch (error: any) {
+        toast.error("Something went wrong!");
+        return;
       }
     }
 
@@ -105,15 +110,16 @@ const ChangeUserForm = ({
     );
 
     if (updateResponse.status == 200) {
-      alert("User has been updated successfully");
+      toast.success("User has been updated successfully");
       setImage(undefined);
-      
+
       setFileInputKey(Date.now());
 
       router.push(`/myprofile/${userId}`);
       router.refresh();
     } else {
-      alert("Wrong!");
+      toast.error("Something went wrong!");
+      return
     }
   };
 
@@ -143,7 +149,9 @@ const ChangeUserForm = ({
               required
               className="block w-full px-3 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               {...register("name")}
-              onChange={(e) => {setFullName(e.target.value)}}
+              onChange={(e) => {
+                setFullName(e.target.value);
+              }}
             />
             <span className="text-red-600 tracking-widest text-sm">
               {errors?.name?.message}
@@ -167,7 +175,9 @@ const ChangeUserForm = ({
               autoComplete="email"
               className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               {...register("email")}
-              onChange={(e) => {setUserEmail(e.target.value)}}
+              onChange={(e) => {
+                setUserEmail(e.target.value);
+              }}
             />
             <span className="text-red-600 tracking-widest text-sm">
               {errors?.email?.message}
