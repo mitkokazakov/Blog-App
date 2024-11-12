@@ -10,7 +10,7 @@ type SearchParamsType = {
 
 const page = ({ searchParams }: SearchParamsType) => {
   return (
-    <div className="w-full min-h-screen bg-[#0e0e10] text-white">
+    <div className="w-full min-h-screen p-5 bg-[#0e0e10] text-white">
 
       <h1>Please select tab</h1>
     </div>

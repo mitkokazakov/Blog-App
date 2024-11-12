@@ -37,7 +37,7 @@ model Blog {
   id          String   @id @default(cuid())
   title       String
   description String
-  body        String
+  body        String   @db.VarChar(max)
   tags        String
   images      String?
   createdAt   DateTime @default(now())

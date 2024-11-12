@@ -13,3 +13,13 @@
 .blog-content p {
     font-style: italic;
 }
+
+.blog-content ul{
+    list-style: circle;
+    padding-left: 50px;
+}
+
+.blog-content ol{
+    list-style: decimal;
+    padding-left: 50px;
+}
