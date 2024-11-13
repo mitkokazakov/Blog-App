@@ -32,7 +32,7 @@ const BlogPage = async ({ params }: ParamsType) => {
   }
 
   return (
-    <div className="px-5 py-8 max-w-[1440px] mx-auto">
+    <div className="px-5 md:px-12 py-8 max-w-[1440px] 2xl:px-0 mx-auto">
       <h1 className="text-2xl font-bold tracking-wider">{blog?.title}</h1>
 
       <div className="flex justify-start items-center gap-3 mt-5 text-sm pb-5 border-b border-b-slate-300">
@@ -41,12 +41,12 @@ const BlogPage = async ({ params }: ParamsType) => {
         <p>{blog?.user.name}</p>
       </div>
 
-      <p className="mt-5 text-lg font-medium mb-5">{blog?.description}</p>
+      <p className="mt-5 text-lg text-justify font-medium mb-5">{blog?.description}</p>
 
       <Image
         src={blog?.images as string}
         alt=""
-        className="w-full max-h-[700px] mb-5"
+        className="w-full md:w-10/12 m-auto max-h-[700px] mb-5"
         width={1400}
         height={1000}
         priority={false}

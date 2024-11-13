@@ -12,6 +12,7 @@
 
 .blog-content p {
     font-style: italic;
+    text-align: justify;
 }
 
 .blog-content ul{

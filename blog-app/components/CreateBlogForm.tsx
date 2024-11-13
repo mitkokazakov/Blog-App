@@ -150,7 +150,7 @@ const CreateBlogForm = () => {
   };
 
   return (
-    <div className="mt-10 pb-10 sm:mx-auto sm:w-full md:w-[800px]">
+    <div className="px-5 mt-10 pb-10 sm:mx-auto sm:w-full md:w-[800px]">
       <form
         onKeyDown={(e) => {
           if (e.key === "Enter") {
