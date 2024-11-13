@@ -25,7 +25,7 @@ const UsersTable = ({ users }: UserProps) => {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex justify-between">
+      <div className="flex flex-col gap-5 md:flex-row md:justify-between">
         <input
           type="text"
           name="username"
@@ -39,13 +39,13 @@ const UsersTable = ({ users }: UserProps) => {
 
         <Link
           href={"/dashboard/registeruser"}
-          className="bg-purple-600 px-3 py-2 rounded-lg"
+          className="bg-purple-600 px-3 py-1 rounded-lg text-center"
         >
           Add User
         </Link>
       </div>
 
-      <div>
+      <div className=" overflow-x-auto">
         <table className="table-auto border-collapse border border-slate-400 w-full">
           <thead>
             <tr>

@@ -16,7 +16,7 @@ const layout = ({
 }) => {
   return (
     <AuthContext>
-      <div className={`w-full min-h-screen bg-[#0e0e10] flex font-froala`}>
+      <div className={`w-full min-h-screen bg-[#0e0e10] flex flex-col lg:flex-row items-stretch font-froala`}>
         <DashboardContent />
         {children}
         {list}
