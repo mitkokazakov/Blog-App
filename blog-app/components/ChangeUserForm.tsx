@@ -124,7 +124,7 @@ const ChangeUserForm = ({
   };
 
   return (
-    <div className="  sm:mx-auto sm:w-full px-10 md:px-0 md:mx-0 md:max-w-[600px]">
+    <div className="  sm:mx-auto sm:w-full px-5 md:px-0 md:mx-0 md:max-w-[600px]">
       <h1 className="font-bold text-lg text-center tracking-widest mb-10">
         Change User
       </h1>

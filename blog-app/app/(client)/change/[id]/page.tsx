@@ -39,7 +39,7 @@ const ChangePage = async ({ params }: ParamsType) => {
   }
 
   return (
-    <div className="mt-10 pb-10 sm:mx-auto sm:w-full md:w-[800px]">
+    <div className="mt-10 pb-10 px-5 sm:mx-auto sm:w-full md:w-[800px]">
       <h1 className="text-center font-bold text-2xl mb-10">Change Blog</h1>
 
       <ChangeForm blogData={blogData}/>
