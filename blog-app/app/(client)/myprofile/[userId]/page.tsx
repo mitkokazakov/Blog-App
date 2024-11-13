@@ -22,13 +22,13 @@ const page = async ({ params }: ProfileParams) => {
   }
 
   return (
-    <div className="w-full min-h-screen p-5">
+    <div className="w-full min-h-screen p-5 lg:max-w-[1440px] md:mx-auto">
       <h1 className="text-2xl font-bold tracking-widest text-center">
         My Profile
       </h1>
 
-      <div className="flex justify-center items-start gap-[100px] mt-10">
-        <div className="flex flex-col gap-10 items-center lg:min-w-[400px]">
+      <div className="flex flex-col justify-center items-start md:flex-row md:gap-[100px] mt-10 md:mt-20">
+        <div className="flex flex-col gap-10 items-center w-full lg:min-w-[400px]">
           <h1 className="font-bold tracking-widest text-lg">User Details</h1>
 
           <div className="w-[300px] h-[300px] rounded-full overflow-hidden">
@@ -70,7 +70,7 @@ const page = async ({ params }: ProfileParams) => {
           </p>
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col items-start justify-start w-full mt-20 md:mt-0">
           <ChangeUserForm color="black" name={user?.name as string} email={user?.email as string} userId={user?.id as string}/>
         </div>
       </div>
