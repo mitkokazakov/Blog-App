@@ -3,12 +3,12 @@ import React from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/authoptions";
 import { ExtractDayYearMonth } from "@/app/lib/helpers";
-
+import DeleteButton from "./DeleteButton";
 
 const SingleBlog = async ({ blogProps }: BlogProps) => {
   const session = await getServerSession(authOptions);
 
-  const dateInfo  = ExtractDayYearMonth(blogProps.createdAt);
+  const dateInfo = ExtractDayYearMonth(blogProps.createdAt);
 
   return (
     <div className="w-full flex justify-center items-start md:gap-5 border-b-[0.1px] border-b-black py-4 md:max-w-[1440px]">
@@ -37,11 +37,15 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
         <div className="w-full flex justify-between items-center gap-3">
           <div className="flex justify-start items-center gap-3">
             {blogProps.tags.split(",").map((t) => {
-              return <Link href={`/tag/${t}`} key={t} className="cursor-pointer">#{t}</Link>;
+              return (
+                <Link href={`/tag/${t}`} key={t} className="cursor-pointer">
+                  #{t}
+                </Link>
+              );
             })}
           </div>
 
-          <div>
+          <div className="flex justify-center items-center gap-5">
             {session?.user.id == blogProps.userId ? (
               <Link
                 href={`/change/${blogProps.id}`}
@@ -50,6 +54,8 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
                 Change
               </Link>
             ) : null}
+
+            {session?.user.id == blogProps.userId ? <DeleteButton blogId={blogProps.id} blogTitle={blogProps.title}/> : null}
           </div>
         </div>
       </div>
