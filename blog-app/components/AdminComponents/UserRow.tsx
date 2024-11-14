@@ -20,7 +20,7 @@ const UserRow = ({
 
   return (
     <tr>
-      <td className="text-left border border-slate-800 px-4 py-4 ">
+      <td className="text-left border border-slate-800 px-4 py-4 whitespace-nowrap">
         <div className="flex justify-start items-center gap-5">
           <div className="w-12 h-12 rounded-full flex justify-center items-center bg-white">
             {image != null ? (
@@ -40,15 +40,15 @@ const UserRow = ({
           <p>{name}</p>
         </div>
       </td>
-      <td className="text-left border border-slate-800 px-4 py-4">{email}</td>
-      <td className="text-left border border-slate-800 px-4 py-4">
+      <td className="text-left border border-slate-800 px-4 py-4 whitespace-nowrap">{email}</td>
+      <td className="text-left border border-slate-800 px-4 py-4 whitespace-nowrap">
         {`${dateInfo.monthShort} ${dateInfo.day} ${dateInfo.year}`}
       </td>
-      <td className="text-left border border-slate-800 px-4 py-4">{role}</td>
-      <td className="text-left border border-slate-800 px-4 py-4">
+      <td className="text-left border border-slate-800 px-4 py-4 whitespace-nowrap">{role}</td>
+      <td className="text-left border border-slate-800 px-4 py-4 whitespace-nowrap">
         {isDeleted == true ? "deleted" : "active"}
       </td>
-      <td className="text-left border border-slate-800 px-4 py-4 ">
+      <td className="text-left border border-slate-800 px-4 py-4 whitespace-nowrap">
         <div className="flex justify-start items-center gap-5">
           <Link
             href={`/dashboard/users/${id}`}

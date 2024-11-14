@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import UserRow from "./UserRow";
+import UserResponsiveRow from "./UserResponsiveRow";
 
 type UserProps = {
   users: UserParams[];
@@ -45,26 +46,26 @@ const UsersTable = ({ users }: UserProps) => {
         </Link>
       </div>
 
-      <div className=" overflow-x-auto">
+      <div className="hidden md:overflow-x-auto md:block">
         <table className="table-auto border-collapse border border-slate-400 w-full">
           <thead>
             <tr>
-              <th className="text-left border border-slate-800 px-4 py-4">
+              <th className="text-left border border-slate-800 px-4 py-4 whitespace-nowrap">
                 Name
               </th>
-              <th className="text-left border border-slate-800 px-4 py-4">
+              <th className="text-left border border-slate-800 px-4 py-4 whitespace-nowrap">
                 Email
               </th>
-              <th className="text-left border border-slate-800 px-4 py-4">
+              <th className="text-left border border-slate-800 px-4 py-4 whitespace-nowrap">
                 Created at
               </th>
-              <th className="text-left border border-slate-800 px-4 py-4">
+              <th className="text-left border border-slate-800 px-4 py-4 whitespace-nowrap">
                 Role
               </th>
-              <th className="text-left border border-slate-800 px-4 py-4">
+              <th className="text-left border border-slate-800 px-4 py-4 whitespace-nowrap">
                 Status
               </th>
-              <th className="text-left border border-slate-800 px-4 py-4">
+              <th className="text-left border border-slate-800 px-4 py-4 whitespace-nowrap">
                 Action
               </th>
             </tr>
@@ -87,6 +88,24 @@ const UsersTable = ({ users }: UserProps) => {
               })}
           </tbody>
         </table>
+      </div>
+
+      <div className="flex flex-col gap-2 md:hidden">
+      {userData &&
+              userData?.map((user) => {
+                return (
+                  <UserResponsiveRow
+                    key={user.id}
+                    id={user.id}
+                    name={user.name}
+                    email={user.email as string}
+                    createdAt={user.createdAt}
+                    isDeleted={user.isDeleted}
+                    image={user.image as string}
+                    role={user.role as string}
+                  />
+                );
+              })}
       </div>
     </div>
   );
