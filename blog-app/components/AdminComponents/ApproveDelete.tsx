@@ -42,19 +42,19 @@ const ApproveDelete = ({
     <div className="flex justify-start gap-5">
       <Link
         href={`/blog/${blogId}`}
-        className="bg-green-500 px-3 py-1 rounded-lg "
+        className="bg-green-500 px-3 py-1 rounded-lg min-w-20 text-center"
       >
         View
       </Link>
 
       {/* dashboard/deleteblog/${blogId} */}
-      <Link href={path} className="bg-red-500 px-3 py-1 rounded-lg ">
+      <Link href={path} className="bg-red-500 px-3 py-1 rounded-lg max-w-20">
         Delete
       </Link>
 
       {isApproved == false ? (
         <button
-          className="  bg-yellow-500 px-3 py-1 rounded-lg"
+          className="  bg-yellow-500 px-2 py-1 rounded-lg max-w-20 text-center"
           onClick={HandleAprrove}
         >
           Approve

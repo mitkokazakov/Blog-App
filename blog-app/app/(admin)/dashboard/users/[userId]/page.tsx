@@ -5,6 +5,7 @@ import nouserImg from '../../../../../public/admindesktop.png';
 import Image from 'next/image';
 import { revalidatePath } from 'next/cache';
 import ErrorAdminPage from '@/components/AdminComponents/ErrorAdminPage';
+import BlogResponsiveRow from '@/components/AdminComponents/BlogResponsiveRow';
 
 type UserParams = {
   params:{
@@ -23,13 +24,13 @@ const page = async ({params}: UserParams) => {
   }
 
   return (
-    <div className='w-full bg-[#0f0f11] mih-h-screen text-white flex flex-col gap-8 px-10 py-10'>
+    <div className='w-full bg-[#0f0f11] mih-h-screen text-white lg:border-l-[1px] lg:border-l-white flex flex-col gap-8 px-10 py-10'>
      <div>
         <h1 className="font-bold tracking-widest text-2xl mb-10">User Info</h1>
       </div>
 
-      <div className='flex justify-center items-center gap-40'>
-        <div className='w-72 h-72 rounded-full overflow-hidden'>
+      <div className='flex flex-col mb-10 justify-center items-center gap-20 md:gap-40 md:flex-row md:mb-0'>
+        <div className='w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden'>
           
           
 
@@ -54,7 +55,7 @@ const page = async ({params}: UserParams) => {
 
       <h1 className='text-2xl font-bold tracking-widest text-center mb-5'>User blogs</h1>
 
-      <table className="table-auto border-collapse border border-slate-400 w-full">
+      <table className="hidden table-auto md:border-collapse border md:border-slate-400 md:w-full md:inline-table">
 
         
             <thead>
@@ -84,6 +85,14 @@ const page = async ({params}: UserParams) => {
               }
             </tbody>
           </table>
+
+          <div className='flex flex-col gap-3 md:hidden'>
+          {
+                user?.blogs.map(blog => {
+                  return <BlogResponsiveRow key={blog.id} blogProps={blog}/>
+                })
+              }
+          </div>
       </div>
     </div>
   )
