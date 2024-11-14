@@ -1,7 +1,11 @@
 import React from 'react'
 import ApproveDelete from './ApproveDelete'
+import { ExtractDayYearMonth } from '@/app/lib/helpers'
 
-const BlogResponsiveRow = ({ blogProps }: BlogProps) => {
+const BlogResponsiveRow = ({blogProps}: BlogProps) => {
+
+    const dateInfo = ExtractDayYearMonth(blogProps.createdAt);
+
   return (
     <div className='bg-sky-950 rounded-xl px-5 py-3 w-full flex flex-col gap-3'>
       <p className='text-xl font-bold'>{blogProps.title}</p>
@@ -9,7 +13,7 @@ const BlogResponsiveRow = ({ blogProps }: BlogProps) => {
       <p className=' line-clamp-3 mb-5'>{blogProps.description}</p>
 
       <div className='w-full flex justify-between items-center'>
-        <p>{'22 May 2024'}</p>
+        <p>{`${dateInfo.monthShort} ${dateInfo.day} ${dateInfo.year}`}</p>
         <p>{blogProps.isApproved == true ? "approved" : "not approved"}</p>
       </div>
 

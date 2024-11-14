@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import ApproveDelete from "./ApproveDelete";
+import BlogResponsiveRow from "./BlogResponsiveRow";
 
 const DashboardAllPosts = ({
   tab,
@@ -44,17 +45,17 @@ const DashboardAllPosts = ({
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-5">
+      <div className="flex flex-col justify-center gap-5 items-center mb-5 md:flex-row md:justify-between">
         <input
           type="text"
           name="username"
           id="username"
-          className="px-4 py-1 bg-slate-800 rounded-lg"
+          className="px-4 py-1 bg-slate-800 rounded-lg w-full md:max-w-[270px]"
           placeholder="Search for a post"
           onChange={(e) => OnChangeInput(e.target.value)}
         />
 
-        <div className="flex justify-center items-center gap-5">
+        <div className="flex justify-center items-center gap-5 w-full md:max-w-[370px]">
           <Link
             href={"/dashboard/posts?tab=approved"}
             className="focus:bg-yellow-600 px-3 py-2 rounded-lg tracking-widest"
@@ -75,14 +76,14 @@ const DashboardAllPosts = ({
           </Link>
         </div>
 
-        <div>
+        {/* <div>
           <Link href={"/"} className="bg-purple-600 px-3 py-2 rounded-lg">
             Add Post
           </Link>
-        </div>
+        </div> */}
       </div>
 
-      <div>
+      <div className="hidden md:block">
         <table className="table-auto border-collapse border border-slate-400 w-full">
           <thead>
             <tr>
@@ -139,6 +140,14 @@ const DashboardAllPosts = ({
             })}
           </tbody>
         </table>
+      </div>
+
+      <div className="flex flex-col gap-3 md:hidden">
+         {
+          filteredData?.map((blog) => {
+            return <BlogResponsiveRow blogProps={blog}/>
+          })
+         }
       </div>
     </div>
   );

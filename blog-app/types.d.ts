@@ -33,7 +33,7 @@ type BlogType = {
       username?: string;
       tags: string;
       userId: string;
-      isApproved: boolean
+      isApproved: boolean;
     };
   };
 
