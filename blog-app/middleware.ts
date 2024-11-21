@@ -5,7 +5,7 @@ import { getToken } from "next-auth/jwt";
 
 const registeredUsersRoutes = ['/login', '/register'];
 
-const unregisteredUsersRoutes = ['/dashboard'];
+const unregisteredUsersRoutes = ['/dashboard', '/create', '/change', '/myprofile'];
 
 const nonAdminRoutes = ['/dashboard'];
 
