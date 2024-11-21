@@ -26,6 +26,9 @@ const page = async ({ params }: ProfileParams) => {
     return <ErrorPage text={"User with that id does not exist! Sorry."}/>
   }
 
+
+  
+
   return (
     <div className="w-full min-h-screen p-5 lg:max-w-[1440px] md:mx-auto">
       <h1 className="text-2xl font-bold tracking-widest text-center">
@@ -37,7 +40,7 @@ const page = async ({ params }: ProfileParams) => {
           <h1 className="font-bold tracking-widest text-lg">User Details</h1>
 
           <div className="w-[300px] h-[300px] rounded-full overflow-hidden">
-            {user?.image == null ? (
+            {user?.image == null || user?.image == '' ? (
               <Image
                 src={"/admindesktop.png"}
                 width={300}

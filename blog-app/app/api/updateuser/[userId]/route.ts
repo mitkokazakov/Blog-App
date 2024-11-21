@@ -17,7 +17,7 @@ export async function PUT(
 
   const name = data.get("name") as string;
   const email = data.get("email") as string;
-  const newpassword = data.get("newpasword") as string;
+  const newpassword = data.get("newpassword") as string;
   const imageUrl = data.get("imageUrl") as string;
 
   const currentuser = await prisma.user.findFirst({
@@ -28,7 +28,8 @@ export async function PUT(
 
   const currentUserImage = currentuser?.image;
 
-  if(newpassword){
+  //Check if the user is fill the password input
+  if(newpassword != null && newpassword != ''){
 
     const hashedPassword = await bcrypt.hash(newpassword,10);
 
@@ -36,7 +37,7 @@ export async function PUT(
         data: {
           name: name,
           email: email,
-          image: imageUrl == null ? currentUserImage : imageUrl,
+          image: imageUrl == null || imageUrl == '' ? currentUserImage : imageUrl,
           hashedPassword: hashedPassword
         },
         where: {
@@ -51,7 +52,7 @@ export async function PUT(
     data: {
       name: name,
       email: email,
-      image: imageUrl == null ? currentUserImage : imageUrl,
+      image: imageUrl == null || imageUrl == '' ? currentUserImage : imageUrl,
     },
     where: {
       id: userId,
