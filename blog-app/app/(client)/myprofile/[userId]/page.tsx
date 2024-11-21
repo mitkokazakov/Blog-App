@@ -13,9 +13,14 @@ type ProfileParams = {
 };
 
 const page = async ({ params }: ProfileParams) => {
-  //const session = await getServerSession(authOptions);
+
+  const session = await getServerSession(authOptions);
 
   const user = await GetUser(params.userId);
+
+  if(session?.user.id != params.userId && session?.user.role != "ADMIN"){
+    return <ErrorPage text={"You don't have permission to change this user profile! Sorry."}/>
+  }
 
   if(!user){
     return <ErrorPage text={"User with that id does not exist! Sorry."}/>
