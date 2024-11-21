@@ -5,7 +5,7 @@ const ErrorPage = ({text}: {text: string}) => {
   return (
     <div className="w-full min-h-screen flex justify-center items-start pt-32">
         <div className="flex flex-col gap-10">
-          <div className="w-[600px] h-[360px] mx-auto">
+          <div className=" w-[360px] h-[200px] sm:w-[600px] sm:h-[360px] mx-auto">
             <Image
               src={"/error.png"}
               width={600}
@@ -14,7 +14,7 @@ const ErrorPage = ({text}: {text: string}) => {
               className="w-full h-full"
             />
           </div>
-          <h1 className="text-center text-2xl font-bold tracking-widest">{text}</h1>
+          <h1 className="text-center text-xl sm:text-2xl font-bold tracking-widest">{text}</h1>
         </div>
       </div>
   )
