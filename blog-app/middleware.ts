@@ -7,6 +7,8 @@ const registeredUsersRoutes = ['/login', '/register'];
 
 const unregisteredUsersRoutes = ['/dashboard'];
 
+const nonAdminRoutes = ['/dashboard'];
+
 // This function can be marked `async` if using `await` inside
 export default async function middleware(request: NextRequest) {
 
@@ -18,6 +20,11 @@ export default async function middleware(request: NextRequest) {
   //const sessionToken = request.cookies.get("next-auth.session-token")?.value;
 
   const {pathname} = request.nextUrl;
+
+  if(nonAdminRoutes.some((route) => pathname.startsWith(route)) && token && token.role != "ADMIN"){
+
+    return NextResponse.redirect(new URL('/blogs', request.url))
+  }
 
   if(registeredUsersRoutes.some((route) => pathname.startsWith(route)) && token){
 

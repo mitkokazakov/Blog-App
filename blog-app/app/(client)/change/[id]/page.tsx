@@ -5,6 +5,8 @@ import "react-quill/dist/quill.snow.css";
 import { GetBlogById } from "@/app/lib/services";
 import ChangeForm from "@/components/ChangeForm";
 import ErrorPage from "@/components/ErrorPage";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/lib/authoptions";
 
 cloudinary.config({
   cloud_name: "ddvfwyoek",
@@ -19,6 +21,12 @@ type ParamsType = {
 };
 
 const ChangePage = async ({ params }: ParamsType) => {
+
+  const session = await getServerSession(authOptions);
+
+  const currentUserId = session?.user.id;
+
+  const currentUserRole = session?.user.role;
 
   const blogId = params.id;
 
@@ -36,6 +44,10 @@ const ChangePage = async ({ params }: ParamsType) => {
 
   if(!blog){
     return <ErrorPage text={"Blog with that id does not exist! Sorry."}/>
+  }
+
+  if(blog.userId != currentUserId && currentUserRole != "ADMIN"){
+    return <ErrorPage text={"You don't have permission to change this blog! Sorry."}/>
   }
 
   return (

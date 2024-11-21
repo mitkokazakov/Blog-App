@@ -105,6 +105,11 @@ export async function GetAllBlogs(){
   const allBlogs = await prisma.blog.findMany({
     include:{
       user: true
+    },
+    where:{
+      user:{
+        isDeleted: false
+      }
     }
   });
 

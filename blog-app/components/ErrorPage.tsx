@@ -5,7 +5,7 @@ const ErrorPage = ({text}: {text: string}) => {
   return (
     <div className="w-full min-h-screen flex justify-center items-start pt-32">
         <div className="flex flex-col gap-10">
-          <div className="w-[600px] h-[360px]">
+          <div className="w-[600px] h-[360px] mx-auto">
             <Image
               src={"/error.png"}
               width={600}
