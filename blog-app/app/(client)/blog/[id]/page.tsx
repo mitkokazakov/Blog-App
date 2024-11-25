@@ -3,6 +3,8 @@ import { GetBlogById } from "@/app/lib/services";
 import Link from "next/link";
 import Image from "next/image";
 import ErrorPage from "@/components/ErrorPage";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/lib/authoptions";
 
 type ParamsType = {
   params: {
@@ -11,6 +13,9 @@ type ParamsType = {
 };
 
 const BlogPage = async ({ params }: ParamsType) => {
+
+  const session = await getServerSession(authOptions);
+
   const blog = await GetBlogById(params.id);
 
   const day = blog?.createdAt.getDate().toString().padStart(2, "0");
@@ -57,14 +62,16 @@ const BlogPage = async ({ params }: ParamsType) => {
         dangerouslySetInnerHTML={{ __html: blog && body }}
       ></div>
 
-      <div className="w-full flex justify-center">
+      {
+        session?.user.role == "ADMIN" ? <div className="w-full flex justify-center">
         <Link
           href={"/dashboard/posts"}
           className="text-center bg-black text-white px-5 py-3 tracking-widest font-medium rounded-lg hover:bg-white hover:text-black hover:border-[1px] hover:border-black"
         >
           Back to Dashboard
         </Link>
-      </div>
+      </div> : null
+      }
     </div>
   );
 };
