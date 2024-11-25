@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     });
 
     if(name.length < 2 || password.length < 4){
-        return new NextResponse("Name or Password does not meet the min length requirements!")
+        return new NextResponse("Name or Password does not meet the min length requirements!", {status: 400})
     }
 
     if(existingUser){

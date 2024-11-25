@@ -42,6 +42,8 @@ const CreateBlogForm = () => {
 
   const [errorTags, setErrorTags] = useState<boolean>(false);
 
+  const [bodyError, setBodyErrors] = useState<boolean>(false);
+
   const { data: session, status } = useSession();
 
   useEffect(() => {
@@ -62,11 +64,20 @@ const CreateBlogForm = () => {
     const description = data.description;
     const body = blog;
 
+    console.log(blog.length);
+    
+
+    if(blog.length < 20){
+      setBodyErrors(true);
+      return;
+    }
+
     if (tags.length == 0) {
       setErrorTags(true);
       return;
     }
 
+    
     // const bytes: any = await image?.arrayBuffer();
     // const buffer = Buffer.from(bytes);
 
@@ -243,10 +254,15 @@ const CreateBlogForm = () => {
               onChange={(e) => {
                 setBlog(e);
                 localStorage.setItem("blog", e);
+                if(blog.length >= 20){
+                  setBodyErrors(false);
+                }else{
+                  setBodyErrors(true);
+                }
               }}
             />
 
-            <span className="text-red-600 tracking-widest text-sm"></span>
+            <span className="text-red-600 tracking-widest text-sm">{bodyError ? "Body should be at least 10 characters long" : null}</span>
           </div>
         </div>
 

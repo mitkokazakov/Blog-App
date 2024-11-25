@@ -22,6 +22,14 @@ export async function POST(request: NextRequest) {
     imageUrl: string
   } = body;
 
+  if(title.length < 4 || description.length < 4 || body.length < 5 || tags.length < 1){
+    return new NextResponse("Some of title, description, tags or body validation does not meet the requierements!", {status: 400});
+  }
+
+  if(imageUrl.length == 0){
+    return new NextResponse("Image url is empty!", {status: 400});
+  }
+
   const blog = await prisma.blog.create({
     data: {
       title: title,
