@@ -46,16 +46,18 @@ const BlogPage = async ({ params }: ParamsType) => {
         <p>{blog?.user.name}</p>
       </div>
 
-      <p className="mt-5 text-lg text-justify font-medium mb-5">{blog?.description}</p>
+      <p className="mt-5 text-lg text-justify font-medium mb-10">{blog?.description}</p>
 
       <Image
         src={blog?.images as string}
         alt=""
-        className="w-full md:w-10/12 m-auto max-h-[700px] mb-5"
+        className="w-full md:w-auto md:max-w-10/12 m-auto max-h-[700px] mb-10"
         width={1400}
         height={1000}
         priority={false}
       ></Image>
+
+
 
       <div
         className="blog-content text-lg mb-5"
