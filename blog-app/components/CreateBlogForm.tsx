@@ -108,7 +108,7 @@ const CreateBlogForm = () => {
       }
 
       if (response.status != 200) {
-        toast.error("something went wrong!");
+        toast.error("Something went wrong!");
       }
     } catch (error: any) {
       toast.error("Something went wrong during uploading the image!");
@@ -138,12 +138,11 @@ const CreateBlogForm = () => {
     } catch (error: any) {
       console.log("Error");
       toast.error("Something went wrong when tried to upload the blog!");
-      //router.push("/blogs");
-      //alert(error.request.responseText);
-      //toast.error(error.request.responseText);
+      //toast.error(error?.request.responseText);
     }
 
     setErrorTags(false);
+    setBodyErrors(false);
   };
 
   const addTag = (currentTag: string) => {

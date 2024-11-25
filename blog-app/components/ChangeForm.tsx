@@ -62,6 +62,8 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
 
   const [errorTags, setErrorTags] = useState<boolean>(false);
 
+  const [bodyError, setBodyErrors] = useState<boolean>(false);
+
   const { data: session, status } = useSession();
 
   useEffect(() => {
@@ -83,6 +85,11 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
     const blogtitle = data.blogtitle;
     const description = data.description;
     const body = blog;
+
+    if(blog.length < 20){
+      setBodyErrors(true);
+      return;
+    }
 
     if (tags.length == 0) {
       setErrorTags(true);
@@ -158,11 +165,12 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
       }
     } catch (error: any) {
       router.push("/blogs");
-      //alert(error.request.responseText);
-      toast.error("Something went wrong! Sorry.");
+      toast.error("Something went wrong when tried to change the blog!");
+      //toast.error(error?.request.responseText);
     }
 
     setErrorTags(false);
+    setBodyErrors(false);
   };
 
   const addTag = (currentTag: string) => {
@@ -279,10 +287,15 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
             onChange={(e) => {
               setBlog(e);
               localStorage.setItem("changeBlog", e);
+              if(blog.length >= 20){
+                setBodyErrors(false);
+              }else{
+                setBodyErrors(true);
+              }
             }}
           />
 
-          <span className="text-red-600 tracking-widest text-sm"></span>
+          <span className="text-red-600 tracking-widest text-sm">{bodyError ? "Body should be at least 10 characters long" : null}</span>
         </div>
       </div>
 

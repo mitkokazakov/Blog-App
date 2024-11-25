@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
   } = body;
 
   if(title.length < 4 || description.length < 4 || body.length < 5 || tags.length < 1){
-    return new NextResponse("Some of title, description, tags or body validation does not meet the requierements!", {status: 400});
+    return new NextResponse("Title, description, tags or body validation does not meet the requierements!", {status: 400});
   }
 
   if(imageUrl.length == 0){
