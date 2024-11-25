@@ -116,6 +116,23 @@ export async function GetAllBlogs(){
   return allBlogs;
 }
 
+export async function GetAllApprovedBlogs(){
+
+  const allBlogs = await prisma.blog.findMany({
+    include:{
+      user: true
+    },
+    where:{
+      user:{
+        isDeleted: false
+      },
+      isApproved: true
+    }
+  });
+
+  return allBlogs;
+}
+
 export async function GetAllBlogsByTag(tag: string){
 
   const allBlogs = await prisma.blog.findMany({

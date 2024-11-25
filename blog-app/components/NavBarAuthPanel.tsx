@@ -6,26 +6,32 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa6";
 import { SlLogout } from "react-icons/sl";
 import { PiReadCvLogoLight } from "react-icons/pi";
+import { RxDashboard } from "react-icons/rx";
 import LogOut from "./LogOut";
 import axios from "axios";
 import Image from "next/image";
 
-const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, userId: string }) => {
+const NavBarAuthPanel = ({
+  sessionStatus,
+  userId,
+  userRole
+}: {
+  sessionStatus: boolean;
+  userId: string;
+  userRole: string;
+}) => {
   const [dropdownActive, setDropdown] = useState(false);
 
   const [userImage, setUserImage] = useState<string>("");
 
   const [userLetters, setUserLetters] = useState<string>("");
-  
 
   useEffect(() => {
     async function FetchUserImage() {
       try {
-        
         const response = await axios.get(`/api/userimage/${userId}`);
 
         console.log(response);
-        
 
         setUserImage(response?.data.user.image);
 
@@ -33,7 +39,6 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
       } catch (error: any) {
         alert(error);
         console.log(error);
-        
       }
     }
 
@@ -64,9 +69,16 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
             }}
             className="w-16 h-16 overflow-hidden rounded-full bg-white flex justify-center items-center text-2xl cursor-pointer"
           >
-            {userImage != null && userImage != '' ? <Image  src={userImage} width={64} height={64} alt="user image"></Image> : null}
+            {userImage != null && userImage != "" ? (
+              <Image
+                src={userImage}
+                width={64}
+                height={64}
+                alt="user image"
+              ></Image>
+            ) : null}
 
-            {userImage == null || userImage == '' ? <p>{userLetters}</p> : null}
+            {userImage == null || userImage == "" ? <p>{userLetters}</p> : null}
           </div>
         ) : null}
       </div>
@@ -74,7 +86,7 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
       <div
         className={`absolute overflow-hidden min-w-[250px] right-3 lg:right-20 top-[101%] rounded-3xl bg-transparent backdrop-blur-sm flex flex-col gap-9 justify-center items-start px-8 py-5 duration-500 ${
           dropdownActive
-            ? "h-64 opacity-1 pointer-events-auto"
+            ? "h-auto opacity-1 pointer-events-auto"
             : "h-0 opacity-0 pointer-events-none"
         }`}
       >
@@ -116,6 +128,21 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
           </Link>
         </div>
 
+        {
+          userRole == "ADMIN" ? <div
+          onClick={() => {
+            setDropdown(!dropdownActive);
+          }}
+          className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 hover:bg-[#fffbc2]"
+        >
+          <RxDashboard className="text-2xl" />
+
+          <Link href={`/myprofile/${userId}`} className="font-medium">
+            Dashboard
+          </Link>
+        </div> : null
+        }
+
         <div
           onClick={() => {
             setDropdown(!dropdownActive);
@@ -124,7 +151,7 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
         >
           <SlLogout className="text-2xl" />
 
-          <LogOut color={"black"}/>
+          <LogOut color={"black"} />
         </div>
       </div>
     </div>

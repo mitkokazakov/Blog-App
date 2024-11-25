@@ -3,13 +3,13 @@ import React from "react";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/authoptions";
-import { GetAllBlogs } from "@/app/lib/services";
+import { GetAllApprovedBlogs, GetAllBlogs } from "@/app/lib/services";
 
 const BlogsPage = async () => {
 
   const session = await getServerSession(authOptions);
 
-  const blogs = await GetAllBlogs();
+  const blogs = await GetAllApprovedBlogs();
 
   return (
     <div className=" w-full min-h-screen bg-[#ffffd7] px-5 py-5 ">
