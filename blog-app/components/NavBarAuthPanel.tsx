@@ -7,6 +7,9 @@ import { FaRegUser } from "react-icons/fa6";
 import { SlLogout } from "react-icons/sl";
 import { PiReadCvLogoLight } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx";
+import { FaList } from "react-icons/fa6";
+
+
 import LogOut from "./LogOut";
 import axios from "axios";
 import Image from "next/image";
@@ -93,6 +96,19 @@ const NavBarAuthPanel = ({
             : "h-0 opacity-0 pointer-events-none"
         }`}
       >
+
+<div
+          onClick={() => {
+            setDropdown(!dropdownActive);
+          }}
+          className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 hover:bg-[#fffbc2]"
+        >
+          <FaList className="text-2xl" />
+          <Link href={"/blogs"} className="font-medium">
+            All Blogs
+          </Link>
+        </div>
+
         <div
           onClick={() => {
             setDropdown(!dropdownActive);
