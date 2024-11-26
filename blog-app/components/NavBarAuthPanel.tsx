@@ -9,7 +9,6 @@ import { PiReadCvLogoLight } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx";
 import { FaList } from "react-icons/fa6";
 
-
 import LogOut from "./LogOut";
 import axios from "axios";
 import Image from "next/image";
@@ -17,7 +16,7 @@ import Image from "next/image";
 const NavBarAuthPanel = ({
   sessionStatus,
   userId,
-  userRole
+  userRole,
 }: {
   sessionStatus: boolean;
   userId: string;
@@ -92,12 +91,11 @@ const NavBarAuthPanel = ({
       <div
         className={`absolute overflow-hidden min-w-[250px] right-3 lg:right-20 top-[101%] rounded-3xl bg-transparent backdrop-blur-sm flex flex-col gap-9 justify-center items-start px-8 py-5 duration-500 ${
           dropdownActive
-            ? "h-auto opacity-1 pointer-events-auto"
+            ? "h-auto opacity-1 pointer-events-auto shadow-2xl bg-yellow-50/10"
             : "h-0 opacity-0 pointer-events-none"
         }`}
       >
-
-<div
+        <div
           onClick={() => {
             setDropdown(!dropdownActive);
           }}
@@ -147,20 +145,20 @@ const NavBarAuthPanel = ({
           </Link>
         </div>
 
-        {
-          userRole == "ADMIN" ? <div
-          onClick={() => {
-            setDropdown(!dropdownActive);
-          }}
-          className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 hover:bg-[#fffbc2]"
-        >
-          <RxDashboard className="text-2xl" />
+        {userRole == "ADMIN" ? (
+          <div
+            onClick={() => {
+              setDropdown(!dropdownActive);
+            }}
+            className="w-full flex justify-start items-center gap-5 cursor-pointer py-2 hover:bg-[#fffbc2]"
+          >
+            <RxDashboard className="text-2xl" />
 
-          <Link href={`/dashboard`} className="font-medium">
-            Dashboard
-          </Link>
-        </div> : null
-        }
+            <Link href={`/dashboard`} className="font-medium">
+              Dashboard
+            </Link>
+          </div>
+        ) : null}
 
         <div
           onClick={() => {
