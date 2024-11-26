@@ -46,7 +46,7 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
           </div>
 
           <div className="flex justify-center items-center gap-5">
-            {session?.user.id == blogProps.userId ? (
+            {session?.user.id == blogProps.userId || session?.user.role == "ADMIN" ? (
               <Link
                 href={`/change/${blogProps.id}`}
                 className="bg-yellow-200 px-3 py-2 rounded-lg"
@@ -55,7 +55,7 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
               </Link>
             ) : null}
 
-            {session?.user.id == blogProps.userId ? <DeleteButton blogId={blogProps.id} blogTitle={blogProps.title}/> : null}
+            {session?.user.id == blogProps.userId || session?.user.role == "ADMIN" ? <DeleteButton blogId={blogProps.id} blogTitle={blogProps.title}/> : null}
           </div>
         </div>
       </div>
