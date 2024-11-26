@@ -72,9 +72,12 @@ const NavBarAuthPanel = ({
             {userImage != null && userImage != "" ? (
               <Image
                 src={userImage}
-                width={64}
-                height={64}
+                width={500}
+                height={500}
+                quality={100}
+                loading="lazy"
                 alt="user image"
+                className="max-w-full max-h-full object-cover aspect-[1/1]"
               ></Image>
             ) : null}
 
@@ -137,7 +140,7 @@ const NavBarAuthPanel = ({
         >
           <RxDashboard className="text-2xl" />
 
-          <Link href={`/myprofile/${userId}`} className="font-medium">
+          <Link href={`/dashboard`} className="font-medium">
             Dashboard
           </Link>
         </div> : null

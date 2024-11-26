@@ -61,7 +61,7 @@ const NavBarAuthPanel = ({ sessionStatus, userId }: { sessionStatus: boolean, us
             }}
             className="w-16 h-16 overflow-hidden rounded-full bg-white flex justify-center items-center text-2xl cursor-pointer"
           >
-            {userImage && <Image src={userImage} width={64} height={64} alt="user image"></Image>}
+            {userImage && <Image src={userImage} width={500} height={500} quality={100} alt="user image" className="max-w-full max-h-full object-cover aspect-[1/1]"></Image>}
 
             {userImage == null ? <p className="text-black">{userLetters}</p> : null}
           </div>

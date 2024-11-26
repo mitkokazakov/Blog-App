@@ -43,10 +43,11 @@ const page = async ({ params }: ProfileParams) => {
             {user?.image == null || user?.image == '' ? (
               <Image
                 src={"/admindesktop.png"}
-                width={300}
-                height={300}
+                width={600}
+                height={600}
+                quality={100}
                 alt="User image"
-                className="w-full h-full"
+                className="max-w-full max-h-full object-cover aspect-[1/1]"
                 priority
               />
             ) : null}
@@ -54,10 +55,11 @@ const page = async ({ params }: ProfileParams) => {
             {user?.image != null ? (
               <Image
                 src={user?.image as string}
-                width={300}
-                height={300}
+                width={600}
+                height={600}
+                quality={100}
                 alt="User image"
-                className="w-full h-full"
+                className="max-w-full max-h-full object-cover aspect-[1/1]"
                 priority
               />
             ) : null}

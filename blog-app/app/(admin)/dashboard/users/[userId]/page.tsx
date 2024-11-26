@@ -36,7 +36,7 @@ const page = async ({params}: UserParams) => {
 
             {
               //user?.image != null ? <img src={user?.image as string} alt="user" className='w-full h-full rounded-full'/> : null
-              user?.image != null ? <Image src={user?.image as string} width={288} height={288} alt='no user image' className='w-full h-full rounded-full'></Image> : null
+              user?.image != null ? <Image src={user?.image as string} width={600} height={600} quality={100} alt='no user image' className='max-w-full max-h-full rounded-full object-cover aspect-[1/1]'></Image> : null
             }
             {
               // user?.image == null ? <img src="/admindesktop.png" alt="user" className='w-full h-full rounded-full bg-white'/> : null

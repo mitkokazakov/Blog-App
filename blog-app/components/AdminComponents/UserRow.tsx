@@ -26,10 +26,11 @@ const UserRow = ({
             {image != null ? (
               <Image
                 src={image}
-                width={48}
-                height={48}
+                width={500}
+                height={500}
+                quality={100}
                 alt="op"
-                className="w-full h-full rounded-full"
+                className="max-w-full max-h-full rounded-full object-cover aspect-[1/1]"
               ></Image>
             ) : null}
 
