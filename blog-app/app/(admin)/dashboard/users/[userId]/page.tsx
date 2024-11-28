@@ -79,7 +79,7 @@ const page = async ({params}: UserParams) => {
             </thead>
             <tbody>
               {
-                user?.blogs.map(blog => {
+                user?.blogs.sort((a, b) =>  new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map(blog => {
                   return <BlogRow key={blog.id} blogProps={blog}/>
                 })
               }
@@ -88,7 +88,7 @@ const page = async ({params}: UserParams) => {
 
           <div className='flex flex-col gap-3 md:hidden'>
           {
-                user?.blogs.map(blog => {
+                user?.blogs.sort((a, b) =>  new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map(blog => {
                   return <BlogResponsiveRow key={blog.id} blogProps={blog}/>
                 })
               }

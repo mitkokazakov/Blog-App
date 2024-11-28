@@ -52,7 +52,7 @@ const LoginForm = () => {
       }
 
       if (callback?.ok) {
-        router.push("/");
+        router.push("/blogs");
         router.refresh();
         //alert("User logged in successful");
         toast.success("User logged in successful");

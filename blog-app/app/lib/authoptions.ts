@@ -43,7 +43,7 @@ export const authOptions: AuthOptions = {
             },
           });
   
-          if (!user || !user?.hashedPassword) {
+          if (!user || !user?.hashedPassword || user?.isDeleted) {
             throw new Error("There is now user with this email.Sorry!");
           }
   

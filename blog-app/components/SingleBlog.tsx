@@ -11,7 +11,7 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
   const dateInfo = ExtractDayYearMonth(blogProps.createdAt);
 
   return (
-    <div className="w-full flex justify-center items-start md:gap-5 border-b-[0.1px] border-b-black py-4 md:max-w-[1440px]">
+    <div className="w-full flex justify-center items-start  md:gap-5 border-b-[0.1px] border-b-black py-4 md:max-w-[1440px] box-border">
       <div className="hidden md:flex md:flex-col justify-center items-end">
         <p className="text-lg font-bold">{dateInfo.day}</p>
         <p className="text-lg font-bold">{dateInfo.monthShort.toUpperCase()}</p>
@@ -35,10 +35,10 @@ const SingleBlog = async ({ blogProps }: BlogProps) => {
         </div>
 
         <div className="w-full flex justify-between items-center gap-3">
-          <div className="flex justify-start items-center gap-3">
+          <div className="flex justify-start items-center gap-3 pb-2">
             {blogProps.tags.split(",").map((t) => {
               return (
-                <Link href={`/tag/${t}`} key={t} className="cursor-pointer">
+                <Link href={`/tag/${t}`} key={t} className="cursor-pointer border-b-[0px] hover:border-b-[1px] hover:border-b-black duration-200">
                   #{t}
                 </Link>
               );
