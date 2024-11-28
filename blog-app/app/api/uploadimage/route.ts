@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({imageId: imageId});
 
   } catch (error) {
-    return new NextResponse("Something went wrong!", {status: 400});
+    return new NextResponse("Something went wrong during upload the image. Probably image size exceeded!", {status: 400});
 
   }
 }

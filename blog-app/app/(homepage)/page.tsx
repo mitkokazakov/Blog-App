@@ -17,7 +17,7 @@ export default async function Home() {
             Empower Your Voice. Illuminate minds.
           </p>
 
-          <p>{session == null ? "not logged in" : sessionText}</p>
+          {/* <p>{session == null ? "not logged in" : sessionText}</p> */}
         </div>
 
         <div className="w-full px-10 flex flex-col justify-center items-center  gap-10">

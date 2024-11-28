@@ -90,11 +90,13 @@ const ChangeUserForm = ({
               imageUrl = d.result.secure_url;
             });
         } else {
-          toast.error("Something went wrong!");
+          // toast.error("Something went wrong!");
+          toast.error(res?.request.responseText);
           return;
         }
       } catch (error: any) {
-        toast.error("Something went wrong!");
+        // toast.error("Something went wrong!");
+        toast.error(error?.request.responseText);
         return;
       }
     }
@@ -119,6 +121,7 @@ const ChangeUserForm = ({
       router.refresh();
     } else {
       toast.error("Something went wrong!");
+      // toast.error(updateResponse?.request.responseText);
       return
     }
   };

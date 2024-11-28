@@ -97,7 +97,7 @@ export async function GetAllUserBlogs(userId: string) {
     userBlogsArray.push(currentBlog)
   });
 
-  return userBlogsArray;
+  return userBlogsArray.sort((a, b) =>  new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());;
 }
 
 export async function GetAllBlogs(){
@@ -113,7 +113,7 @@ export async function GetAllBlogs(){
     }
   });
 
-  return allBlogs;
+  return allBlogs.sort((a, b) =>  new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 }
 
 export async function GetAllApprovedBlogs(){
@@ -130,7 +130,7 @@ export async function GetAllApprovedBlogs(){
     }
   });
 
-  return allBlogs;
+  return allBlogs.sort((a, b) =>  new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());;
 }
 
 export async function GetAllBlogsByTag(tag: string){
@@ -139,14 +139,18 @@ export async function GetAllBlogsByTag(tag: string){
     where:{
       tags: {
         contains: tag
-      }
+      },
+      user:{
+        isDeleted: false
+      },
+      isApproved: true
     },
     include:{
       user: true
     }
   });
 
-  return allBlogs;
+  return allBlogs.sort((a, b) =>  new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());;
 }
 
 export async function GetBlogById(id: string){

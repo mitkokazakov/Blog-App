@@ -38,7 +38,7 @@ const DashboardAllPosts = ({
   }, [tab, allPosts, allBlogs]);
 
   function OnChangeInput(input: string) {
-    const tempData = allPosts.filter((p) => p.title.includes(input));
+    const tempData = allPosts.filter((p) => p.title.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
 
     SetFilteredData(tempData);
   }

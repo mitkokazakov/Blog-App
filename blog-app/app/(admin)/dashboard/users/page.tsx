@@ -48,6 +48,8 @@ const page = async ({ searchParams }: UsersFilterParams) => {
 
     users.push(currentUser);
   })
+
+  users.sort((a, b) =>  new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
   
   return (
     <div className="w-full bg-[#0f0f11] min-h-screen text-white flex flex-col gap-8 px-10 py-10 lg:border-l-[1px] lg:border-l-white">

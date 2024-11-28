@@ -19,7 +19,7 @@ const UsersTable = ({ users }: UserProps) => {
   },[users])
 
   function OnChangeInput(input: string) {
-    const tempData = users.filter((u) => u.name?.includes(input));
+    const tempData = users.filter((u) => u.name?.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
 
     SetUserData(tempData);
   }
