@@ -106,7 +106,7 @@ const DashboardAllPosts = ({
           </thead>
           <tbody>
             {
-              allBlogs?.length == 0 ? <h1 className="text-2xl font-bold tracking-widest">"No blogs!"</h1> : null
+              allBlogs?.length == 0 ? <h1 className="text-2xl font-bold tracking-widest">No blogs!</h1> : null
             }
             {filteredData?.map((blog) => {
               const dateInfo = ExtractDayYearMonth(blog.createdAt);
@@ -145,7 +145,7 @@ const DashboardAllPosts = ({
       <div className="flex flex-col gap-3 md:hidden">
          {
           filteredData?.map((blog) => {
-            return <BlogResponsiveRow blogProps={blog}/>
+            return <BlogResponsiveRow key={blog.id} blogProps={blog}/>
           })
          }
       </div>

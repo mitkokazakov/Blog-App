@@ -66,12 +66,12 @@ const BlogPage = async ({ params }: ParamsType) => {
       ></div>
 
       {
-        session?.user.role == "ADMIN" ? <div className="w-full flex justify-center items-center gap-5">
+        session?.user.role == "ADMIN" ? <div className="w-full flex justify-center items-center gap-5 mt-8">
         <Link
           href={"/dashboard/posts"}
           className="text-center bg-black text-white px-5 py-3 tracking-widest font-medium rounded-lg hover:bg-white hover:text-black hover:border-[1px] hover:border-black"
         >
-          Back to Dashboard
+          To Dashboard
         </Link>
 
         <Link

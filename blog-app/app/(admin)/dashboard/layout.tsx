@@ -7,11 +7,9 @@ const fira = Fira_Code({ subsets: ["cyrillic"] });
 
 const layout = ({
   children,
-  list,
-  modal,
+  modal
 }: {
   children: React.ReactNode;
-  list: React.ReactNode;
   modal: React.ReactNode;
 }) => {
   return (
@@ -19,7 +17,6 @@ const layout = ({
       <div className={`w-full min-h-screen bg-[#0e0e10] flex flex-col lg:flex-row items-stretch font-froala`}>
         <DashboardContent />
         {children}
-        {list}
         {modal}
       </div>
     </AuthContext>

@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className="font-froala min-h-screen">
         <AuthContext>
           <div className="w-full h-20 bg-[#0e0e10] text-white px-10 flex justify-between items-center border-b-[1px] border-b-white relative">
-            <Link href={"/"}>NorthBlogs</Link>
+            <Link href={"/blogs"}>NorthBlogs</Link>
             <AdminAuthPanel />
           </div>
           {children}

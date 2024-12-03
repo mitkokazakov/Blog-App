@@ -12,13 +12,30 @@ export const authOptions: AuthOptions = {
       GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID as string,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-        // authorization: {
-        //     params: {
-        //       prompt: "consent",
-        //       access_type: "offline",
-        //       response_type: "code",
+        //This is logic if we want to restrict user to log in if it is soft deleted
+        // async profile(profile){
+        //   const user = await prisma.user.findUnique({
+        //     where: {
+        //       email: profile.email,
         //     },
+        //   });
+  
+        //   // If the user is soft-deleted or not found, throw an error
+        //   if (!user || user.isDeleted) {
+        //     throw new Error(
+        //       "Your account is restricted or does not exist. Please contact support."
+        //     );
         //   }
+
+        //   return {
+        //     id: user.id,
+        //     name: user.name || profile.name,
+        //     email: user.email,
+        //     image: user.image || profile.picture,
+        //     role: user.role,
+        //   };
+
+        // }
       }),
       CredentialsProvider({
         name: "credentials",

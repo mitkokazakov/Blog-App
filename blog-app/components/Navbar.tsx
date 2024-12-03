@@ -15,7 +15,7 @@ const Navbar = async () => {
   return (
     <div className="relative w-full h-20 bg-[#ffffd7] border-b-[1px] border-b-black flex justify-between items-center px-5 lg:px-20">
       <div>
-        <Link href={"/"} className=" tracking-widest font-bold text-lg">
+        <Link href={"/blogs"} className=" tracking-widest font-bold text-lg">
           NorthBlogs
         </Link>
       </div>
