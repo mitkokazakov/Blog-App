@@ -27,6 +27,7 @@ type TextEditorFields = {
   description: string;
   body: string;
   tags: string[];
+  image: File;
 };
 
 const TextEditorScheme = z.object({
@@ -36,8 +37,10 @@ const TextEditorScheme = z.object({
   description: z
     .string()
     .min(4, { message: "Description should be at least 4 characters long!" }),
+  image: z.any().refine((files?) => files[0]?.size <= 7 * 1024 * 1024, {
+    message: "Image size should not exceed 7 MB",
+  }),
 });
-
 
 const ChangeForm = ({ blogData }: ChangeBlogType) => {
   const [blog, setBlog] = useState(() => {
@@ -71,7 +74,7 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
     setDescription(blogData.description);
     setBlog(blogData.body);
     setTags(blogData.tags.split(","));
-  },[blogData]);
+  }, [blogData]);
 
   const {
     register,
@@ -86,7 +89,7 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
     const description = data.description;
     const body = blog;
 
-    if(blog.length < 20){
+    if (blog.length < 20) {
       setBodyErrors(true);
       return;
     }
@@ -96,7 +99,7 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
       return;
     }
 
-    let imageUrl = null
+    let imageUrl = null;
 
     if (image) {
       const bytes: any = await image?.arrayBuffer();
@@ -113,7 +116,6 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
               },
               function (error, result) {
                 if (error) {
-                  
                   reject(error);
                   return;
                 }
@@ -123,19 +125,17 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
             .end(buffer);
         });
       } catch (error: any) {
-        
-        
         toast.error("Something went wrong!");
         return;
       }
 
       try {
         await fetch(`/api/search?publicId=${currentId}`)
-        .then((res) => res.json())
-        .then((d) => {
-          //setImageUrl(d.result.secure_url);
-          imageUrl = d.result.secure_url;
-        });
+          .then((res) => res.json())
+          .then((d) => {
+            //setImageUrl(d.result.secure_url);
+            imageUrl = d.result.secure_url;
+          });
       } catch (error: any) {
         toast.error("Some problem occured when tried to upload image! Sorry.");
       }
@@ -261,13 +261,14 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
             id="image"
             className="bg-white block w-full border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             type="file"
+            {...register("image")}
             onChange={(e) => {
               if (e.target.files) {
                 setImage(e.target.files[0]);
               }
             }}
           />
-          <span className="text-red-600 tracking-widest text-sm"></span>
+          <span className="text-red-600 tracking-widest text-sm">{errors.image?.message}</span>
         </div>
       </div>
 
@@ -287,15 +288,17 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
             onChange={(e) => {
               setBlog(e);
               localStorage.setItem("changeBlog", e);
-              if(blog.length >= 20){
+              if (blog.length >= 20) {
                 setBodyErrors(false);
-              }else{
+              } else {
                 setBodyErrors(true);
               }
             }}
           />
 
-          <span className="text-red-600 tracking-widest text-sm">{bodyError ? "Body should be at least 10 characters long" : null}</span>
+          <span className="text-red-600 tracking-widest text-sm">
+            {bodyError ? "Body should be at least 10 characters long" : null}
+          </span>
         </div>
       </div>
 

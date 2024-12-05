@@ -20,6 +20,7 @@ type TextEditorFields = {
   description: string;
   body: string;
   tags: string[];
+  image: File
 };
 
 const TextEditorScheme = z.object({
@@ -29,6 +30,11 @@ const TextEditorScheme = z.object({
   description: z
     .string()
     .min(4, { message: "Description should be at least 4 characters long!" }),
+  image: z
+    .any()
+    .refine((files) => files[0].size <= 7 * 1024 * 1024, {
+      message: "Image size should not exceed 7 MB",
+    }),
 });
 
 const CreateBlogForm = () => {
@@ -65,9 +71,8 @@ const CreateBlogForm = () => {
     const body = blog;
 
     console.log(blog.length);
-    
 
-    if(blog.length < 20){
+    if (blog.length < 20) {
       setBodyErrors(true);
       return;
     }
@@ -77,7 +82,6 @@ const CreateBlogForm = () => {
       return;
     }
 
-    
     // const bytes: any = await image?.arrayBuffer();
     // const buffer = Buffer.from(bytes);
 
@@ -227,13 +231,14 @@ const CreateBlogForm = () => {
               required
               className="bg-white block w-full border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               type="file"
+              {...register("image")}
               onChange={(e) => {
                 if (e.target.files) {
                   setImage(e.target.files[0]);
                 }
               }}
             />
-            <span className="text-red-600 tracking-widest text-sm"></span>
+            <span className="text-red-600 tracking-widest text-sm">{errors.image?.message}</span>
           </div>
         </div>
 
@@ -253,15 +258,17 @@ const CreateBlogForm = () => {
               onChange={(e) => {
                 setBlog(e);
                 localStorage.setItem("blog", e);
-                if(blog.length >= 20){
+                if (blog.length >= 20) {
                   setBodyErrors(false);
-                }else{
+                } else {
                   setBodyErrors(true);
                 }
               }}
             />
 
-            <span className="text-red-600 tracking-widest text-sm">{bodyError ? "Body should be at least 10 characters long" : null}</span>
+            <span className="text-red-600 tracking-widest text-sm">
+              {bodyError ? "Body should be at least 10 characters long" : null}
+            </span>
           </div>
         </div>
 
