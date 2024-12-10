@@ -7,7 +7,7 @@ const BlogResponsiveRow = ({blogProps}: BlogProps) => {
     const dateInfo = ExtractDayYearMonth(blogProps.createdAt);
 
   return (
-    <div className='bg-sky-950 rounded-xl px-5 py-3 w-full flex flex-col gap-3'>
+    <div className='bg-sky-950/25 hover:bg-sky-950/55 duration-500 rounded-xl px-5 py-3 w-full flex flex-col gap-3'>
       <p className='text-xl font-bold'>{blogProps.title}</p>
 
       <p className=' line-clamp-3 mb-5'>{blogProps.description}</p>

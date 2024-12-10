@@ -17,7 +17,7 @@ const UserResponsiveRow = ({
     const dateInfo = ExtractDayYearMonth(createdAt);
 
   return (
-    <div className='w-full px-5 py-4 rounded-xl bg-sky-950 text-white flex flex-col items-start sm:items-center gap-5'>
+    <div className='w-full px-5 py-4 rounded-xl bg-sky-950/25 hover:bg-sky-950/55 duration-500 text-white flex flex-col items-start sm:items-center gap-5'>
       <div className='flex justify-center items-center gap-5'>
       
       <div className="w-12 h-12 rounded-full flex justify-center items-center bg-white">
