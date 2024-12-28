@@ -26,8 +26,7 @@ const page = async ({ searchParams }: UsersFilterParams) => {
     },
     cache: "no-store",
     next:{
-      tags: ["users"],
-      revalidate: 0
+      tags: ["users"]
     }
   })
 
