@@ -2,6 +2,7 @@
 import prisma from "@/app/lib/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcryptjs'
+import { revalidatePath } from "next/cache";
 
 export async function POST(request: NextRequest) {
     
@@ -39,6 +40,7 @@ export async function POST(request: NextRequest) {
         },
       })
 
+      revalidatePath("/dashboard/users");
     return NextResponse.json({user})
     
 }
