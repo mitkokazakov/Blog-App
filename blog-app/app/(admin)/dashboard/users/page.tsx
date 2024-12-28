@@ -19,7 +19,7 @@ const page = async ({ searchParams }: UsersFilterParams) => {
   // revalidatePath("/dashboard/users");
   // const users = await GetAllUsers();
 
-  const response = await fetch( "http://localhost:3000/api/allusers",{
+  const response = await fetch( "/api/allusers",{
     method: "GET",
     headers:{
       "Content-Type": "application/json"
