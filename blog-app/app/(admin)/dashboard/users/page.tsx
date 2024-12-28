@@ -24,9 +24,10 @@ const page = async ({ searchParams }: UsersFilterParams) => {
     headers:{
       "Content-Type": "application/json"
     },
-    cache: "no-store",
+    // cache: "no-store",
     next:{
-      tags: ["users"]
+      tags: ["users"],
+      revalidate: 0
     }
   })
 
