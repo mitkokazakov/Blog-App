@@ -19,7 +19,7 @@ const page = async ({ searchParams }: UsersFilterParams) => {
   // revalidatePath("/dashboard/users");
   // const users = await GetAllUsers();
 
-  const response = await fetch( "/api/allusers",{
+  const response = await fetch( "https://blog-app-north.vercel.app/api/allusers",{
     method: "GET",
     headers:{
       "Content-Type": "application/json"
