@@ -17,25 +17,25 @@ type UsersFilterParams = {
 const page = async ({ searchParams }: UsersFilterParams) => {
   
   // revalidatePath("/dashboard/users");
-  // const users = await GetAllUsers();
+   const usersFetched = await GetAllUsers();
 
-  const response = await fetch( "https://blog-app-north.vercel.app/api/allusers",{
-    method: "GET",
-    headers:{
-      "Content-Type": "application/json"
-    },
-    // cache: "no-store",
-    next:{
-      tags: ["users"],
-      revalidate: 0
-    }
-  })
+  // const response = await fetch( "https://blog-app-north.vercel.app/api/allusers",{
+  //   method: "GET",
+  //   headers:{
+  //     "Content-Type": "application/json"
+  //   },
+  //   // cache: "no-store",
+  //   next:{
+  //     tags: ["users"],
+  //     revalidate: 0
+  //   }
+  // })
 
-  const data = await response.json();
+  // const data = await response.json();
 
   const users: UserParams[] = [];
 
-  data.users.map((user: UserParams) => {
+  usersFetched.map((user: UserParams) => {
     const currentUser = {
       id: user.id,
       name: user.name,
