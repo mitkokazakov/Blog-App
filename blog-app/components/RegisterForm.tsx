@@ -50,17 +50,17 @@ const RegisterForm = ({color, role}: {color: string, role: string}) => {
       console.log(resp);
 
       if (resp.request.status === 200) {
-        // if(role == 'user'){
-        //   router.push("/login");
-        // }
+        if(role == 'user'){
+          router.push("/login");
+        }
 
-        // if(role == "admin"){
-        //   router.push("/dashboard/users");
-        //   router.refresh();
-        // }
+        if(role == "admin"){
+          router.push("/dashboard/users");
+          router.refresh();
+        }
         //alert("Registration was successfuly");
         toast.success("Registration was successfuly");
-        router.push('/login');
+        //router.push('/login');
 
       } else {
         //alert(resp.request.responseText)
