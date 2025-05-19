@@ -37,9 +37,16 @@ const TextEditorScheme = z.object({
   description: z
     .string()
     .min(4, { message: "Description should be at least 4 characters long!" }),
-  image: z.any().refine((files?) => files[0]?.size <= 7 * 1024 * 1024, {
-    message: "Image size should not exceed 7 MB",
-  }),
+  image: z
+    .any()
+    .optional()
+    .refine(
+      (file) => {
+        if (!file || file.length === 0) return true; // No file uploaded, so it's valid
+        return file[0].size <= 7 * 1024 * 1024;
+      },
+      { message: "Image size should not exceed 7 MB" }
+    ),
 });
 
 const ChangeForm = ({ blogData }: ChangeBlogType) => {
@@ -70,8 +77,10 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
   const { data: session, status } = useSession();
 
   useEffect(() => {
-    setTitle(blogData.title);
-    setDescription(blogData.description);
+    // setTitle(blogData.title);
+    // setDescription(blogData.description);
+    setValue("blogtitle", blogData.title);
+    setValue("description", blogData.description);
     setBlog(blogData.body);
     setTags(blogData.tags.split(","));
   }, [blogData]);
@@ -79,6 +88,7 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<TextEditorFields>({
     resolver: zodResolver(TextEditorScheme),
@@ -208,15 +218,15 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
         </label>
         <div className="mt-2">
           <input
-            value={title}
+            // value={title}
             id="blogtitle"
             type="text"
             required
             className="block w-full border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             {...register("blogtitle")}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
+            // onChange={(e) => {
+            //   setTitle(e.target.value);
+            // }}
           />
           <span className="text-red-600 tracking-widest text-sm">
             {errors.blogtitle?.message}
@@ -233,15 +243,15 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
         </label>
         <div className="mt-2">
           <textarea
-            value={description}
+            // value={description}
             id="description"
             required
             className="block w-full border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             rows={7}
             {...register("description")}
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
+            // onChange={(e) => {
+            //   setDescription(e.target.value);
+            // }}
           />
           <span className="text-red-600 tracking-widest text-sm">
             {errors.description?.message}
@@ -268,7 +278,9 @@ const ChangeForm = ({ blogData }: ChangeBlogType) => {
               }
             }}
           />
-          <span className="text-red-600 tracking-widest text-sm">{errors.image?.message}</span>
+          <span className="text-red-600 tracking-widest text-sm">
+            {errors.image?.message}
+          </span>
         </div>
       </div>
 
